@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link href="sheet.css" rel="stylesheet">
+	<script src="sheet.js"></script>
+</head>
+<body ondragenter="on_drag_enter(event);" ondragover="on_drag_enter(event);" ondrop="on_drop(event);" ondragleave="on_drag_leave(event);">
+<!-- PAGE -->
+<div class='page-container'>
+<div id='page1' class='page'>
+	<div class='content'>
+		<div class='row' id='name'>
+			<div contenteditable class='title' id='character-name' onchange='update_title()'>NAME</div>
+			<div class='ruler'><svg height="4" width="100%"><line x1="0" y1="0" x2="10000" y2="0" style="stroke:#C50852;stroke-width:4pt"/></svg></div>
+		</div>
+		<div class='left'>
+			<div contenteditable id='description'>Description.</div>
+			<div id='distinctions' class='trait-group'>
+				<div class='header'>DISTINCTIONS</div>
+				<div>
+					<h2 contenteditable class="inline">Distinction 1</h2><h2><c>8</c></h2>
+					<hr>
+					<div contenteditable><ul><li><i>Hinder:</i> Gain a <pp></pp> when you switch out this distinction's <c>8</c> for a <c>4</c>.</li></ul></div>
+					<h2 contenteditable class="inline">Distinction 2</h2><h2><c>8</c></h2>
+					<hr>
+					<div contenteditable><ul><li><i>Hinder:</i> Gain a <pp></pp> when you switch out this distinction's <c>8</c> for a <c>4</c>.</li></ul></div>
+					<h2 contenteditable class="inline">Distinction 3</h2><h2><c>8</c></h2>
+					<hr>
+					<div contenteditable><ul><li><i>Hinder:</i> Gain a <pp></pp> when you switch out this distinction's <c>8</c> for a <c>4</c>.</li></ul></div>
+				</div>
+			</div>
+			<div class='trait-group template'>
+				<div class='header' onblur="set_trait_group_name(event)" contenteditable>NEW TRAIT GROUP</div>
+				<div>
+					<div class='trait template'>
+<!-- 						<div id="remove-group" class='no-print' onclick="remove_group(event)"></div> -->
+						<h2 class='inline' contenteditable>New trait</h2><h2><c contenteditable>6</c></h2>
+						<hr>
+						<div contenteditable>Trait description.</div>
+					</div>
+					<div id="trait-placeholder" class='add-item no-print' onclick="add_trait(event)" data-onload="add_trait">
+					</div>
+				</div>
+				<div>
+					<div class='trait template'>
+						<h2 class='inline' contenteditable>New trait</h2><h2><c contenteditable>6</c></h2>
+						<hr>
+						<div contenteditable>Trait description.</div>
+					</div>
+					<div id="trait-placeholder" class='add-item no-print' onclick="add_trait(event)" data-onload="add_trait">
+					</div>
+				</div>
+			</div>
+			<div id="trait-group-placeholder" class='add-item no-print' onclick="add_trait_group(event)" data-onload="add_trait_group">
+			</div>
+		</div>
+		<div class='right'>
+			<div id="portrait">
+				<div id="circle" width=100% height=100%>
+					<img src="" width="110%" draggable='false' id='image' onpointerdown="start_drag(event)" onpointerup="end_drag(event)" onpointermove="drag_move(event)" data-x="0" data-y="0" data-zoom="1"></img>
+				</div>
+			</div>
+            <div id="attribute-curve" xmlns="http://www.w3.org/2000/svg">
+                <svg viewBox="0 0 62 62" width="62mm" height="30mm" preserveAspectRatio="xMidYMid slice">
+                    <path d="M -17 -25 A 32 32 0 0 0 79 0" stroke="#C50852" stroke-width="0.5mm" fill="transparent" vector-effect="non-scaling-stroke"/>
+                </svg>
+            </div>
+			<div id="attributes">
+            <!--
+				<div><c contenteditable>8</c>Courage</div>
+				<div><c contenteditable>8</c>Grace</div>
+				<div><c contenteditable>8</c>Guile</div>
+				<div><c contenteditable>8</c>Reason</div>
+				<div><c contenteditable>8</c>Vigor</div>
+            -->
+                <div class='attribute template'>
+                    <c contenteditable>8</c><span contenteditable>Attribute</span>
+                </div>
+                <div id="attribute-placeholder" class='add-item no-print' onclick="add_attribute(event)" data-onload="add_attribute"></div>
+			</div>
+			<div class='trait-group template'>
+				<div class='header' onblur='set_trait_group_name(event)' contenteditable>NEW TRAIT GROUP</div>
+				<div>
+					<div class='trait template'>
+						<h2 class='inline' contenteditable>New trait</h2><h2><c contenteditable>6</c></h2>
+						<hr>
+						<div contenteditable>Trait description.</div>
+					</div>
+					<div id="trait-placeholder" class='add-item no-print' onclick="add_trait(event)" data-onload="add_trait">
+					</div>
+				</div>
+			</div>
+			<div id="trait-group-placeholder" class='add-item no-print' onclick="add_trait_group(event)" data-onload="add_trait_group">
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>
