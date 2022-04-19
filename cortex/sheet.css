@@ -88,6 +88,10 @@
 	columns: 2;
 	column-gap: 12pt;
 }
+.content .left
+{
+	break-after: column;
+}
 
 /* Headings */
 .title
@@ -786,3 +790,111 @@ ref
 {
 	display: none;
 }	
+
+/* Portrait */
+#portrait #edit-image:before
+{
+	font-family: 'Font Awesome 5 Free';
+	font-weight: 900;
+	font-size: 16px;
+	color: black;
+	content: "\f044";
+	width: 32px;
+	height: 32px;
+	position: absolute;
+	left: 8px;
+	top: 8px;
+	text-align: center;
+	line-height: 32px;
+	background: white;
+	border-radius: 5px;
+	box-shadow: 0 0 16px rgba(0, 0, 0, 0.3);
+	cursor: pointer;
+	transition: color 0.1s, opacity 0.2s;
+	z-index: 10;
+	opacity: 0;
+}
+#portrait:hover #edit-image:before
+{
+	display: block;
+	opacity: 0.25;
+}
+#portrait:hover #edit-image:hover:before
+{
+	color: #28c8;
+	opacity: 1.0;
+}
+
+/* Modal */
+#modal-bg
+{
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background: #fff7;
+	z-index: 20;
+	left: 0;
+	top: 0;
+	backdrop-filter: blur(2px);
+	display: none;
+}
+.modal
+{
+	position: absolute;
+	width: 256px;
+	z-index: 30;
+	background: white;
+	border-radius: 5px;
+	box-shadow: 0 0 16px rgba(0, 0, 0, 0.3);
+	display: none;
+	transform: translate(-50%, -50%);
+}
+.modal input
+{
+	width: 100%;
+}
+#url-modal
+{
+	padding: 8px;
+	left: 50%;
+	top: 50%;
+}
+#url-modal p
+{
+	margin: 0;
+}
+.template
+{
+	display: none;
+}
+
+/* Menu */
+#menu
+{
+	position: fixed;
+	left: -8px;
+	border-radius: 5px;
+	border: 1px solid #0007;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+#menu div
+{
+	display: block;
+	margin: 16px 8px 16px 16px;
+	border: 0;
+	background: none;
+	font-family: 'Font Awesome 5 Free';
+	font-style: normal;
+	font-weight: 900;
+	font-size: 32px;
+	cursor: pointer;
+}
+
+#menu #reset:before
+{
+	content: "\f01e";
+}
+#menu #save:before
+{
+	content: "\f019";
+}

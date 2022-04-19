@@ -402,6 +402,49 @@ function drag_move(e)
 	}
 }
 
+g_modal_callback = null
+function close_modal(e)
+{
+	var modals = document.querySelectorAll(".modal")
+	for (var m=0; m<modals.length; m++)
+	{
+		modals[m].style.display = 'none'
+	}
+	var bg = document.getElementById("modal-bg")
+	bg.style.display = 'none'
+	if (g_modal_callback != null)
+	{
+		g_modal_callback()
+		g_modal_callback = null
+	}
+}
+function show_modal(id, left, top, callback)
+{
+	g_modal_callback = callback
+	var bg = document.getElementById("modal-bg")
+	bg.style.display = 'block'
+	var modal = document.getElementById(id)
+	modal.style.display = 'block'
+	modal.style.left = left
+	modal.style.top = top
+	modal.querySelector("input").select()
+}
+
+function change_image_url(e)
+{
+	var url = document.querySelector("#url-modal input")
+	var img = e.target.parentElement.querySelector("img")
+	url.value = img.src
+	show_modal("url-modal", e.pageX, e.pageY, function()
+	{
+		img.src = url.value
+		img.setAttribute("data-x", 0)
+		img.setAttribute("data-y", 0)
+		img.setAttribute("data-zoom", 1)
+		img.style.transform = 'translate(0, 0) scale(1)'
+	})
+}
+
 window.onload = function()
 {
 	document.addEventListener("keydown", function(e)

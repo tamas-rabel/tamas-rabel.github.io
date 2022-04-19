@@ -5,6 +5,20 @@
 	<script src="sheet.js"></script>
 </head>
 <body ondragenter="on_drag_enter(event);" ondragover="on_drag_enter(event);" ondrop="on_drop(event);" ondragleave="on_drag_leave(event);">
+
+<!-- URL Modal -->
+<div id="modal-bg" onclick="close_modal(event)"></div>
+<div id='url-modal' class='modal'>
+	<p>Enter URL</p>
+	<input id='url' value="http://" onchange="close_modal(event)" onkeyup="if (event.key == 'Enter') { close_modal(event) }"/>
+</div>
+
+<!-- Menu -->
+<div id="menu" class='no-print'>
+<!--	<div id="reset" onclick='reset(event)'></div> -->
+	<div id="save" onclick='save_character(event)'></div>
+</div>
+
 <!-- PAGE -->
 <div class='page-container'>
 <div id='page1' class='page'>
@@ -57,6 +71,7 @@
 		<div class='right'>
 			<div id="portrait">
 				<div id="circle" width=100% height=100%>
+					<div id="edit-image" class="no-print" onclick="change_image_url(event)"></div>
 					<img src="" width="110%" draggable='false' id='image' onpointerdown="start_drag(event)" onpointerup="end_drag(event)" onpointermove="drag_move(event)" data-x="0" data-y="0" data-zoom="1"></img>
 				</div>
 			</div>
