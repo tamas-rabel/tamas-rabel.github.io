@@ -12,11 +12,77 @@
 	<p>Enter URL</p>
 	<input id='url' value="http://" onchange="close_modal(event)" onkeyup="if (event.key == 'Enter') { close_modal(event) }"/>
 </div>
+<div id='help-modal' class='modal'>
+	<div id="top">
+		<table>
+			<tr>
+				<td class="help-section-header" colspan=2>An URL selector icon will appear if you hover over the portrait. Once you have selected a portrait you can position it by dragging it and scale it if you hold Ctrl down while dragging the image.</td>
+			</tr>
+			<tr>
+				<td class="help-section-header" colspan=2>Please use the + icons to add trait groups, traits and attributes.<br></td>
+			</tr>
+			<tr>
+				<td><div class='add-item'></div></td><td>Add a trait group, trait or attribute.</td>
+			</tr>
+			<tr>
+				<td><div class='remove-item'></div></td><td>Remove a trait group, trait or attribute.</td>
+			</tr>
+			<tr>
+				<td class="help-section-header" colspan=2>You can use the following numbers when editing dice fields (abilities, trait values, etc)</td>
+			</tr>
+			<tr><td>4</td><td><c>4</c></td></tr>
+			<tr><td>6</td><td><c>6</c></td></tr>
+			<tr><td>8</td><td><c>8</c></td></tr>
+			<tr><td>0</td><td><c>0</c></td></tr>
+			<tr><td>2</td><td><c>2</c></td></tr>
+			<tr>
+				<td class="help-section-header" colspan=2>When editing free text (distinctions, traits, etc), you can use the following:</td>
+			</tr>
+			<tr><td>d4</td><td><c>4</c></td></tr>
+			<tr><td>d6</td><td><c>6</c></td></tr>
+			<tr><td>d8</td><td><c>8</c></td></tr>
+			<tr><td>d10</td><td><c>0</c></td></tr>
+			<tr><td>d12</td><td><c>2</c></td></tr>
+			<tr><td>PP</td><td><pp></pp></td></tr>
+			<tr><td>[Something]</td><td><ref>Something</ref></td></tr>
+			<tr><td>&lt;b&gt;Bold&lt;/b&gt;</td><td><b>Bold</b></td></tr>
+			<tr><td>&lt;i&gt;Italic&lt;/i&gt;</td><td><i>Italic</i></td></tr>
+			<tr><td>- List item</td><td><ul><li>List item</li></ul></td></tr>
+			<tr>
+				<td class="help-section-header" colspan=2>You can use italic and bold in trait titles as well. Once you have the text selected, press</td>
+			</tr>
+			<tr><td>Ctrl+B</td><td><b>Bold</b></td></tr>
+			<tr><td>Ctrl+I</td><td><i>Italic</i></td></tr>
+			<tr>
+				<td class="help-section-header" colspan=2>You can name trait groups. Some names affect formatting.</td>
+			</tr>
+			<tr><td>Emotions</td><td>Black header with traits in two columns</td></tr>
+			<tr><td>Roles</td><td>Black header with traits in two columns</td></tr>
+			<tr><td>Skills</td><td>Black header with traits in two columns</td></tr>
+			<tr><td>Specialties</td><td>Black header with traits in two columns</td></tr>
+			<tr><td>Values</td><td>Black header with traits in two columns</td></tr>			
+			<tr><td>Milestones</td><td>Regular block with trait value hidden</td></tr>			
+			<tr><td>Signature asset</td><td>Magenta header with green background</td></tr>
+			<tr><td>Resources</td><td>No background with trait-style header</td></tr>
+		</table>
+	</div>
+	<div id="bottom">
+		<div id="legal"> 
+			Cortex Prime is the award-winning world-building tabletop RPG system for forging unique, compelling game experiences from a set of modular rules mechanics available at <a href="https://cortexrpg.com">CortexRPG.com</a>
+			Cortex is ©️ 2022 Fandom, Inc. Cortex, Cortex Prime, associated logos and trade dress are the trademarks of Fandom, Inc. Iconography used with permission.
+			If you wish to publish or sell what you make using this tool, it is your responsibility to ensure you have the proper license or right for any resources used. No rights are granted through the use of this tool.
+		</div>
+		<div id="close">
+			<button onclick="close_modal(event)">OK</button>
+		</div>
+	</div>
+</div>
 
 <!-- Menu -->
 <div id="menu" class='no-print'>
 <!--	<div id="reset" onclick='reset(event)'></div> -->
 	<div id="save" onclick='save_character(event)'></div>
+	<div id="help" onclick='show_help(event)'></div>
 </div>
 
 <!-- PAGE -->
@@ -44,10 +110,11 @@
 				</div>
 			</div>
 			<div class='trait-group template'>
+				<div id="remove-item" class='no-print' onclick="remove_item(event)"></div>
 				<div class='header' onblur="set_trait_group_name(event)" contenteditable>NEW TRAIT GROUP</div>
 				<div>
 					<div class='trait template'>
-<!-- 						<div id="remove-group" class='no-print' onclick="remove_group(event)"></div> -->
+ 						<div id="remove-item" class='no-print' onclick="remove_item(event)"></div>
 						<h2 class='inline' contenteditable>New trait</h2><h2><c contenteditable>6</c></h2>
 						<hr>
 						<div contenteditable>Trait description.</div>
@@ -57,6 +124,7 @@
 				</div>
 				<div>
 					<div class='trait template'>
+ 						<div id="remove-item" class='no-print' onclick="remove_item(event)"></div>
 						<h2 class='inline' contenteditable>New trait</h2><h2><c contenteditable>6</c></h2>
 						<hr>
 						<div contenteditable>Trait description.</div>
@@ -81,15 +149,10 @@
                 </svg>
             </div>
 			<div id="attributes">
-            <!--
-				<div><c contenteditable>8</c>Courage</div>
-				<div><c contenteditable>8</c>Grace</div>
-				<div><c contenteditable>8</c>Guile</div>
-				<div><c contenteditable>8</c>Reason</div>
-				<div><c contenteditable>8</c>Vigor</div>
-            -->
                 <div class='attribute template'>
-                    <c contenteditable>8</c><span contenteditable>Attribute</span>
+                    <c contenteditable>8</c>
+					<div contenteditable>Attribute</div>
+					<div id="remove-item" class='no-print' onclick="remove_attribute(event)"></div>
                 </div>
                 <div id="attribute-placeholder" class='add-item no-print' onclick="add_attribute(event)" data-onload="add_attribute"></div>
 			</div>
@@ -109,6 +172,18 @@
 			</div>
 		</div>
 	</div>
+</div>
+
+<!-- Disclaimer -->
+<div id="disclaimer">
+<div id="logo">
+<a href="https://cortexrpg.com" target="_blank"><img src="images/Community_Cortex_PRIMED_BY_LBG.png"></a>
+</div>
+<div id="legal"> 
+Cortex Prime is the award-winning world-building tabletop RPG system for forging unique, compelling game experiences from a set of modular rules mechanics available at CortexRPG.com 
+Cortex is ©️ 2022 Fandom, Inc. Cortex, Cortex Prime, associated logos and trade dress are the trademarks of Fandom, Inc. Iconography used with permission.
+If you wish to publish or sell what you make using this tool, it is your responsibility to ensure you have the proper license or right for any resources used. No rights are granted through the use of this tool.
+</div>
 </div>
 </body>
 </html>

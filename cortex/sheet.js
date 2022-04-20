@@ -81,15 +81,16 @@ function get_parent_with_class(element, c)
 function save_character(e)
 {
 	data = {}
+	data.version = 1;
 	inputs = document.querySelectorAll('input, textarea, img, div[contenteditable], h2[contenteditable], c[contenteditable], span[contenteditable]')
 	for (var i=0; i<inputs.length; i++)
 	{
 		var input = inputs[i]
-		if (input.classList.contains('non-serialized'))
+		if (input.classList.contains('non-serialized') || input.classList.contains('no-print') || input.classList.contains('template'))
 		{
 			continue;
 		}
-		var non_serialized_parent = get_parent_with_class(input.parentElement, "non-serialized")
+		var non_serialized_parent = get_parent_with_class(input.parentElement, "non-serialized") || get_parent_with_class(input.parentElement, "no-print") || get_parent_with_class(input.parentElement, "template")
 		if (non_serialized_parent)
 		{
 			continue;
@@ -159,11 +160,31 @@ function save_character(e)
 	link.remove();
 }
 
+function get_children(elem, i, version)
+{	
+	// Hack to remain backwards compatible
+	var index = 0;
+	for (var ip=0; ip<=i && index<elem.children.length; index++)
+	{
+		//if (elem.children[index].classList.contains('no-print')) continue;
+		if (version === undefined && elem.children[index].id == "remove-item") continue;
+		if (ip == i) break;
+		
+		ip++;
+	}
+	
+	if (index == elem.children.length) return null
+
+	return elem.children[index];
+}
+
 function load_character(data)
 {
+	var version = data.version
+	console.log(version)
+	
 	for (var i in data)
 	{
-//		console.log(i)
 		var element = null
 		var value = (typeof(data[i]) == 'object') ? data[i].value : data[i]
 		if (!i.includes('/'))
@@ -173,14 +194,17 @@ function load_character(data)
 		else
 		{
 			var parts = i.split("/")
-//			console.log(parts)
+			console.log(parts)
 //				var current = document.querySelector("div#" + parts[0]).children[parts[1]]
 //				for (var p=2; p<parts.length; p++)
+//			console.log("div#" + parts[0])
 			var current = document.querySelector("div#" + parts[0])
+//			console.log("Starting with ");
+//			console.log(current)
 			for (var p=1; p<parts.length; p++)
 			{
 //				console.log(current)
-//                console.log(parts[p])
+//                console.log("-> " + parts[p])
 				try
 				{
 					current = current.querySelector("#" + parts[p])
@@ -189,7 +213,14 @@ function load_character(data)
 				{
 //					console.log(current.children)
 //					console.log(current.children[0])
-					current = current.children[parts[p]]
+					
+					// Hack to remain backwards compatible
+					current = get_children(current, parts[p], version);
+					
+//					if (index == current.children.length) break;
+//					console.log("Getting " + index)
+//					console.log(current);
+//					current = current.children[parts[p]]
 //					console.log(parts[p] + ": " + current)
 				}
 				if (current.getAttribute("data-onload") !== null)
@@ -202,6 +233,9 @@ function load_character(data)
 //            console.log(current)
 			element = current
 		}
+		
+		if (element == null) continue;
+		console.log(element);
 		
 		if (element.getAttribute("type") == "checkbox")
 		{
@@ -280,33 +314,42 @@ function add_trait(e)
 {
 	add_group(e, "trait")
 }
-function add_attribute(e)
+function update_attribute_positions()
 {
-	add_group(e, "attribute")
-    
 	var attributes = document.querySelectorAll(".attribute:not(.template)")
-    
+
+
+	document.getElementById("attribute-curve").style.display = (attributes.length <= 1) ? "none" : "block";
+	
     if (attributes.length == 1)
     {
         var a = attributes[0]
-        a.style.left = ((115 + 176) * 0.5) + "mm"        
-        a.style.top = "123mm"
+        a.style.left = ((115 + 176) * 0.5 + 3.5) + "mm"        
+        a.style.top = "120mm"
         return
     }
 
-    document.getElementById("attribute-curve").style.display = "block";
-    
     for (var i=0; i<attributes.length; i++)
     {
         var a = attributes[i]
         var alpha = i / (attributes.length-1)
 
-        var x = (176 - 115) * alpha + 115
+        var x = (176 - 115) * alpha + 115 + 3.5
         a.style.left = x + "mm"
         
-        var y =  Math.sin(alpha * 3.1415926535) * 10 + 113
+        var y =  Math.sin(alpha * 3.1415926535) * 10 + 113 - 3
         a.style.top = y + "mm"
     }
+}
+function add_attribute(e)
+{
+	add_group(e, "attribute")
+	update_attribute_positions();
+}
+function remove_attribute(e)
+{
+	remove_item(e)
+	update_attribute_positions();
 }
 
 function reset_trait_group(elem)
@@ -327,15 +370,11 @@ function set_trait_group_name(e)
 
 	if (e.target.innerText.toLowerCase() == "roles")
 	{
-		e.target.parentElement.classList.add("roles");
+		e.target.parentElement.classList.add("values");
 	}
 	else if (e.target.innerText.toLowerCase() == "signature asset")
 	{
 		e.target.parentElement.classList.add("signature-asset");
-	}
-	else if (e.target.innerText.toLowerCase() == "abilities")
-	{
-		e.target.parentElement.classList.add("abilities");
 	}
 	else if (e.target.innerText.toLowerCase() == "milestones")
 	{
@@ -348,6 +387,18 @@ function set_trait_group_name(e)
 	else if (e.target.innerText.toLowerCase() == "emotions")
 	{
 		e.target.parentElement.classList.add("values");
+	}
+	else if (e.target.innerText.toLowerCase() == "skills")
+	{
+		e.target.parentElement.classList.add("values");
+	}
+	else if (e.target.innerText.toLowerCase() == "specialties")
+	{
+		e.target.parentElement.classList.add("values");
+	}
+	else if (e.target.innerText.toLowerCase() == "resources")
+	{
+		e.target.parentElement.classList.add("resources");
 	}
 }
 
@@ -443,6 +494,18 @@ function change_image_url(e)
 		img.setAttribute("data-zoom", 1)
 		img.style.transform = 'translate(0, 0) scale(1)'
 	})
+}
+function show_help(e)
+{
+	show_modal("help-modal", e.pageX, e.pageY, function()
+	{
+	});
+}
+
+function remove_item(e)
+{
+	var item = e.target.parentElement
+	item.parentElement.removeChild(item)
 }
 
 window.onload = function()

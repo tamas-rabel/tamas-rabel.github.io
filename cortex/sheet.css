@@ -373,35 +373,49 @@ ref
 	text-shadow: 0 0 5px rgba(0, 0, 0, 0);
 }
 
-#remove-group
+#remove-item
 {
-    display: none;
+    display: block;
 	height: 32px;
+	width: 0;
 	position: absolute;
 	page-break-inside: avoid;
 	break-inside: avoid;
 	font-style: normal;
+	flex: 0;
+	flex-grow: 0;
+	flex-wrap: none;
 }
-#remove-group:before
+#remove-item:before
 {
 	font-family: 'Font Awesome 5 Free';
 	font-size: 16px;
 	color: #C50852;
 	content: "\f146";
-	position: absolute;
-	left: 10px;
-	top: 10px;
+	position: relative;
 	transform: translate(-50%, -50%);
 	opacity: 0.5;
 	transition: color 0.1s, opacity 0.1s, text-shadow 0.1s;
 	cursor: pointer;
 	text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
-#remove-group:hover:before
+#remove-item:hover:before
 {
 //	color: #eff;
 	opacity: 1;
 	text-shadow: 0 0 5px rgba(0, 0, 0, 0);
+	position: relative;
+}
+.trait-group #remove-item:before
+{
+	left: -9mm;
+	top: 0px;
+	z-index: 2;
+}
+.trait #remove-item:before
+{
+	left: 66mm;
+//	top: 10px;
 }
 
 .trait
@@ -433,7 +447,7 @@ ref
 {
     font-weight: normal;
 }
-.trait-group > div:nth-child(3)
+.trait-group > div:nth-child(4)
 {
     display: none;
 }
@@ -479,6 +493,7 @@ ref
 	font-style: normal;
 	font-size: 8.6pt;
 //    width: 210mm;
+	left: unset;
 }
 .roles .trait h2
 {
@@ -558,14 +573,20 @@ ref
     margin-left: 0pt;
     margin-top: 2mm;
     display: inline-block;
+//	transform: translate(-50%, -50%);
+	text-align: center;
+}
+#attributes .attribute
+{
 	transform: translate(-50%, -50%);
 }
 #attributes div c
 {
-    position: relative;
-    left: 50%;
-    top: -6mm;
+//    position: relative;
+//    left: 50%;
+//    top: -6mm;
     font-size: 20pt;
+	display: block;
 }
 #attributes div c:before
 {
@@ -575,9 +596,10 @@ ref
     width: 3mm;
     height: 3.6mm;
     background: white;
-    left: 1.7mm;
+    left: 8mm;
     top: 2.6mm;
     z-index: -1;
+	transform: translate(-50%, -50%);
 //    border: 1px solid red;
 }
 //#attributes div:nth-child(1)
@@ -634,12 +656,29 @@ ref
     position: absolute;
     width: 32mm;
     height: 32mm;
-    left: 200mm;
-    top: 114mm;
+//    left: 200mm;
+//    top: 114mm;
+    left: 180mm;
+    top: 100mm;
 }
 .attribute
 {
     position: absolute;
+}
+.attribute #remove-item
+{
+	width: 100%;	
+	left: 0;
+	right: 0;
+	margin-left: auto;
+	margin-right: auto;
+//	width: 0;
+}
+.attribute #remove-item:before
+{
+//	left: 50%;
+	position: relative;
+	bottom: 4mm;
 }
 
 /* Values */
@@ -678,6 +717,7 @@ ref
 	font-style: normal;
 	font-size: 8.6pt;
 //    width: 210mm;
+	left: unset;
 }
 .values .trait h2
 {
@@ -735,17 +775,36 @@ ref
     background: white;
     z-index: -1;
 }
-.values > div:nth-child(3)
+.values > div:nth-child(4)
 {
     display: block;
 }
-.values > div:nth-child(2)
+.values > div:nth-child(3)
 {
     left: 20mm;
+	display: inline;
+}
+.values > div:nth-child(3) .add-item
+{
+	margin-left: 0;
+	width: 0;
+}
+.values > div:nth-child(4) .add-item
+{
+	margin-left: 12mm;
+	width: 0;
+}
+.values > div:nth-child(3) #remove-item:before
+{
+	left: -14mm;	
+}
+.values > div:nth-child(4) #remove-item:before
+{
+	left: 16mm;	
 }
 
 /* Milestones */
-.trait ul
+/*.trait*/ ul
 {
 //	padding-left: 10pt;
 	list-style: none;
@@ -754,7 +813,7 @@ ref
 //	margin-top: 1em;
 	margin-bottom: 0;
 }
-.trait li
+/*.trait*/ li
 {
   padding-left: 1.6em;
   text-indent: -1.6em;
@@ -763,19 +822,19 @@ ref
   margin-right: 0;
   font-size: 7.75pt;
 }
-.trait li + li
+/*.trait*/ li + li
 {
   padding-top: 1pt;
 }
-.trait ul + h2
+/*.trait*/ ul + h2
 {
   padding-top: 1pt;
 }
-.trait #text + ul
+/*.trait*/ #text + ul
 {
   margin-top: 0;
 }
-.trait li:before
+/*.trait*/ li:before
 {
 	font-family: 'Josefin Sans', sans-serif;
 	content: "\25cf";
@@ -867,6 +926,152 @@ ref
 {
 	display: none;
 }
+#help-modal
+{
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 500pt;
+//	height: 500pt;
+	padding: 16pt 24pt 0 24pt;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 8pt;
+}
+#help-modal #bottom
+{
+//	position: absolute;
+//	left: 0;
+//	bottom: 0;
+	margin: 16pt 0 4pt 0;
+}
+#help-modal #close
+{
+	position: relative;
+	bottom: 0;
+	left: 50%;
+	margin-bottom: 8pt;
+}
+#help-modal #close button
+{
+	border: 0;
+	border-radius: 5px;
+	background: none;
+	font-size: 12pt;
+	cursor: pointer;
+	padding: 6pt 10pt 6pt 10pt;
+	margin: 0;
+	box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+	transform: translate(-50%, 0);
+	transition: color 100ms;
+}
+#help-modal #close button:hover
+{
+	color: #C50852;
+	transition: color 100ms;
+}
+#help-modal #legal
+{
+	text-align: justify;
+	padding: 12pt 24pt 16pt 24pt;
+}
+#help-modal #legal a
+{
+	color: #C50852;
+	font-weight: 800;
+	text-decoration: none;
+}
+#help-modal .left
+{
+	float: left;
+	width: calc(50% - 12pt);
+	text-align: right;
+}
+#help-modal .right
+{
+	float: right;
+	width: calc(50% - 12pt);
+}
+#help-modal #top table
+{
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 12pt;
+	border-collapse: collapse;
+}
+#help-modal #top table tr
+{
+	padding: 0;
+//	border-bottom: 1pt solid black;
+}
+#help-modal #top table td
+{
+	width: 50%;
+}
+#help-modal #top table td:nth-child(1)
+{
+	text-align: right;
+	padding-right: 8pt;
+}
+#help-modal #top table td:nth-child(2)
+{
+	text-align: left;
+	padding-left: 8pt;
+	border-left: 1px solid black;
+}
+#help-modal #top table td div
+{
+	text-align: left;
+	float: right;
+}
+#help-modal .help-block
+{
+	border-top: 1pt solid black;
+	border-bottom: 1pt solid black;
+}
+#help-modal table .help-section-header
+{
+	padding-top: 8pt;
+	text-align: center !important;
+}
+#help-modal .add-item
+{
+	width: 0;
+}
+#help-modal .add-item:before
+{
+	font-size: 12pt;
+	opacity: 1;
+	text-shadow: 0 0 5px rgba(0, 0, 0, 0);
+	transform: translate(-100%, -50%);
+	cursor: unset;
+}
+#help-modal .remove-item
+{
+	width: 0;
+	height: 32px;
+	position: relative;
+	page-break-inside: avoid;
+	break-inside: avoid;
+	font-style: normal;
+}
+#help-modal .remove-item:before
+{
+	font-family: 'Font Awesome 5 Free';
+	font-size: 12pt;
+	color: #C50852;
+	content: "\f146";
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-100%, -50%);
+	opacity: 1;
+	transition: color 0.1s, opacity 0.1s, text-shadow 0.1s;
+	text-shadow: 0 0 5px rgba(0, 0, 0, 0);
+}
+#help-modal ul
+{
+	margin-top: 0;
+}
 
 /* Menu */
 #menu
@@ -897,4 +1102,149 @@ ref
 #menu #save:before
 {
 	content: "\f019";
+}
+#menu #help:before
+{
+	content: "\f128";
+}
+
+/* Disclaimer */
+#disclaimer
+{
+	display: flex;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: calc(50% - 105mm);
+//	width: 100%;
+}
+#disclaimer #logo
+{
+	float: left;
+//	flex-shrink: 20000;
+}
+#disclaimer #legal
+{
+	display: none;
+	float: right;
+	font-size: 8pt;
+	margin-top: auto;
+	margin-bottom: 4pt;
+	padding-right: 40pt;
+	color: #333;
+}
+#disclaimer #logo img
+{
+	width: 50%;
+	margin: 8px;
+	min-width: 128px;
+	max-width: 128mm;
+}
+
+/* Signature asset */
+.signature-asset
+{
+	border: 1pt solid #C50852;
+	background-color: #D7ECDD;
+	flex-wrap: wrap;
+}
+.signature-asset .header
+{
+    flex: 100%;
+	column-span: all;
+	writing-mode: unset;
+	transform: unset;
+	background: #C50852;
+	color: white;
+}
+.signature-asset hr
+{
+	display: none;
+}
+.signature-asset h2
+{
+	font-family: 'Alegreya Sans SC', sans-serif;
+	text-transform: unset;
+	font-size: 120%;
+	font-weight: 500;
+	color: black;
+}
+.signature-asset.trait-group .trait
+{
+	text-align: justify;
+	width: calc(100% - 10pt);
+	margin-top: 2mm;
+	margin-bottom: 2mm;
+}
+.signature-asset .trait > div
+{
+	display: inline;
+	margin-top: 2mm;
+	margin-bottom: 2mm;
+}
+.signature-asset .trait div + div
+{
+	margin-top: 2mm;
+}
+//.signature-asset .trait > div:before
+//{
+//	display: inline;
+//	content: ':';
+//	margin: 0 1mm 0 -1mm;
+//}
+.signature-asset .trait #remove-item:before
+{
+	left: -9mm;
+	top: -2mm;
+}
+.signature-asset hr + div
+{
+	font-style: normal;
+}
+
+/* Resources */
+.resources
+{
+	border: 0;
+	flex-wrap: wrap;
+}
+.resources .header
+{
+    flex: 100%;
+	column-span: all;
+	writing-mode: unset;
+	transform: unset;
+	background: unset;
+	color: #C50852;
+	text-align: left;
+	border-bottom: 1pt solid #C50852;
+	font-size: 12pt;
+	line-height: 17pt;
+	margin-bottom: 2mm;
+}
+.resources h2
+{
+	font-family: 'Open Sans', sans-serif;	
+	text-transform: unset;
+	font-weight: normal;
+	color: black;
+}
+.resources .trait
+{
+	line-height: 5mm;
+}
+.resources hr, .resources.trait-group hr + div
+{
+	display: none;
+}
+.resources .trait > div + h2:before
+{
+	font-family: 'Josefin Sans', sans-serif;
+	content: "\25cf";
+	font-size: 14pt;
+	color: #C50852;
+	padding-right: 0;
+	position: relative;
+	top: 0.2mm;
+	left: -4.5mm;
 }
