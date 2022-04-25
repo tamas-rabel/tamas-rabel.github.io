@@ -121,7 +121,7 @@ h2
 	font-size: 10.5px;
 	margin: 0;
 	font-style: normal;
-	line-height: 9px;
+	line-height: 13px;
 	display: inline-block;
 	margin-top: 6.5pt;
 	display: block;
@@ -252,7 +252,7 @@ ref
 	text-transform: none;
 	font-weight: 500;
 	font-size: 12pt;
-	margin-bottom: 5pt;
+//	margin-bottom: 5pt;
     margin-left: 0pt;
     margin-top: 2mm;
     display: inline-block;
@@ -344,7 +344,9 @@ ref
 }
 .add-item
 {
-	width: 100%;
+//	width: 100%;
+	width: 0%;
+	left: 50%;
 	height: 32px;
 	position: relative;
 	page-break-inside: avoid;
@@ -578,7 +580,8 @@ ref
 }
 #attributes .attribute
 {
-	transform: translate(-50%, -50%);
+//	transform: translate(-50%, -50%);
+	transform: translate(-50%, 0%);
 }
 #attributes div c
 {
@@ -649,7 +652,7 @@ ref
 }
 #attributes
 {
-    margin-bottom: 20mm;
+    margin-bottom: 24mm;
 }
 #attribute-placeholder
 {
@@ -667,18 +670,34 @@ ref
 }
 .attribute #remove-item
 {
-	width: 100%;	
-	left: 0;
+//	width: 100%;	
+	left: 50%;
 	right: 0;
-	margin-left: auto;
-	margin-right: auto;
-//	width: 0;
+//	margin-left: auto;
+//	margin-right: auto;
+	width: 0;
+	height: 0;
 }
 .attribute #remove-item:before
 {
-//	left: 50%;
 	position: relative;
 	bottom: 4mm;
+	left: -1.75mm;
+	transform: translate(-50%, -50%);
+}
+.attribute.vertical > div
+{
+	writing-mode: vertical-lr;
+	transform: rotate(180deg);
+	padding-bottom: 1mm;
+}
+.attribute.vertical #remove-item:before
+{
+	bottom: 19mm;
+}
+#attributes.vertical
+{
+    margin-bottom: 32mm;
 }
 
 /* Values */

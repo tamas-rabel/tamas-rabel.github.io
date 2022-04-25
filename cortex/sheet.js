@@ -326,6 +326,8 @@ function update_attribute_positions()
         var a = attributes[0]
         a.style.left = ((115 + 176) * 0.5 + 3.5) + "mm"        
         a.style.top = "120mm"
+		a.classList.remove("vertical");
+		a.parentElement.classList.remove("vertical");
         return
     }
 
@@ -334,10 +336,26 @@ function update_attribute_positions()
         var a = attributes[i]
         var alpha = i / (attributes.length-1)
 
-        var x = (176 - 115) * alpha + 115 + 3.5
+		var left = 115;
+		var right = 176;
+		var height = 10;
+		var top = 107.5;
+		
+		if (attributes.length > 5)
+		{
+			a.classList.add("vertical");
+			a.parentElement.classList.add("vertical");
+		}
+		else
+		{
+			a.classList.remove("vertical");
+			a.parentElement.classList.remove("vertical");
+		}
+		
+        var x = (right - left) * alpha + left + 3.5
         a.style.left = x + "mm"
         
-        var y =  Math.sin(alpha * 3.1415926535) * 10 + 113 - 3
+        var y =  Math.sin(alpha * 3.1415926535) * height + top - 3
         a.style.top = y + "mm"
     }
 }
