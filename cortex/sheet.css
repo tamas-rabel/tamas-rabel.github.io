@@ -374,6 +374,10 @@ ref
 	opacity: 1;
 	text-shadow: 0 0 5px rgba(0, 0, 0, 0);
 }
+#trait-placeholder.add-item:before
+{
+	left: 0%;
+}
 
 #remove-item
 {
@@ -805,13 +809,15 @@ ref
 }
 .values > div:nth-child(3) .add-item
 {
-	margin-left: 0;
+	margin-left: 1mm;
 	width: 0;
+	left: 0;
 }
 .values > div:nth-child(4) .add-item
 {
-	margin-left: 12mm;
+	margin-left: 14mm;
 	width: 0;
+	left: 0;
 }
 .values > div:nth-child(3) #remove-item:before
 {
