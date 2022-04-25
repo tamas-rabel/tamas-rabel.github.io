@@ -596,7 +596,7 @@ ref
     width: 3mm;
     height: 3.6mm;
     background: white;
-    left: 8mm;
+    left: 50%;
     top: 2.6mm;
     z-index: -1;
 	transform: translate(-50%, -50%);
@@ -654,11 +654,11 @@ ref
 #attribute-placeholder
 {
     position: absolute;
-    width: 32mm;
+    width: 16mm;
     height: 32mm;
 //    left: 200mm;
 //    top: 114mm;
-    left: 180mm;
+    left: 190mm;
     top: 100mm;
 }
 .attribute

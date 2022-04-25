@@ -8,7 +8,7 @@
 
 <!-- URL Modal -->
 <div id="modal-bg" onclick="close_modal(event)"></div>
-<div id='url-modal' class='modal'>
+<div id='url-modal' class='modal non-serialized'>
 	<p>Enter URL</p>
 	<input id='url' value="http://" onchange="close_modal(event)" onkeyup="if (event.key == 'Enter') { close_modal(event) }"/>
 </div>
@@ -182,7 +182,7 @@
 
 <!-- Disclaimer -->
 <div id="disclaimer">
-<div id="logo">
+<div id="logo" class="non-serialized">
 <a href="https://cortexrpg.com" target="_blank"><img src="images/Community_Cortex_PRIMED_BY_LBG.png"></a>
 </div>
 <div id="legal"> 
