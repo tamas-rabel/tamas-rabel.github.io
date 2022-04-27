@@ -8,12 +8,12 @@ function text_to_html(html)
 		html = html.substring(0, index) + "</ul>" + html.substring(index)
 	}
 	
-	html = html.replace(/d4/g, '<c>4</c>')
-	html = html.replace(/d6/g, '<c>6</c>')
-	html = html.replace(/d8/g, '<c>8</c>')
-	html = html.replace(/d10/g, '<c>0</c>')
-	html = html.replace(/d12/g, '<c>2</c>')
-	html = html.replace(/PP/g, '<pp></pp>')
+	html = html.replace(/\bd4\b/g, '<c>4</c>')
+	html = html.replace(/\bd6\b/g, '<c>6</c>')
+	html = html.replace(/\bd8\b/g, '<c>8</c>')
+	html = html.replace(/\bd10\b/g, '<c>0</c>')
+	html = html.replace(/\bd12\b/g, '<c>2</c>')
+	html = html.replace(/\bPP\b/g, '<pp></pp>')
 	html = html.replace(/\n/g, '<br>')
 	html = html.replace(/\<\/li\>\<br\>/g, '</li>')
 	html = html.replace(/\<\/li\>\<br\>/g, '</li>')
@@ -390,7 +390,7 @@ function set_trait_group_name(e)
 	{
 		e.target.parentElement.classList.add("values");
 	}
-	else if (e.target.innerText.toLowerCase() == "signature asset")
+	else if (e.target.innerText.toLowerCase() == "signature asset" || e.target.innerText.toLowerCase() == "signature assets")
 	{
 		e.target.parentElement.classList.add("signature-asset");
 	}
