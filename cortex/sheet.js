@@ -607,7 +607,7 @@ function show_help(e)
 
 function remove_item(elem)
 {
-	var item = elem.parentElement
+	var item = elem.target.parentElement
 	item.parentElement.removeChild(item)
 }
 

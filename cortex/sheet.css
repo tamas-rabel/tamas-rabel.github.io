@@ -968,14 +968,16 @@ ref
 //	width: 0;
 //	left: 0;
 //}
-//.detailed-values > div:nth-child(3) #remove-item:before
-//{
-//	left: -14mm;	
-//}
-//.detailed-values > div:nth-child(4) #remove-item:before
-//{
-//	left: 16mm;	
-//}
+.detailed-values > div:nth-child(3) #remove-item:before
+{
+	left: 27mm;
+	top: 2mm;
+}
+.detailed-values > div:nth-child(4) #remove-item:before
+{
+	left: 27mm;
+	top: 2mm;
+}
 
 /* Milestones */
 /*.trait*/ ul
