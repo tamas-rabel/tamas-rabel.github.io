@@ -19,7 +19,7 @@
 				<td class="help-section-header" colspan=2>To save a character, you can either press Ctrl+S or click the Save button from the left-side menu.</td>
 			</tr>
 			<tr>
-				<td class="help-section-header" colspan=2>To load a character, drag and drop the file from your computer to the browser window.</td>
+				<td class="help-section-header" colspan=2>To load a character, drag and drop the .json file from your computer to the browser window.</td>
 			</tr>
 			<tr>
 				<td class="help-section-header" colspan=2>An URL selector icon will appear if you hover over the portrait. Once you have selected a portrait you can position it by dragging it and scale it if you hold Ctrl down while dragging the image.</td>
@@ -60,16 +60,11 @@
 			<tr><td>Ctrl+B</td><td><b>Bold</b></td></tr>
 			<tr><td>Ctrl+I</td><td><i>Italic</i></td></tr>
 			<tr>
-				<td class="help-section-header" colspan=2>You can name trait groups. Some names affect formatting.</td>
+				<td class="help-section-header" colspan=2>You can select the stye of a trait group by clicking on the <i class="fa-ellipsis-v"></i> icon, then selecting a style from the "Style" sub-menu.</td>
 			</tr>
-			<tr><td>Emotions</td><td>Black header with traits in two columns</td></tr>
-			<tr><td>Roles</td><td>Black header with traits in two columns</td></tr>
-			<tr><td>Skills</td><td>Black header with traits in two columns</td></tr>
-			<tr><td>Specialties</td><td>Black header with traits in two columns</td></tr>
-			<tr><td>Values</td><td>Black header with traits in two columns</td></tr>			
-			<tr><td>Milestones</td><td>Regular block with trait value hidden</td></tr>			
-			<tr><td>Signature asset</td><td>Magenta header with green background</td></tr>
-			<tr><td>Resources</td><td>No background with trait-style header</td></tr>
+			<tr>
+				<td class="help-section-header" colspan=2>You can delete a trait group by clicking on the <i class="fa-ellipsis-v"></i> icon, then selecting the "Delete" option.</td>
+			</tr>
 		</table>
 	</div>
 	<div id="bottom">
@@ -82,6 +77,22 @@
 			<button onclick="close_modal(event)">OK</button>
 		</div>
 	</div>
+</div>
+
+<!-- Context menu -->
+<div id="context-menu" class='context-menu non-serialized'>
+	<ul>
+		<li>Set style<i class="fa-angle-right"></i>
+			<div class='context-menu' id="styles">
+				<input type="radio" name="style" id="style-default" onchange="set_style(event);"/><label for="style-default">Default</label>
+				<input type="radio" name="style" data-style="values" id="style-compact-two-columns" onchange="set_style(event);"/><label for="style-compact-two-columns">Compact two-columns</label>
+				<input type="radio" name="style" data-style="detailed-values" id="style-detailed-two-columns" onchange="set_style(event);"/><label for="style-detailed-two-columns">Detailed two-columns</label>
+				<input type="radio" name="style" data-style="signature-asset" id="style-asset" onchange="set_style(event);"/><label for="style-asset">Asset</label>
+				<input type="radio" name="style" data-style="resources" id="style-asset" onchange="set_style(event);"/><label for="style-asset">Resource</label>
+			</div>
+		</li>
+		<li onclick="context_menu_remove_item(event);">Delete</li>
+	</ul>
 </div>
 
 <!-- Menu -->
@@ -116,7 +127,7 @@
 				</div>
 			</div>
 			<div class='trait-group template'>
-				<div id="remove-item" class='no-print' onclick="remove_item(event)"></div>
+				<div id="context-menu-button" class='no-print' onclick="show_context_menu(event)"></div>
 				<div class='header' onblur="set_trait_group_name(event)" contenteditable>NEW TRAIT GROUP</div>
 				<div>
 					<div class='trait template'>

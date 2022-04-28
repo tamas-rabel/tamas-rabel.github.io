@@ -52,6 +52,17 @@ function add_event_handlers(editable)
 	{
 		event.target.innerText = html_to_text(event.target.innerHTML)
 	})
+	
+	if (editable.classList.contains("header"))
+	{
+		editable.addEventListener("keydown", function(event)
+		{
+			if (event.key != 'Enter') return;
+
+			event.preventDefault();
+			event.target.blur();
+		})
+	}
 }
 function init_event_handlers(parent)
 {
@@ -80,8 +91,9 @@ function get_parent_with_class(element, c)
 
 function save_character(e)
 {
-	data = {}
-	data.version = 1;
+	var file = {}
+	var data = {}
+	file.version = 2;
 	inputs = document.querySelectorAll('input, textarea, img, div[contenteditable], h2[contenteditable], c[contenteditable], span[contenteditable]')
 	for (var i=0; i<inputs.length; i++)
 	{
@@ -146,9 +158,37 @@ function save_character(e)
 			data[id].y = input.getAttribute("data-y")
 			data[id].zoom = input.getAttribute("data-zoom")
 		}
+		if (input.getAttribute("data-style") !== null)
+		{
+			data[id] = { value: data[id] }
+			data[id].style = input.getAttribute("data-style")
+		}
+	}
+	file.data = data;
+	
+	var styles = {};
+	styled_divs = document.querySelectorAll('div[data-style]')
+	for (var i=0; i<styled_divs.length; i++)
+	{
+		var elem = styled_divs[i];
+		var style = elem.getAttribute("data-style");
+		var id = elem.id;
+		var path = ''
+		while (id === '' && elem.parentElement != null)
+		{
+			id = elem.parentElement.id
+			path = Array.prototype.indexOf.call(elem.parentElement.children, elem) + "/" + path
+			elem = elem.parentElement
+		}
+		id = id + "/" + path.slice(0, -1)
+		styles[id] = style;
+	}	
+	if (Object.keys(styles).length)
+	{
+		file.styles = styles;
 	}
 	
-	var uri = encodeURI("data:application/json;charset=utf-8," + JSON.stringify(data));
+	var uri = encodeURI("data:application/json;charset=utf-8," + JSON.stringify(file));
 	uri = uri.replace(/#/g, '%23')
 	var link = document.createElement("a");
 	link.setAttribute("href", uri);
@@ -178,10 +218,59 @@ function get_children(elem, i, version)
 	return elem.children[index];
 }
 
-function load_character(data)
+function get_element_from_path(i, version)
 {
-	var version = data.version
-	console.log(version)
+	var parts = i.split("/")
+//			console.log(parts)
+//				var current = document.querySelector("div#" + parts[0]).children[parts[1]]
+//				for (var p=2; p<parts.length; p++)
+//			console.log("div#" + parts[0])
+	var current = document.querySelector("div#" + parts[0])
+//			console.log("Starting with ");
+//			console.log(current)
+	for (var p=1; p<parts.length; p++)
+	{
+//				console.log(current)
+//                console.log("-> " + parts[p])
+		try
+		{
+			current = current.querySelector("#" + parts[p])
+		}
+		catch
+		{
+//					console.log(current.children)
+//					console.log(current.children[0])
+			
+			// Hack to remain backwards compatible
+			current = get_children(current, parts[p], version);
+			
+//					if (index == current.children.length) break;
+//					console.log("Getting " + index)
+//					console.log(current);
+//					current = current.children[parts[p]]
+//					console.log(parts[p] + ": " + current)
+		}
+		if (current.getAttribute("data-onload") !== null)
+		{
+			window[current.getAttribute("data-onload")]({target: current})
+			p = p - 1;
+			current = current.parentElement;
+		}
+	}
+//            console.log(current)
+	return current
+}
+
+function load_character(file)
+{
+	var version = file.version
+	//console.log(version)
+	
+	var data = file
+	if (version >= 2)
+	{
+		data = file.data
+	}
 	
 	for (var i in data)
 	{
@@ -193,49 +282,11 @@ function load_character(data)
 		}
 		else
 		{
-			var parts = i.split("/")
-			console.log(parts)
-//				var current = document.querySelector("div#" + parts[0]).children[parts[1]]
-//				for (var p=2; p<parts.length; p++)
-//			console.log("div#" + parts[0])
-			var current = document.querySelector("div#" + parts[0])
-//			console.log("Starting with ");
-//			console.log(current)
-			for (var p=1; p<parts.length; p++)
-			{
-//				console.log(current)
-//                console.log("-> " + parts[p])
-				try
-				{
-					current = current.querySelector("#" + parts[p])
-				}
-				catch
-				{
-//					console.log(current.children)
-//					console.log(current.children[0])
-					
-					// Hack to remain backwards compatible
-					current = get_children(current, parts[p], version);
-					
-//					if (index == current.children.length) break;
-//					console.log("Getting " + index)
-//					console.log(current);
-//					current = current.children[parts[p]]
-//					console.log(parts[p] + ": " + current)
-				}
-				if (current.getAttribute("data-onload") !== null)
-				{
-					window[current.getAttribute("data-onload")]({target: current})
-					p = p - 1;
-					current = current.parentElement;
-				}
-			}
-//            console.log(current)
-			element = current
+			var element = get_element_from_path(i, version);
 		}
 		
 		if (element == null) continue;
-		console.log(element);
+//		console.log(element);
 		
 		if (element.getAttribute("type") == "checkbox")
 		{
@@ -255,15 +306,37 @@ function load_character(data)
 		}			
 		if (typeof(data[i]) == 'object')
 		{
-			element.setAttribute("data-x", data[i].x)
-			element.setAttribute("data-y", data[i].y)
-			element.setAttribute("data-zoom", data[i].zoom)
-			element.style.transform = 'translate(' + data[i].x + 'cm, ' + data[i].y + 'cm) scale(' + data[i].zoom + ', ' + data[i].zoom +')'
+			if (data[i].style != null)
+			{
+				element.setAttribute("data-style", data[i].style);
+				console.log(data[i].style)
+				console.log(element)
+				element.classList.add(data[i].style);
+			}
+			if (data[i].x != null)
+			{
+				element.setAttribute("data-x", data[i].x)
+				element.setAttribute("data-y", data[i].y)
+				element.setAttribute("data-zoom", data[i].zoom)
+				element.style.transform = 'translate(' + data[i].x + 'cm, ' + data[i].y + 'cm) scale(' + data[i].zoom + ', ' + data[i].zoom +')'
+			}
 		}
 		if (element.onblur != null)
 		{
 			element.onblur({target: element})
 		}
+	}
+	
+	if (version >= 2 && file.styles != null)
+	{
+		for (var i in file.styles)
+		{
+			var elem = get_element_from_path(i, version);
+			var style = file.styles[i];
+			reset_trait_group(elem);
+			elem.setAttribute("data-style", style);
+			elem.classList.add(style);
+		}		
 	}
 }
 
@@ -372,19 +445,23 @@ function remove_attribute(e)
 
 function reset_trait_group(elem)
 {
-	elem.parentElement.classList.remove("roles");
-	elem.parentElement.classList.remove("signature-asset");
-	elem.parentElement.classList.remove("abilities");
-	elem.parentElement.classList.remove("milestones");
-	elem.parentElement.classList.remove("values");
+	elem.classList.remove("roles");
+	elem.classList.remove("signature-asset");
+	elem.classList.remove("abilities");
+	elem.classList.remove("milestones");
+	elem.classList.remove("values");
+	elem.classList.remove("detailed-values");
+	elem.removeAttribute("data-style");
 }
 
 function set_trait_group_name(e)
 {
+	if (e.target.parentElement.getAttribute("data-style") != null) return;
+	
 //	console.log("SET TRAIT GROUP NAME")
 //	e.target.parentElement.id = e.target.innerText.toLowerCase();
 
-    reset_trait_group(e.target);
+    reset_trait_group(e.target.parentElement);
 
 	if (e.target.innerText.toLowerCase() == "roles")
 	{
@@ -413,6 +490,10 @@ function set_trait_group_name(e)
 	else if (e.target.innerText.toLowerCase() == "specialties")
 	{
 		e.target.parentElement.classList.add("values");
+	}
+	else if (e.target.innerText.toLowerCase() == "resource")
+	{
+		e.target.parentElement.classList.add("resources");
 	}
 	else if (e.target.innerText.toLowerCase() == "resources")
 	{
@@ -496,7 +577,11 @@ function show_modal(id, left, top, callback)
 	modal.style.display = 'block'
 	modal.style.left = left
 	modal.style.top = top
-	modal.querySelector("input").select()
+	var input = modal.querySelector("input");
+	if (input != null)
+	{
+		modal.querySelector("input").select()
+	}
 }
 
 function change_image_url(e)
@@ -520,10 +605,62 @@ function show_help(e)
 	});
 }
 
-function remove_item(e)
+function remove_item(elem)
 {
-	var item = e.target.parentElement
+	var item = elem.parentElement
 	item.parentElement.removeChild(item)
+}
+
+var g_context_target = null;
+function show_context_menu(e)
+{
+	g_context_target = e.target;
+
+	var rect = e.target.getBoundingClientRect();
+	var x = rect.left + "px";
+	var y = rect.top + "px";
+	
+	var menu = document.getElementById("context-menu");
+	var styles = document.querySelectorAll("#context-menu #styles input");
+	var found = false;
+	for (var i=0; i<styles.length; i++)
+	{
+		var style = styles[i].getAttribute("data-style");
+		var checked = e.target.parentElement.classList.contains(style);
+		styles[i].checked = checked
+		found = found || checked
+	}
+	if (!found)
+	{
+		document.getElementById("style-default").checked = true;
+	}
+	
+	show_modal("context-menu", x, y, function()
+	{
+		var menu = document.getElementById("context-menu");
+		menu.style.display = 'none'
+	});
+}
+
+function set_style(e)
+{
+	reset_trait_group(g_context_target.parentElement);
+	var style = e.target.getAttribute("data-style");
+	if (style != null)
+	{
+		g_context_target.parentElement.classList.add(style);
+		g_context_target.parentElement.setAttribute("data-style", style);
+	}
+	g_context_target = null;
+	close_modal(null);
+}
+
+function context_menu_remove_item(e)
+{
+	console.log(g_context_target);
+	remove_item(g_context_target);
+	g_context_target = null;
+	close_modal(null);
 }
 
 window.onload = function()

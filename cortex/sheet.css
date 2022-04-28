@@ -424,6 +424,47 @@ ref
 //	top: 10px;
 }
 
+#context-menu-button
+{
+    display: block;
+	height: 32px;
+	width: 0;
+	position: absolute;
+	page-break-inside: avoid;
+	break-inside: avoid;
+	font-style: normal;
+	flex: 0;
+	flex-grow: 0;
+	flex-wrap: none;
+}
+#context-menu-button:before
+{
+	font-family: 'Font Awesome 5 Free';
+	font-size: 16px;
+	font-weight: 900;
+	color: #C50852;
+	content: "\f142";
+	position: relative;
+	transform: translate(-50%, -50%);
+	opacity: 0.5;
+	transition: color 0.1s, opacity 0.1s, text-shadow 0.1s;
+	cursor: pointer;
+	text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+#context-menu-button:hover:before
+{
+//	color: #eff;
+	opacity: 1;
+	text-shadow: 0 0 5px rgba(0, 0, 0, 0);
+	position: relative;
+}
+.trait-group #context-menu-button:before
+{
+	left: -8mm;
+	top: 0px;
+	z-index: 2;
+}
+
 .trait
 {
     margin-left: 0 !important;
@@ -827,6 +868,114 @@ ref
 {
 	left: 16mm;	
 }
+
+/* Detailed values */
+//.trait-group.detailed-values
+//{
+//    flex-wrap: wrap;
+////    display: block;
+//}
+//.trait-group.detailed-values > div
+//{
+//    flex: 64px;
+//    width: 64px;
+////    border: 1px solid red;
+//    position: relative;
+//    padding-top: 4mm;
+//}
+.detailed-values h2
+{
+	font-family: 'Alegreya Sans SC', sans-serif;
+	color: black;
+	text-transform: none;
+	font-weight: 500;
+	font-size: 12pt;
+//	margin-bottom: 5pt;
+    margin-left: 0pt;
+    margin-top: 2mm;
+    display: inline-block;
+}	
+.detailed-values h2 c
+{
+	font-size: 11pt;
+}	
+.detailed-values ul
+{
+//	padding-left: 10pt;
+	list-style: none;
+	margin-left: 0;
+	padding-left: 0;
+//	margin-top: 1em;
+	margin-bottom: 0;
+}
+.detailed-values li
+{
+  padding-left: 1.6em;
+  text-indent: -1.6em;
+  margin-top: -1.5pt;
+  font-style: normal;
+  margin-right: 0;
+  font-size: 7.75pt;
+}
+.detailed-values li + li
+{
+  padding-top: 1pt;
+}
+.detailed-values ul + h2
+{
+  padding-top: 1pt;
+}
+.detailed-values #text + ul
+{
+  margin-top: 0;
+}
+.detailed-values li:before
+{
+	font-family: 'Josefin Sans', sans-serif;
+	content: "\25cf";
+	font-size: 14pt;
+	color: #C50852;
+	padding-right: 0.3em;
+	position: relative;
+	top: 1pt;
+	left: -1pt;
+}
+.detailed-values hr + div
+{
+    margin-left: 0;
+    margin-top: 4pt;
+}
+.detailed-values > div:nth-child(4)
+{
+    display: block;
+	width: 50%;
+}
+.detailed-values > div:nth-child(3)
+{
+//    left: 20mm;
+	display: inline;
+	width: 50%;
+}
+//.detailed-values > div:nth-child(3) .add-item
+//{
+//	margin-left: 1mm;
+//	width: 0;
+//	left: 0;
+//}
+//.detailed-values > div:nth-child(4) .add-item
+//{
+//	margin-left: 14mm;
+//	width: 0;
+//	left: 0;
+//}
+//.detailed-values > div:nth-child(3) #remove-item:before
+//{
+//	left: -14mm;	
+//}
+//.detailed-values > div:nth-child(4) #remove-item:before
+//{
+//	left: 16mm;	
+//}
 
 /* Milestones */
 /*.trait*/ ul
@@ -1272,4 +1421,97 @@ ref
 	position: relative;
 	top: 0.2mm;
 	left: -4.5mm;
+}
+
+/* Context menu */
+.context-menu
+{
+	position: absolute;
+	border: 2px solid #C50852;
+	background: white;
+	border-radius: 5px;
+	z-index: 20;
+	font-size: 12pt;
+	cursor: pointer;
+	display: none;
+	transform: translate(0, 100%);
+}
+.context-menu ul
+{
+	all: unset;
+}
+.context-menu li
+{
+	all: unset;
+	display: block;
+	padding: 6px 12px 6px 12px;
+	color: black;
+	white-space: nowrap;
+}
+.context-menu li:before
+{
+	all: unset;
+}
+.context-menu li:hover
+{
+	background: #C50852;
+	color: white;
+}
+.context-menu li > .context-menu
+{
+	position: absolute;
+	top: -2px;
+	left: 100%;
+	display: none;
+	transform: unset;
+}
+.context-menu li:hover .context-menu
+{
+	display: block;
+}
+.context-menu input[type="radio"]
+{
+	display: none;
+}
+.context-menu input[type="radio"]:checked + label
+{
+	background: #C50852;
+	color: white;
+}
+.context-menu label
+{
+	display: block;
+	color: black;
+	padding: 6px 12px 6px 12px;
+}
+.context-menu label:hover
+{
+	background: #C508523f;
+}
+.context-menu.visible
+{
+	display: block;
+}
+
+.fa-angle-right:before
+{
+	font-family: 'Font Awesome 5 Free';
+	font-style: normal;
+	font-weight: 900;
+	font-display: block;
+	font-size: 8pt;
+	content: "\f105";
+	margin-left: 6pt;
+}
+
+.fa-ellipsis-v:before
+{
+	font-family: 'Font Awesome 5 Free';
+	font-style: normal;
+	font-weight: 900;
+	font-display: block;
+	font-size: 8pt;
+	content: "\f142";
+	margin: 0 4pt 0 4pt;
+	color: #C50852;
 }
