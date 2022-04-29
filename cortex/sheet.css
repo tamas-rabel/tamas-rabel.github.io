@@ -1549,10 +1549,6 @@ ref
 }
 .stress .trait h2 c
 {
-	color: white;
-	text-shadow: -0.1mm -0.1mm 0.05mm #000, 0.1mm -0.1mm 0.05mm #000, -0.1mm 0.1mm 0.05mm #000, 0.1mm 0.1mm 0.05mm #000;
-	font-size: 14pt;
-	content: "4 6 8 0 2";
 	display: none;
 }
 .stress div.trait:before
@@ -1565,7 +1561,7 @@ ref
 	margin-top: -0.5mm;
 //	top: -2mm;
 //	background: yellow;
-	text-shadow: -0.1mm -0.1mm 0.05mm #000, 0.1mm -0.1mm 0.05mm #000, -0.1mm 0.1mm 0.05mm #000, 0.1mm 0.1mm 0.05mm #000;
+	text-shadow: -0.1mm -0.1mm 0.3mm #000, 0.1mm -0.1mm 0.3mm #000, -0.1mm 0.1mm 0.3mm #000, 0.1mm 0.1mm 0.3mm #000;
 	
 	display: inline;
 	font-family: 'cortex-icons';
@@ -1587,9 +1583,9 @@ ref
 }
 .stress h2
 {
-//	font-family: 'Alegreya Sans SC', sans-serif;
-//	text-transform: unset;
-//	font-size: 120%;
+	font-family: 'Alegreya Sans SC', sans-serif;
+	text-transform: unset;
+	font-size: 10pt;
 //	font-weight: 500;
 	color: black;
 }
