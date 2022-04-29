@@ -1517,3 +1517,126 @@ ref
 	margin: 0 4pt 0 4pt;
 	color: #C50852;
 }
+
+/* Stress */
+.stress
+{
+	flex-wrap: wrap;
+}
+.stress .header
+{
+    flex: 100%;
+	column-span: all;
+	writing-mode: unset;
+	transform: unset;
+	margin-bottom: 2mm;
+}
+.stress h2:nth-child(2)
+{
+//	width: 25%;
+	text-align: center;
+	background: white;
+	padding: 0 2mm 0 2mm;
+	transform: translate(-50%, 0);
+	margin-left: 15mm;
+}
+.stress h2:nth-child(3)
+{
+//	font-size: 14pt;
+	float: right;
+//	width: 50%;
+	margin-right: 12mm;
+}
+.stress .trait h2 c
+{
+	color: white;
+	text-shadow: -0.1mm -0.1mm 0.05mm #000, 0.1mm -0.1mm 0.05mm #000, -0.1mm 0.1mm 0.05mm #000, 0.1mm 0.1mm 0.05mm #000;
+	font-size: 14pt;
+	content: "4 6 8 0 2";
+	display: none;
+}
+.stress div.trait:before
+{
+	position: absolute;
+	width: 40mm;
+	height: 20mm;
+	color: white;
+	left: 62mm;
+	margin-top: -0.5mm;
+//	top: -2mm;
+//	background: yellow;
+	text-shadow: -0.1mm -0.1mm 0.05mm #000, 0.1mm -0.1mm 0.05mm #000, -0.1mm 0.1mm 0.05mm #000, 0.1mm 0.1mm 0.05mm #000;
+	
+	display: inline;
+	font-family: 'cortex-icons';
+	font-style: normal;
+	font-size: 14pt;
+	
+	content: "4 6 8 0 2";
+}
+.stress hr
+{
+	position: absolute;
+//	display: none;
+	margin-top: -1.8mm;
+	margin-left: 12mm;
+	width: 57mm;
+	z-index: -3;
+	color: black;
+	border: 0.5pt solid black;
+}
+.stress h2
+{
+//	font-family: 'Alegreya Sans SC', sans-serif;
+//	text-transform: unset;
+//	font-size: 120%;
+//	font-weight: 500;
+	color: black;
+}
+.stress .trait
+{
+	margin-bottom: 6mm;
+//	text-align: center;
+}
+.stress .trait div
+{
+    display: none;
+}
+.trait #remove-item:before
+{
+	left: 71mm;
+}
+
+
+//.stress.trait-group .trait
+//{
+//	text-align: justify;
+//	width: calc(100% - 10pt);
+//	margin-top: 2mm;
+//	margin-bottom: 2mm;
+//}
+//.stress .trait > div
+//{
+//	display: inline;
+//	margin-top: 2mm;
+//	margin-bottom: 2mm;
+//}
+//.stress .trait div + div
+//{
+//	margin-top: 2mm;
+//}
+////.stress .trait > div:before
+////{
+////	display: inline;
+////	content: ':';
+////	margin: 0 1mm 0 -1mm;
+////}
+//.stress .trait #remove-item:before
+//{
+//	left: -9mm;
+//	top: -2mm;
+//}
+//.stress hr + div
+//{
+//	font-style: normal;
+//}

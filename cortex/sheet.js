@@ -451,6 +451,7 @@ function reset_trait_group(elem)
 	elem.classList.remove("milestones");
 	elem.classList.remove("values");
 	elem.classList.remove("detailed-values");
+	elem.classList.remove("stress");
 	elem.removeAttribute("data-style");
 }
 
@@ -498,6 +499,10 @@ function set_trait_group_name(e)
 	else if (e.target.innerText.toLowerCase() == "resources")
 	{
 		e.target.parentElement.classList.add("resources");
+	}
+	else if (e.target.innerText.toLowerCase() == "stress")
+	{
+		e.target.parentElement.classList.add("stress");
 	}
 }
 
