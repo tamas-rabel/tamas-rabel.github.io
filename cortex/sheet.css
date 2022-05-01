@@ -346,12 +346,18 @@ ref
 {
 //	width: 100%;
 	width: 0%;
+	margin: 0;
 	left: 50%;
 	height: 32px;
 	position: relative;
 	page-break-inside: avoid;
 	break-inside: avoid;
 	font-style: normal;
+}
+.trait-group div:not(.header) .add-item
+{
+	width: 0%;
+	margin: 0;
 }
 .add-item:before
 {
