@@ -664,8 +664,7 @@ function set_style(e)
 
 function context_menu_remove_item(e)
 {
-	console.log(g_context_target);
-	remove_item(g_context_target);
+	remove_item({target: g_context_target});
 	g_context_target = null;
 	close_modal(null);
 }
