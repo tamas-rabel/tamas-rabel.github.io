@@ -207,7 +207,7 @@ function get_children(elem, i, version)
 	for (var ip=0; ip<=i && index<elem.children.length; index++)
 	{
 		//if (elem.children[index].classList.contains('no-print')) continue;
-		if (version === undefined && elem.children[index].id == "remove-item") continue;
+		if (version === undefined && (elem.children[index].id == "remove-item" || elem.children[index].id == "context-menu-button")) continue;
 		if (ip == i) break;
 		
 		ip++;
@@ -230,8 +230,8 @@ function get_element_from_path(i, version)
 //			console.log(current)
 	for (var p=1; p<parts.length; p++)
 	{
-//				console.log(current)
-//                console.log("-> " + parts[p])
+//		console.log(current)
+//		console.log("-> " + parts[p])
 		try
 		{
 			current = current.querySelector("#" + parts[p])
@@ -250,8 +250,10 @@ function get_element_from_path(i, version)
 //					current = current.children[parts[p]]
 //					console.log(parts[p] + ": " + current)
 		}
+//		console.log(current)
 		if (current.getAttribute("data-onload") !== null)
 		{
+//			console.log("Creating new element")
 			window[current.getAttribute("data-onload")]({target: current})
 			p = p - 1;
 			current = current.parentElement;
