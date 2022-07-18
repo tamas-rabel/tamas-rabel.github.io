@@ -1,0 +1,821 @@
+@import url('https://fonts.googleapis.com/css2?family=Amarante&family=Averia+Serif+Libre:ital,wght@0,300;0,700;1,300;1,400;1,700&family=BIZ+UDPMincho&family=Benne&family=Sorts+Mill+Goudy&family=Uncial+Antiqua&display=block');
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower:wght@400&display=block');
+@import url('https://fonts.googleapis.com/css2?family=Rock+Salt:wght@400&display=block');
+@import url('https://fonts.googleapis.com/css2?family=Nothing+You+Could+Do:wght@400&display=block');
+@import url('https://fonts.googleapis.com/css2?family=Grape+Nuts:wght@400&display=block');
+@import url('https://fonts.googleapis.com/css2?family=Oooh+Baby:wght@400&display=block');
+@import url('https://fonts.googleapis.com/css2?family=Vujahday+Script:wght@400&display=block');
+
+/*
+font-family: 'Amarante', cursive;
+font-family: 'Averia Serif Libre', cursive;
+font-family: 'Benne', serif;
+font-family: 'BIZ UDPMincho', serif;
+font-family: 'Sorts Mill Goudy', serif;
+font-family: 'Uncial Antiqua', cursive;
+*/
+
+@page
+{
+  size: A4;
+  margin: 0;
+}
+@media print
+{
+	html, body
+	{
+		width: 210mm;
+		height: 297.1mm;
+		margin: 0;
+		padding: 0;
+	}
+	#page
+	{
+		width: 210mm;
+		height: 297.1mm;
+		margin: 0 !important;
+		border: 0 !important;
+		border-radius: 0 !important;
+		box-shadow: none !important;
+	}
+	.no-print
+	{
+		display: none !important;
+	}
+}
+
+#page
+{
+	background: url("background.jpg");
+	background-size: cover;
+	position: relative;
+	width: 210mm;
+	height: 297.1mm;
+	margin: 1cm calc(50% - 105mm) auto calc(50% - 105mm);
+	border: 1px #D3D3D3 solid;
+	border-radius: 5px;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+	overflow: hidden;
+	box-sizing: border-box;
+//	transition: margin 0.5s ease;
+	padding: 1cm;
+}
+html
+{
+	font-family: 'Averia Serif Libre', cursive;
+	font-size: 8pt;
+}
+//div
+//{
+//	border-radius: 4pt;
+//}
+input, textarea
+{
+	color: #999;
+	background: none;
+	overflow: visible;
+	
+	font-family: 'Nothing You Could Do', cursive;
+	font-family: 'Grape Nuts', cursive;
+	font-family: 'Oooh Baby', cursive;
+	font-family: 'Vujahday Script', cursive;
+	font-family: 'Indie Flower', cursive;
+	font-weight: 600;
+}
+
+#menu
+{
+	position: fixed;
+	left: -8px;
+	border-radius: 5px;
+	border: 1px solid #0007;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+#menu div
+{
+	display: block;
+	margin: 16px 8px 16px 16px;
+	border: 0;
+	background: none;
+	font-family: 'Font Awesome 5 Free';
+	font-style: normal;
+	font-weight: 900;
+	font-size: 32px;
+	cursor: pointer;
+}
+#modal-bg
+{
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background: #fff7;
+	z-index: 20;
+	left: 0;
+	top: 0;
+	backdrop-filter: blur(2px);
+	display: none;
+}
+
+#character input[type=text]
+{
+	border: 0;
+	margin-right: 8pt;
+	width: 100%;
+	box-sizing: border-box;
+	font-size: 11pt;
+	background: none;
+	transform: translate(0, 1pt);
+}
+#character div
+{
+	height: 14pt;
+	border-bottom: 1pt solid black;
+	width: 100%;
+	background: none;
+}
+div.input
+{
+	display: flex !important;
+	border: 0 !important;
+}
+#character #character-name
+{
+	font-size: 13pt;
+	transform: unset;
+}
+#character label
+{
+	float: left;
+	padding-top: 4pt;
+	padding-right: 2mm;
+}
+#character
+{
+	margin-bottom: 0.5cm;
+	float: left;
+}
+#character table
+{
+	width: 11.5cm;
+}
+#logo
+{
+	position: relative;
+	float: right;
+	top: -0.1cm;
+}
+#logo img
+{
+	width: 7cm;
+}
+#abilities
+{
+	float: left;
+	height: calc(3.64cm + 2pt);
+}
+#abilities table
+{
+	border-collapse: collapse;
+}
+#abilities > table
+{
+	width: 11.3cm;
+	box-sizing: border-box;
+	height: 100%;
+}
+#abilities table td
+{
+	margin: 0;
+	padding: 0;
+	vertical-align: top;
+}
+#abilities > table > tbody > tr > td:nth-child(1)
+{
+	border: 1pt solid black;
+}
+#abilities > table > tbody > tr > td:nth-child(3)
+{
+	border: 1pt solid black;
+}
+#abilities > table > tbody > tr > td:nth-child(1) input
+{
+	width: 1.0cm;
+	border: 0;
+	text-align: center;
+	height: 14.5pt;
+	font-size: 15pt;
+	transform: translate(0, 1pt);
+}
+#abilities > table > tbody > tr > td:nth-child(2)
+{
+	padding: 0 2mm;
+	overflow: hidden;
+	transform: translate(0, 0.8mm);
+}
+#abilities table table
+{
+	font-size: 6pt;
+	height: 100%;
+	border: 0;
+	width: 100%;
+}
+#abilities table table tr
+{
+	border: 0;
+	text-align: center;
+	overflow: hidden;
+}
+#abilities table table tr td:nth-child(1)
+{
+	text-align: left;
+	padding-left: 0.2mm;
+}
+#abilities table table tr td:last-child
+{
+	text-align: right;
+	padding-right: 0.2mm;
+}
+#abilities table table input
+{
+	border: 0;
+	text-align: center;
+	font-size: 9pt;
+	width: 99%;
+	box-sizing: border-box;
+	height: 8.9pt;
+}
+#abilities table table tr td:nth-child(1) input
+{
+	text-align: left;
+	padding-left: 1mm;
+}
+#abilities table table tr td:last-child input
+{
+	text-align: right;
+	padding-right: 1mm;
+}
+#abilities table tr:nth-child(4) table tr td:last-child
+{
+	width: 2.1cm;
+}
+#movement
+{
+	float: left;
+	font-size: 6.5pt;
+	margin: 0 3mm;
+	height: 3.64cm;
+	border: 1pt solid black;
+}
+#movement table
+{
+	border-collapse: collapse;
+	margin: 0 2mm;
+	width: 3cm;
+	overflow: hidden;
+	height: 100%;
+}
+#movement input
+{
+	font-size: 10pt;
+	text-align: center;
+	box-sizing: border-box;
+}
+#movement #base-movement
+{
+	border: 1pt solid black;
+	width: 1cm;
+	height: 4mm;
+	font-size: 10pt;
+}
+#movement td:nth-child(3)
+{
+	width: 	0;
+}
+#movement td:nth-child(2) input
+{
+	border: 0;
+	width: 0.7cm;
+	height: 8pt;
+	font-size: 8pt;
+}
+#movement td:nth-child(3) input
+{
+	border: 0;
+	border-bottom: 1pt solid black;
+	width: 1cm;
+	height: 8pt;
+	margin: 0;
+}
+#saving-throws
+{
+	float: right;
+	border: 1pt solid black;
+	font-size: 6.2pt;
+	text-align: center;
+	height: 3.64cm;
+}
+#saving-throws input
+{
+	font-size: 12pt;
+	text-align: center;
+	box-sizing: border-box;
+	margin: 0 1mm;
+	border: 0;
+	border-bottom: 1pt solid black;
+	width: 0.8cm;
+	height: 14.75pt;
+}
+#saving-throws table
+{
+	border-collapse: collapse;
+	height: 100%;
+}
+#saving-throws td
+{
+	vertical-align: bottom;
+}
+#ac
+{
+	float: left;
+	border: 1pt solid black;
+	font-size: 6.5pt;
+	margin-top: 0.5cm;
+	width: 11.2cm;
+	height: 2.5cm;
+}
+#ac table
+{
+	width: 100%;	
+}
+#ac input[type=text]
+{
+	border: 0;
+//	border-bottom: 1pt solid black;
+//	margin-right: 8pt;
+	width: 100%;
+	box-sizing: border-box;
+	font-size: 8pt;
+//	height: 11pt;
+	background: none;
+	transform: translate(0, 1pt);
+}
+#ac div
+{
+	height: 11pt;
+	border-bottom: 1pt solid black;
+	width: 100%;
+	background: none;
+}
+#ac span
+{
+	display: block;
+	overflow: hidden;
+//	padding: 0 4px;
+}
+#ac label
+{
+	float: left;
+	padding-top: 4pt;
+	margin-right: 1mm;
+}
+#ac .shield
+{
+	vertical-align: top;
+	text-align: center;
+	background: url("shield.svg") no-repeat 50% -75%/2cm;
+	width: 2cm;
+}
+#ac .shield input
+{
+	display: block;
+	border: 0;
+	background: none;
+	position: relative;
+	left: 50%;
+	top: 0.75cm;
+	width: 1cm;
+	font-size: 20pt;
+	height: 20pt;
+	text-align: center;
+	transform: translate(-50%, -32%);
+}
+#ac tr:nth-child(1n+2) td:nth-child(1)
+{
+	text-align: right;
+	padding-right: 2mm;
+}
+#ac tr:nth-child(1n+2) td:nth-child(1) input
+{
+	text-align: right;
+}
+#ac tr:nth-child(1n+2) td:last-child input
+{
+	width: 7cm;
+	padding-left: 2mm;
+	text-align: unset;
+}
+#hp
+{
+	float: right;
+	border: 1pt solid black;
+	font-size: 6.5pt;
+	margin-top: 0.5cm;
+	width: 7.13cm;
+	height: 2.5cm;
+}
+#hp table
+{
+	border-collapse: collapse;
+	height: 100%;
+}
+#hp tr
+{
+	vertical-align: top;
+}
+#hp td
+{
+	padding: 0.5mm 2mm;
+}
+#hp td:nth-child(1)
+{
+	border-right: 1pt solid black;
+	text-align: center;
+}
+#hp td:last-child
+{
+	width: 100%;
+}
+#hp input
+{
+	width: 1.5cm;
+	height: 100%;
+	box-sizing: border-box;
+	text-align: center;
+	font-size: 24pt;
+	border: 0;
+	padding-bottom: 4mm;
+}
+#hp textarea
+{
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+	border: 0;
+	resize: none;
+	font-size: 12pt;
+}
+#weapons
+{
+	float: left;
+	width: 100%;
+	margin-top: 0.5cm;
+}
+#weapons table
+{
+	width: 100%;
+	border-collapse: collapse;
+}
+#weapons td
+{
+	border: 1px solid black;
+	text-align: center;
+	height: 9.5pt;
+}
+#weapons th
+{
+	font-weight: normal;
+}
+#weapons td:nth-child(1)
+{
+	text-align: left;
+}
+#weapons th:nth-child(1)
+{
+	text-align: left;
+}
+#weapons td:nth-child(1)
+{
+	width: 3cm;
+}
+#weapons td:nth-child(3)
+{
+	width: 3cm;
+}
+#weapons td:nth-child(5)
+{
+	width: 3cm;
+}
+#weapons td:nth-child(6)
+{
+	width: 3cm;
+}
+#weapons input[type=text]
+{
+	box-sizing: border-box;
+	font-size: 10pt;
+//	height: 11pt;
+	width: 100%;
+	border: 0;
+	text-align: center;
+	transform: translate(0, -0.5mm);
+}
+#weapons td:nth-child(1) input[type=text]
+{
+	text-align: left;
+	transform: unset;
+}
+#weapons td:nth-child(3) input[type=text]
+{
+	width: 1.2cm;
+	margin: 0 1mm;
+}
+#weapons td:nth-child(5) input[type=text]
+{
+	width: 1.2cm;
+	margin: 0 1mm;
+}
+#weapons div
+{
+	display: block;
+	height: 11pt;
+	border: 0;
+	padding: 0;
+}
+#thieving
+{
+	float: left;
+	width: 100%;
+	margin-top: 0.5cm;
+}
+#thieving table
+{
+	width: 100%;
+	border-collapse: collapse;
+}
+//#thieving tr:nth-child(1)
+//{
+//	border: 1pt dotted #0007;
+//}
+#thieving td
+{
+	text-align: center;
+}
+#thieving input
+{
+	display: inline;
+	width: 1.8cm;
+	height: 0.6cm;
+//	border-radius: 1cm;
+	box-sizing: border-box;
+	font-size: 14pt;
+	border: 0;
+	border-bottom: 1pt solid black;
+	text-align: center;
+	margin-left: 1mm;
+}
+#thieving tr:nth-child(1) input
+{
+	border-bottom: 1pt dotted black;
+}
+#turning
+{
+	float: left;
+	width: 100%;
+	margin-top: 0.5cm;
+}
+#turning table
+{
+	width: 100%;
+	border-collapse: collapse;
+}
+#turning td
+{
+	text-align: center;
+	vertical-align: top;
+}
+#turning input
+{
+	display: inline;
+	width: 1.2cm;
+	height: 0.6cm;
+//	border-radius: 1cm;
+	box-sizing: border-box;
+	font-size: 16pt;
+	border: 0;
+	border-bottom: 1pt solid black;
+	text-align: center;
+	margin-left: 1mm;
+}
+#spells
+{
+	float: left;
+	width: 100%;
+	margin-top: 0.5cm;
+}
+#spells table
+{
+	width: 100%;
+	border-collapse: collapse;
+}
+#spells td
+{
+	text-align: center;
+	vertical-align: top;
+}
+#spells input
+{
+	display: inline;
+	width: 1.2cm;
+	height: 0.6cm;
+//	border-radius: 1cm;
+	box-sizing: border-box;
+	font-size: 16pt;
+	border: 0;
+	border-bottom: 1pt solid black;
+	text-align: center;
+	margin-left: 1mm;
+}
+#special-abilities
+{
+	float: left;
+	width: 49%;
+	margin-top: 0.5cm;
+	border: 1pt solid black;
+}
+#special-abilities input
+{
+	border: 0;
+	border-bottom: 1pt solid black;
+	width: 4.3cm;
+	height: 8pt;
+	margin: 0;
+}
+#special-abilities table
+{
+	width: 100%;
+}
+#special-abilities td:last-child
+{
+	text-align: right;
+}
+#proficiencies
+{
+	float: right;
+	width: 49%;
+	margin-top: 0.5cm;
+	border: 1pt solid black;
+}
+#proficiencies input
+{
+	border: 0;
+	border-bottom: 1pt solid black;
+	width: 1cm;
+	height: 8pt;
+	margin: 0;
+}
+#proficiencies table
+{
+	width: 100%;
+}
+#proficiencies td:last-child
+{
+	text-align: right;
+}
+#proficiencies td input:nth-child(1)
+{
+	width: 2.8cm;
+}
+#proficiencies td input:nth-child(2)
+{
+	width: 0.5cm;
+	text-align: center;
+	font-size: 8.5pt;
+}
+#proficiencies td input:nth-child(3)
+{
+	width: 0.5cm;
+	text-align: center;
+}
+#proficiencies td:nth-child(2) input:nth-child(1)
+{
+	width: 4.2cm;
+}
+#xp
+{
+	float: left;
+	border: 1pt solid black;
+	font-size: 6.5pt;
+	margin-top: 0.5cm;
+	width: 49%;
+	height: 2.5cm;
+}
+#xp table
+{
+	border-collapse: collapse;
+	height: 100%;
+	width: 100%;
+}
+#xp tr
+{
+	vertical-align: top;
+}
+#xp td
+{
+	padding: 0.5mm 2mm;
+}
+#xp #total-xp
+{
+	width: 100%;
+	height: 1.5cm;
+	box-sizing: border-box;
+	text-align: center;
+	font-size: 24pt;
+	border: 0;
+}
+#xp input
+{
+	border: 0;
+	border-bottom: 1pt solid black;
+	width: 100%;
+	box-sizing: border-box;
+	font-size: 12pt;
+	height: 12pt;
+}
+#xp span
+{
+	display: block;
+	overflow: hidden;
+}
+#xp label
+{
+	float: left;
+	padding-top: 4pt;
+	margin-right: 1mm;
+}
+#xp td:nth-child(2)
+{
+	width: 1.7cm;
+}
+#xp td:nth-child(2) input
+{
+	text-align: center;
+}
+#money
+{
+	float: right;
+	border: 1pt solid black;
+	font-size: 6.5pt;
+	margin-top: 0.5cm;
+	width: 49%;
+	height: 2.5cm;
+}
+#money table
+{
+	border-collapse: collapse;
+	height: 100%;
+	width: 100%;
+}
+#money td:nth-child(1), #money th:nth-child(1)
+{
+	border-right: 1pt solid black;
+	text-align: center;
+	width: 2cm;
+}
+#money tr
+{
+	vertical-align: top;
+}
+#money td
+{
+	padding: 0.5mm 2mm;
+}
+#money input
+{
+	border: 0;
+	border-bottom: 1pt solid black;
+	width: 100%;
+	box-sizing: border-box;
+	font-size: 12pt;
+	height: 12pt;
+	text-align: right;
+}
+#money span
+{
+	display: block;
+	overflow: hidden;
+}
+#money label
+{
+	float: left;
+	padding-top: 4pt;
+	margin-right: 1mm;
+}
+#money textarea
+{
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+	border: 0;
+	resize: none;
+	font-size: 12pt;
+}

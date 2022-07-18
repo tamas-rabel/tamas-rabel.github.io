@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link href="sheet.css" rel="stylesheet">
+	<script src="sheet.js"></script>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
+</head>
+<body ondragenter="on_drag_enter(event);" ondragover="on_drag_enter(event);" ondrop="on_drop(event);" ondragleave="on_drag_leave(event);">
+
+	<div id="modal-bg" onclick="close_modal(event)"></div>
+	<div id="menu" class='no-print'>
+		<div id="save" onclick='save()'><span class="material-symbols-outlined">save</span></div>
+	</div>
+
+	<div id=page>
+		<div id="character">
+			<table>
+				<tr><td colspan=2><div class='input'><label>Name</label><div><input type=text id="character-name"></input></div></div></td></tr>
+				<tr><td><div class='input'><label>Alignment</label><div><input type=text></input></div></div></td><td><div class='input'><label>Race</label><div><input type=text></input></div></div></td></tr>
+				<tr><td><div class='input'><label>Class</label><div><input type=text></input></div></div></td><td><div class='input'><label>Level</label><div><input type=text></input></div></div></td></tr>
+			</table>
+		</div>
+		<div id="logo">
+			<img src="adnd2-bw.png">
+		</div>
+		<div id="abilities">
+			<table vertical-tabindex>
+				<tr><td><input type=text onchange='update_ability(event);'></input></td><td>STR</td>
+					<td>
+						<table>
+							<tr><td>Hit prob</td><td>Dmg adj</td><td>Wt Allow</td><td>Max press</td><td>Open door</td><td>Bb/Lg</td></tr>
+							<tr><td><span><input type=text></input></span></td><td><span><input type=text></input></span></td><td><span><input type=text></input></span></td><td><span><input type=text></input></span></td><td><span><input type=text></input></span></td><td><span><input type=text></input></span></td></tr>
+						</table>
+					</td>
+				</tr>
+				<tr><td><input type=text onchange='update_ability(event);'></input></td><td>DEX</td>
+					<td>
+						<table>
+							<tr><td>Rctn adj</td><td>Missile atk adj</td><td>Def adj</td></tr>
+							<tr><td><span><input type=text></input></span></td><td><span><input type=text></input></span></td><td><span><input type=text></input></span></td></tr>
+						</table>
+					</td>
+				</tr>
+				<tr><td><input type=text onchange='update_ability(event);'></input></td><td>CON</td>
+					<td>
+						<table>
+							<tr><td>HP adj</td><td>Sys shock</td><td>Res sur</td><td>Pois save</td><td>Regen</td></tr>
+							<tr><td><span><input type=text></input></span></td><td><span><input type=text></input></span></td><td><span><input type=text></input></span></td><td><span><input type=text></input></span></td><td><span><input type=text></input></span></td></tr>
+						</table>
+					</td>
+				</tr>
+				<tr><td><input type=text onchange='update_ability(event);'></input></td><td>INT</td>
+					<td>
+						<table>
+							<tr><td># Lang</td><td>Spell level</td><td>Lrn spell</td><td>Spells/level</td><td>Spell immun</td></tr>
+							<tr><td><span><input type=text></input></span></td><td><span><input type=text></input></span></td><td><span><input type=text></input></span></td><td><span><input type=text></input></span></td><td><span><input type=text></input></span></td></tr>
+						</table>
+					</td>
+				</tr>
+				<tr><td><input type=text onchange='update_ability(event);'></input></td><td>WIS</td>
+					<td>
+						<table>
+							<tr><td>Mag def adj</td><td>Bonus spells</td><td>Spell fail</td><td>Spell immun</td></tr>
+							<tr><td><span><input type=text></input></span></td><td><span><input type=text></input></span></td><td><span><input type=text></input></span></td><td><span><input type=text></input></span></td></tr>
+						</table>
+					</td>
+				</tr>
+				<tr><td><input type=text onchange='update_ability(event);'></input></td><td>CHA</td>
+					<td>
+						<table>
+							<tr><td>Max henchmen</td><td>Loyalty base</td><td>Rctn adj</td></tr>
+							<tr><td><input type=text></input></td><td><span><input type=text></input></span></td><td><span><input type=text></input></span></td></tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div id="movement">
+			<table>
+				<tr><td colspan=2>Base rate</td><td><input type=text id=base-movement onchange="on_set_movement();"></input></tr>
+				<tr><td>Light</td><td>(<input type=text></input>)</td><td><input type=text></input></td></tr>
+				<tr><td>Mod</td><td>(<input type=text></input>)</td><td><input type=text></input></td></tr>
+				<tr><td>Hvy</td><td>(<input type=text></input>)</td><td><input type=text></input></td></tr>
+				<tr><td>Svr</td><td>(<input type=text></input>)</td><td><input type=text></input></td></tr>
+				<tr><td>Jog</td><td>(<input type=text value="X2" disabled></input>)</td><td><input type=text></input></td></tr>
+				<tr><td>Run</td><td>(<input type=text value="X3" disabled></input>)</td><td><input type=text></input></td></tr>
+				<tr><td>Run</td><td>(<input type=text value="X4" disabled></input>)</td><td><input type=text></input></td></tr>
+				<tr><td>Run</td><td>(<input type=text value="X5" disabled></input>)</td><td><input type=text></input></td></tr>
+			</table>
+		</div>
+		<div id="saving-throws">
+			<table vertical-tabindex reverse-vertical>
+				<tr><td><input type=text></input></td><td>Paralization/<br>Poison</td><td><input type=text></input></td></tr>
+				<tr><td><input type=text></input></td><td>Rod, Staff,<br> or Wand</td><td><input type=text></input></td></tr>
+				<tr><td><input type=text></input></td><td>Petrification/<br>Polymorph</td><td><input type=text></input></td></tr>
+				<tr><td><input type=text></input></td><td>Breath<br>Weapon</td><td><input type=text></input></td></tr>
+				<tr><td><input type=text></input></td><td>Spells</td><td><input type=text></input></td></tr>
+				<tr><td>Modifier</td><td></td><td>Save</td></tr>
+			</table>
+		</div>
+		<div id="ac">
+			<table>
+				<tr><td rowspan=4 class=shield>ARMOR<input type=text></input></td><td>Adjusted AC</td><td>Armor type (pieces)</td></tr>
+				<tr><td><div class='input'><label>Surprised</label><div><input type=text></input></div></div></td><td><div><input type=text></input></div></td></tr>
+				<tr><td><div class='input'><label>Shieldless</label><div><input type=text></input></div></div></td><td><div><input type=text></input></div></td></tr>
+				<tr><td><div class='input'><label>Rear</label><div><input type=text></input></div></div></td><td><div><input type=text></input></div></td></tr>
+				<tr><td colspan=3><div class='input'><label>Defenses</label><div><input type=text></input></div></div></td></tr>
+			</table>
+		</div>
+		<div id="hp">
+			<table>
+				<tr><td>HIT POINTS</td><td>Wounds</td></tr>
+				<tr><td><input type=text></input></td><td><textarea></textarea></td></tr>
+			</table>
+		</div>
+		<div id="weapons">
+			<table>
+				<tr><th>Weapon</th><th>#AT</th><th>Attack adj / Dmg adj</th><th>THAC0</th><th>Damage (SM/L)</th><th>Range</th><th>Weight</th><th>Size</th><th>Type</th><th>Speed</th></tr>
+				<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input>/<input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input>/<input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
+				<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input>/<input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input>/<input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
+				<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input>/<input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input>/<input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
+				<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input>/<input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input>/<input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
+				<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input>/<input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input>/<input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
+				<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input>/<input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input>/<input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
+			</table>
+		</div>
+		<div id="thieving">
+			<table>
+				<tr>
+					<td><input type=text></input></td>
+					<td><input type=text></input></td>
+					<td><input type=text></input></td>
+					<td><input type=text></input></td>
+					<td><input type=text></input></td>
+					<td><input type=text></input></td>
+					<td><input type=text></input></td>
+					<td><input type=text></input></td>
+					<td><input type=text></input></td>
+				</tr>
+				<tr>
+					<td><input type=text></input></td>
+					<td><input type=text></input></td>
+					<td><input type=text></input></td>
+					<td><input type=text></input></td>
+					<td><input type=text></input></td>
+					<td><input type=text></input></td>
+					<td><input type=text></input></td>
+					<td><input type=text></input></td>
+					<td><input type=text></input></td>
+				</tr>
+				<tr>
+					<td>Pick Pockets</td>
+					<td>Open Locks</td>
+					<td>Find/Remove Traps</td>
+					<td>Move Silently</td>
+					<td>Hide in Shadows</td>
+					<td>Detect Noise</td>
+					<td>Climb Walls</td>
+					<td>Read Languages</td>
+					<td>Backstab</td>
+				</tr>
+			</table>
+		</div>
+		<div id="turning">
+			<table>
+				<tr>
+					<td><input type=text></input></td>
+					<td><input type=text></input></td>
+					<td><input type=text></input></td>
+					<td><input type=text></input></td>
+					<td><input type=text></input></td>
+					<td><input type=text></input></td>
+					<td><input type=text></input></td>
+					<td><input type=text></input></td>
+					<td><input type=text></input></td>
+					<td><input type=text></input></td>
+					<td><input type=text></input></td>
+					<td><input type=text></input></td>
+					<td><input type=text></input></td>
+				</tr>
+				<tr>
+					<td>Skeleton<br>or 1 HD</td>
+					<td>Zombie</td>
+					<td>Ghoul<br>or 2 HD</td>
+					<td>Shadow<br>or 3-4 HD</td>
+					<td>Wight<br>or 5 HD</td>
+					<td>Ghast</td>
+					<td>Wraith<br>or 6 HD</td>
+					<td>Mummy<br>or 7 HD</td>
+					<td>Spectre<br>or 8 HD</td>
+					<td>Vampire<br>or 9 HD</td>
+					<td>Ghost<br>or 10 HD</td>
+					<td>Lich<br>or 11+ HD</td>
+					<td>Special</td>
+				</tr>
+			</table>
+		</div>
+		<div id="spells">
+			<table>
+				<tr>
+					<td><input type=text></input></td>
+					<td><input type=text></input></td>
+					<td><input type=text></input></td>
+					<td><input type=text></input></td>
+					<td><input type=text></input></td>
+					<td><input type=text></input></td>
+					<td><input type=text></input></td>
+					<td><input type=text></input></td>
+					<td><input type=text></input></td>
+				</tr>
+				<tr>
+					<td>1st</td>
+					<td>2nd</td>
+					<td>3rd</td>
+					<td>4th</td>
+					<td>5th</td>
+					<td>6th</td>
+					<td>7th</td>
+					<td>8th</td>
+					<td>9th</td>
+				</tr>
+			</table>
+		</div>
+		<div id="special-abilities">
+			<table vertical-tabindex>
+				<tr><th colspan=2>Special abilities</th></tr>
+				<tr><td><input type=text></input></td><td><input type=text></input></td></tr>
+				<tr><td><input type=text></input></td><td><input type=text></input></td></tr>
+				<tr><td><input type=text></input></td><td><input type=text></input></td></tr>
+				<tr><td><input type=text></input></td><td><input type=text></input></td></tr>
+				<tr><td><input type=text></input></td><td><input type=text></input></td></tr>
+				<tr><td><input type=text></input></td><td><input type=text></input></td></tr>
+				<tr><td><input type=text></input></td><td><input type=text></input></td></tr>
+			</table>
+		</div>
+		<div id="proficiencies">
+			<table vertical-tabindex>
+				<tr><th>Non-weapon proficiencies</th><th>Weapon proficiencies</th></tr>
+				<tr><td><input type=text></input>(<input type=text></input>/<input type=text></input>)</td><td><input type=text></input></td></tr>
+				<tr><td><input type=text></input>(<input type=text></input>/<input type=text></input>)</td><td><input type=text></input></td></tr>
+				<tr><td><input type=text></input>(<input type=text></input>/<input type=text></input>)</td><td><input type=text></input></td></tr>
+				<tr><td><input type=text></input>(<input type=text></input>/<input type=text></input>)</td><td><input type=text></input></td></tr>
+				<tr><td><input type=text></input>(<input type=text></input>/<input type=text></input>)</td><td><input type=text></input></td></tr>
+				<tr><td><input type=text></input>(<input type=text></input>/<input type=text></input>)</td><td><input type=text></input></td></tr>
+				<tr><td><input type=text></input>(<input type=text></input>/<input type=text></input>)</td><td><input type=text></input></td></tr>
+			</table>
+		</div>
+		<div id="xp">
+			<table>
+				<tr><th colspan=2>Experience</th></tr>
+				<tr><td colspan=2><input type=text id='total-xp'></input></td></tr>
+				<tr>
+					<td><label>Next level</label><span><input type=text></input></span></td>
+					<td id='bonus-xp'><label>Bonus</label><span><input type=text></input></span></td>
+				</tr>
+			</table>
+		</div>
+		<div id="money">
+			<table vertical-tabindex>
+				<tr><th>Coins</th><th>Gems</th></tr>
+				<tr><td><label>Gold</label><span><input type=text></input></span></td><td rowspan=3><textarea></textarea></td></tr>
+				<tr><td><label>Silver</label><span><input type=text></input></span></td></tr>
+				<tr><td><label>Copper</label><span><input type=text></input></span></td></tr>
+			</table>
+		</div>
+	</div>
+</body>
+</html>
