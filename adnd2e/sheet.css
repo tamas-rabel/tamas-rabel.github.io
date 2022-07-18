@@ -1,19 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Amarante&family=Averia+Serif+Libre:ital,wght@0,300;0,700;1,300;1,400;1,700&family=BIZ+UDPMincho&family=Benne&family=Sorts+Mill+Goudy&family=Uncial+Antiqua&display=block');
+@import url('https://fonts.googleapis.com/css2?family=Amarante&family=Averia+Serif+Libre:ital,wght@0,300;0,700;1,300;1,400;1,700&display=block');
 @import url('https://fonts.googleapis.com/css2?family=Indie+Flower:wght@400&display=block');
-@import url('https://fonts.googleapis.com/css2?family=Rock+Salt:wght@400&display=block');
-@import url('https://fonts.googleapis.com/css2?family=Nothing+You+Could+Do:wght@400&display=block');
-@import url('https://fonts.googleapis.com/css2?family=Grape+Nuts:wght@400&display=block');
-@import url('https://fonts.googleapis.com/css2?family=Oooh+Baby:wght@400&display=block');
-@import url('https://fonts.googleapis.com/css2?family=Vujahday+Script:wght@400&display=block');
-
-/*
-font-family: 'Amarante', cursive;
-font-family: 'Averia Serif Libre', cursive;
-font-family: 'Benne', serif;
-font-family: 'BIZ UDPMincho', serif;
-font-family: 'Sorts Mill Goudy', serif;
-font-family: 'Uncial Antiqua', cursive;
-*/
 
 @page
 {
@@ -75,10 +61,6 @@ input, textarea
 	background: none;
 	overflow: visible;
 	
-	font-family: 'Nothing You Could Do', cursive;
-	font-family: 'Grape Nuts', cursive;
-	font-family: 'Oooh Baby', cursive;
-	font-family: 'Vujahday Script', cursive;
 	font-family: 'Indie Flower', cursive;
 	font-weight: 600;
 }
@@ -103,6 +85,35 @@ input, textarea
 	font-size: 32px;
 	cursor: pointer;
 }
+#instructions
+{
+	all: unset;
+	
+	position: fixed;
+	margin: 0;
+	padding: 8px;
+	padding-left: 16px;
+//	left: 50vw;
+//	top: 0px;	
+//	width: 256px;
+	left: -4px;
+	top: 132px;
+	font-size: 10pt;
+//	text-align: center;
+//	transform: translate(-50%, 0);
+	background: white;
+	border-radius: 5px;
+	border: 1px solid #0007;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+	transition: left 0.2s;
+	z-index: 2;
+}
+#instructions.hidden
+{
+//	display: none;
+	left: -512px;
+	transition: left 0.4s;
+}
 #modal-bg
 {
 	position: fixed;
@@ -114,6 +125,10 @@ input, textarea
 	top: 0;
 	backdrop-filter: blur(2px);
 	display: none;
+}
+.no-click
+{
+	pointer-events: none;
 }
 
 #character input[type=text]
@@ -397,7 +412,7 @@ div.input
 	font-size: 20pt;
 	height: 20pt;
 	text-align: center;
-	transform: translate(-50%, -32%);
+	transform: translate(-50%, -42%);
 }
 #ac tr:nth-child(1n+2) td:nth-child(1)
 {

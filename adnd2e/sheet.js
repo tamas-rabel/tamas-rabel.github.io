@@ -1,3 +1,5 @@
+m_hide_instrunction_timeout = null;
+
 function on_set_movement()
 {
 	let base = document.getElementById("base-movement");
@@ -20,6 +22,24 @@ function find_owner(e)
 	if (e.id != null && e.id.length > 0) return e;
 	
 	return find_owner(e.parentElement);
+}
+
+function show_instructions()
+{
+	let instructions = document.getElementById("instructions");
+	instructions.classList.remove("hidden")
+}
+
+function hide_instructions()
+{
+	if (m_hide_instrunction_timeout != null)
+	{
+		clearTimeout(m_hide_instrunction_timeout);
+		m_hide_instrunction_timeout = null;
+	}
+
+	let instructions = document.getElementById("instructions");
+	instructions.classList.add("hidden")
 }
 
 function save()
@@ -77,6 +97,8 @@ function load(file)
 		
 		element.value = value;
 	}	
+
+	hide_instructions();
 }
 
 function close_modal(e)
@@ -174,20 +196,6 @@ function update_tabindex()
 			}
 		}
 	}
-}
-
-window.onload = function()
-{
-	document.addEventListener("keydown", function(e)
-	{
-		if ((window.navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey) && e.keyCode == 83)
-		{
-			e.preventDefault()
-			save()
-		}
-	}, false);
-	
-	update_tabindex();
 }
 
 m_strength =
@@ -434,4 +442,29 @@ function update_ability(e)
 	{
 		inputs[i].value = data[i];
 	}
+}
+
+window.onload = function()
+{
+	document.addEventListener("keydown", function(e)
+	{
+		if ((window.navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey) && e.keyCode == 83)
+		{
+			e.preventDefault()
+			save()
+		}
+	}, false);
+	
+	document.onclick = (e) =>
+	{
+		if (e.target.id != "instructions" && e.target.id != "show-instructions") hide_instructions();
+	}
+
+	show_instructions();
+//	m_hide_instrunction_timeout = setTimeout(() =>
+//	{
+//		hide_instructions();
+//	}, 5000);
+	
+	update_tabindex();
 }
