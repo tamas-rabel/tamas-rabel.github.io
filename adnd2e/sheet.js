@@ -5,7 +5,6 @@ function on_set_movement()
 	let base = document.getElementById("base-movement");
 	let m = parseInt(base.value);
 	let t = base.parentElement.parentElement.parentElement;
-	console.log(t);
 	t.children[1].children[2].children[0].value = Math.floor(m * 2 / 3);
 	t.children[2].children[2].children[0].value = Math.floor(m / 2);
 	t.children[3].children[2].children[0].value = Math.floor(m / 3);
@@ -180,7 +179,6 @@ function update_tabindex()
 		let index = table.querySelector("input, textarea").tabIndex;
 		let grouping = parseInt(table.getAttribute("vertical-tabindex"));
 		if (isNaN(grouping)) grouping = 1;
-		console.log(grouping);
 		let cols = get_num_cols(table);
 		for (let cc=0; cc<cols; cc+=grouping)
 		{
@@ -466,6 +464,68 @@ function update_gear_weight()
 	}
 	
 	document.getElementById("gear-total-weight").innerText = (valid) ? sum : "";
+}
+
+function cast(e)
+{
+	e.target.remove();
+	e.stopPropagation();
+}
+
+function memorize(e)
+{
+	let x = document.createElement("X");
+	x.addEventListener('click', cast);
+	e.target.appendChild(x);
+	e.stopPropagation();
+	e.preventDefault();
+}
+
+function update_spell_list_mode()
+{
+	let edit = document.getElementById("spell-list-edit").checked;
+	let spells = document.getElementById("spell-list");
+	if (edit)
+	{
+		spells.classList.remove("play");
+	}
+	else
+	{
+		spells.classList.add("play");
+	}
+	let inputs = spells.querySelectorAll("input[type=text]");
+	for (let i=0; i<inputs.length; i++)
+	{
+//		inputs[i].style.pointerEvents = (edit) ? null : "none";
+		if (inputs[i].value == '') continue;
+		
+		if (edit)
+		{
+			inputs[i].parentElement.removeEventListener('click', memorize, false);
+		}
+		else
+		{
+			inputs[i].parentElement.addEventListener('click', memorize, false);
+		}
+	}
+}
+
+function update_printer_friendly(e)
+{
+	let pf = e.target.checked;
+	let pages = document.querySelectorAll(".page");
+	for (let p=0; p<pages.length; p++)
+	{
+		let page = pages[p];
+		if (pf)
+		{
+			page.classList.add("printer-friendly");
+		}
+		else
+		{
+			page.classList.remove("printer-friendly");
+		}
+	}
 }
 
 window.onload = function()

@@ -41,10 +41,14 @@
 	border: 1px #D3D3D3 solid;
 	border-radius: 5px;
 	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-	overflow: hidden;
+//	overflow: hidden;
 	box-sizing: border-box;
 //	transition: margin 0.5s ease;
 	padding: 1cm;
+}
+.page.printer-friendly
+{
+	background: white;
 }
 html
 {
@@ -64,6 +68,45 @@ input, textarea
 	font-family: 'Indie Flower', cursive;
 	font-weight: 600;
 }
+.tooltip
+{
+	display: block !important;
+	width: 512px !important;
+	color: black;
+	border: 0 !important;
+	position: absolute;
+	background: none;
+	font-size: 10pt !important;
+	font-family: 'Averia Serif Libre', cursive !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	left: calc(100% + 16px);
+	top: -2px;
+	overflow: visible !important;
+	transform: translate(0, 50%);
+	opacity: 0;
+	transition: opacity 0.3s;
+	pointer-events: none;
+	z-index: 2 !important;
+}
+.tooltip .material-symbols-outlined
+{
+	position: absolute;
+	font-size: 13pt;
+	left: -16px;
+}
+.show-tooltip:hover .tooltip
+{
+	opacity: 1 !important;
+	transition: opacity 0.5s;
+}
+.tooltip-container
+{
+	position: absolute !important;
+	display: inline-block !important;
+	width: 16px !important;
+	border: 0 !important;
+}
 
 #menu
 {
@@ -72,6 +115,7 @@ input, textarea
 	border-radius: 5px;
 	border: 1px solid #0007;
 	box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+	width: 52px;
 }
 #menu div
 {
@@ -79,10 +123,10 @@ input, textarea
 	margin: 16px 8px 16px 16px;
 	border: 0;
 	background: none;
-	font-family: 'Font Awesome 5 Free';
+	font-family: 'Material Symbols Outlined';
+	font-weight: 800;
 	font-style: normal;
-	font-weight: 900;
-	font-size: 32px;
+	font-size: 24px;
 	cursor: pointer;
 }
 #instructions
@@ -97,7 +141,7 @@ input, textarea
 //	top: 0px;	
 //	width: 256px;
 	left: -4px;
-	top: 132px;
+	top: 200px;
 	font-size: 10pt;
 //	text-align: center;
 //	transform: translate(-50%, 0);
@@ -105,14 +149,54 @@ input, textarea
 	border-radius: 5px;
 	border: 1px solid #0007;
 	box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-	transition: left 0.2s;
+	transition: transform 0.4s;
 	z-index: 2;
 }
 #instructions.hidden
 {
-//	display: none;
-	left: -512px;
-	transition: left 0.4s;
+	transform: translate(-100%, 0);
+	transition: transform 0.4s;
+}
+#save
+{
+	position: relative;
+	width: 38px;
+}
+#show-instructions
+{
+	position: relative;
+	width: 38px;
+}
+#printer-friendly
+{
+	position: relative;
+	width: 38px;
+}
+#printer-friendly div
+{
+  font-family: 'Material Symbols Outlined';
+  font-weight: 800;
+  font-style: normal;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  cursor: pointer;
+}
+#printer-friendly input[type=checkbox]
+{
+	all: unset;
+	width: 0;
+	height: 0;
+}
+#printer-friendly input[type=checkbox]:not(:checked):after
+{
+	content: "humidity_high";
+}
+#printer-friendly input[type=checkbox]:checked:after
+{
+	content: "format_color_reset";
 }
 #modal-bg
 {
@@ -656,6 +740,7 @@ div.input
 	width: 49%;
 	margin-top: 0.5cm;
 	border: 1pt solid black;
+	height: 4cm;
 }
 #special-abilities input
 {
@@ -679,6 +764,7 @@ div.input
 	width: 49%;
 	margin-top: 0.5cm;
 	border: 1pt solid black;
+	height: 4cm;
 }
 #proficiencies input
 {
@@ -857,18 +943,9 @@ div.input
 	border-collapse: collapse;
 	height: 100%;
 }
-#gear tr:nth-child(2)
+#gear tbody
 {
-	border-top: 1pt solid black;
-}
-#gear tr:last-child
-{
-	border-bottom: 1pt solid black;
-}
-#gear tr:not(:nth-child(1))
-{
-	border-left: 1pt solid black;
-	border-right: 1pt solid black;
+	border: 1pt solid black;
 }
 #gear td
 {
@@ -884,6 +961,10 @@ div.input
 #gear td:nth-child(3)
 {
 	width: 10%;
+}
+#gear div
+{
+	width: 100%;
 }
 #gear input[type=text]
 {
@@ -908,8 +989,11 @@ div.input
 }
 #gear tr:last-child td
 {
-	padding-top: 1mm;
+//	padding-top: 1mm;
 	text-align: left;
+	height: 14pt;
+	line-height: 14pt;
+	overflow: hidden;
 }
 #gear th
 {
@@ -947,10 +1031,6 @@ div.input
 	padding: 0.5mm 2mm;
 	border: 1pt solid black;
 }
-#notes th
-{
-	height: 0;
-}
 #notes textarea
 {
 	width: 100%;
@@ -962,6 +1042,7 @@ div.input
 }
 #spell-list
 {
+	position: relative;
 	float: left;
 	width: 100%;
 	margin-top: 0.5cm;
@@ -972,25 +1053,17 @@ div.input
 	width: 100%;
 	border-collapse: collapse;
 	height: 100%;
+	table-layout: fixed;
 //	border: 1pt solid black;
 }
 #spell-list th
 {
 	height: 0;
+	padding-bottom: 2mm;
 }
-#spell-list tr:nth-child(2)
+#spell-list tbody
 {
-	border-top: 1pt solid black;
-}
-#spell-list tr:last-child
-{
-	border-bottom: 1pt solid black;
-}
-#spell-list tr:not(:nth-child(1))
-{
-//	border: 1pt solid black;
-	border-left: 1pt solid black;
-	border-right: 1pt solid black;
+	border: 1pt solid black;
 }
 #spell-list tr:nth-child(2) th:nth-child(2n+1)
 {
@@ -1009,7 +1082,7 @@ div.input
 	height: 9.5pt;
 	padding: 0 1mm;
 }
-#spell-list td:nth-child(2n+2)
+#spell-list col:nth-child(2n+2)
 {
 	width: 5%;
 }
@@ -1029,16 +1102,101 @@ div.input
 {
 	box-sizing: border-box;
 	font-size: 10pt;
+	height: 15pt;
 	width: 100%;
 	border: 0;
 	text-align: left;
-	transform: translate(0, -0.5mm);
 }
 #spell-list div
 {
-	display: block;
+	display: flex;
 	height: 11pt;
 	border: 0;
 	padding: 0;
 	border-bottom: 1pt solid black;
+}
+#spell-list.play div
+{
+	cursor: pointer;
+}
+#spell-list.play div:hover input
+{
+	color: red;
+}
+#spell-list.play X:hover
+{
+	color: red;
+}
+#spell-list.play div input[type=text]
+{
+	pointer-events: none;
+}
+#spell-list input[type=checkbox]
+{
+	height: 8pt;
+	margin: 0;
+}
+#spell-list span:not(.material-symbols-outlined)
+{
+	color: #999;
+	background: none;
+	overflow: visible;
+	
+	font-family: 'Indie Flower', cursive;
+	font-weight: 600;
+
+	box-sizing: border-box;
+	font-size: 10pt;
+	height: 15pt;
+	width: 100%;
+	border: 0;
+	text-align: left;
+}
+#spell-list label
+{
+	cursor: pointer;
+}
+X
+{
+  font-family: 'Material Symbols Outlined';
+  font-weight: 800;
+  font-style: normal;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  cursor: pointer;
+}
+X:before
+{
+	content: 'close';
+}
+#spell-list-edit
+{
+	position: absolute;
+	top: 12px;
+	left: 0px;
+//	border: 1px solid black;
+	border: 0;
+//	display: none;
+	width: 0;
+	height: 0;
+}
+#spell-list-edit:after
+{
+	position: absolute;
+	color: black;
+	font-weight: normal;
+	font-family: 'Material Symbols Outlined';
+	content: "play_arrow";
+	top: -6px;
+	left: 2px;
+	width: 12px;
+	height: 12px;
+	cursor: pointer;
+}
+#spell-list-edit:checked:after
+{
+	content: "edit";
 }
