@@ -15,7 +15,7 @@
 		margin: 0;
 		padding: 0;
 	}
-	#page
+	.page
 	{
 		width: 210mm;
 		height: 297.1mm;
@@ -30,7 +30,7 @@
 	}
 }
 
-#page
+.page
 {
 	background: url("background.jpg");
 	background-size: cover;
@@ -492,13 +492,13 @@ div.input
 }
 #weapons td
 {
-	border: 1px solid black;
+	border: 1pt solid black;
 	text-align: center;
 	height: 9.5pt;
 }
 #weapons th
 {
-	font-weight: normal;
+//	font-weight: normal;
 }
 #weapons td:nth-child(1)
 {
@@ -722,13 +722,18 @@ div.input
 	font-size: 6.5pt;
 	margin-top: 0.5cm;
 	width: 49%;
-	height: 2.5cm;
+	height: 2.6cm;
 }
 #xp table
 {
 	border-collapse: collapse;
 	height: 100%;
 	width: 100%;
+}
+#xp th
+{
+	font-size: 8pt;
+	height: 0;
 }
 #xp tr
 {
@@ -782,7 +787,7 @@ div.input
 	font-size: 6.5pt;
 	margin-top: 0.5cm;
 	width: 49%;
-	height: 2.5cm;
+	height: 2.6cm;
 }
 #money table
 {
@@ -803,6 +808,11 @@ div.input
 #money td
 {
 	padding: 0.5mm 2mm;
+}
+#money th
+{
+	font-size: 8pt;
+	height: 0;
 }
 #money input
 {
@@ -833,4 +843,202 @@ div.input
 	border: 0;
 	resize: none;
 	font-size: 12pt;
+}
+#gear
+{
+	float: left;
+	width: 49%;
+	margin-top: 0.5cm;
+	height: 9.5cm;
+}
+#gear table
+{
+	width: 100%;
+	border-collapse: collapse;
+	height: 100%;
+}
+#gear tr:nth-child(2)
+{
+	border-top: 1pt solid black;
+}
+#gear tr:last-child
+{
+	border-bottom: 1pt solid black;
+}
+#gear tr:not(:nth-child(1))
+{
+	border-left: 1pt solid black;
+	border-right: 1pt solid black;
+}
+#gear td
+{
+	border: 0;
+	text-align: center;
+	height: 9.5pt;
+	padding: 0 1mm;
+}
+#gear tr:not(:last-child) td:nth-child(2)
+{
+	width: 30%;
+}
+#gear td:nth-child(3)
+{
+	width: 10%;
+}
+#gear input[type=text]
+{
+	box-sizing: border-box;
+	font-size: 10pt;
+	width: 100%;
+	border: 0;
+	text-align: center;
+	transform: translate(0, -0.5mm);
+}
+#gear td:nth-child(1) input[type=text]
+{
+	text-align: left;
+}
+#gear div
+{
+	display: block;
+	height: 11pt;
+	border: 0;
+	padding: 0;
+	border-bottom: 1pt solid black;
+}
+#gear tr:last-child td
+{
+	padding-top: 1mm;
+	text-align: left;
+}
+#gear th
+{
+	height: 0;
+}
+#gear-total-weight
+{
+	color: #999;
+	background: none;
+	overflow: visible;
+	font-family: 'Indie Flower', cursive;
+	font-weight: 600;
+	font-size: 10pt;
+	text-align: center !important;
+}
+#notes
+{
+	float: right;
+	margin-top: 0.5cm;
+	width: 49%;
+	height: 9.5cm;
+}
+#notes table
+{
+	border-collapse: collapse;
+	height: 100%;
+	width: 100%;
+}
+#notes tr
+{
+	vertical-align: top;
+}
+#notes td
+{
+	padding: 0.5mm 2mm;
+	border: 1pt solid black;
+}
+#notes th
+{
+	height: 0;
+}
+#notes textarea
+{
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+	border: 0;
+	resize: none;
+	font-size: 10pt;
+}
+#spell-list
+{
+	float: left;
+	width: 100%;
+	margin-top: 0.5cm;
+	height: 9.7cm;
+}
+#spell-list table
+{
+	width: 100%;
+	border-collapse: collapse;
+	height: 100%;
+//	border: 1pt solid black;
+}
+#spell-list th
+{
+	height: 0;
+}
+#spell-list tr:nth-child(2)
+{
+	border-top: 1pt solid black;
+}
+#spell-list tr:last-child
+{
+	border-bottom: 1pt solid black;
+}
+#spell-list tr:not(:nth-child(1))
+{
+//	border: 1pt solid black;
+	border-left: 1pt solid black;
+	border-right: 1pt solid black;
+}
+#spell-list tr:nth-child(2) th:nth-child(2n+1)
+{
+	text-align: left;	
+	padding-left: 2mm;
+}
+#spell-list tr:nth-child(2) th:nth-child(2n+2)
+{
+	text-align: right;	
+	padding-right: 2mm;
+}
+#spell-list td
+{
+	border: 0;
+	text-align: center;
+	height: 9.5pt;
+	padding: 0 1mm;
+}
+#spell-list td:nth-child(2n+2)
+{
+	width: 5%;
+}
+#spell-list td:nth-child(2n+2) input
+{
+	text-align: center;
+}
+#spell-list tr:first-child td
+{
+	padding-top: 4mm;
+}
+#spell-list tr:last-child div
+{
+	border: 0;
+}
+#spell-list input[type=text]
+{
+	box-sizing: border-box;
+	font-size: 10pt;
+	width: 100%;
+	border: 0;
+	text-align: left;
+	transform: translate(0, -0.5mm);
+}
+#spell-list div
+{
+	display: block;
+	height: 11pt;
+	border: 0;
+	padding: 0;
+	border-bottom: 1pt solid black;
 }

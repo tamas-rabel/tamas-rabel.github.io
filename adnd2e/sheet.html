@@ -14,10 +14,11 @@
 	</div>
 	<div id="instructions" class="no-print hidden">
 		<b>Save</b>: Click the save icon or press Ctrl-S.<br>
-		<b>Load</b>: drag and drop the .json file from your computer over the character sheet.
+		<b>Load</b>: drag and drop the .json file from your computer over the character sheet.<br>
+		<b>Print</b>: as usual.
 	</div>
 
-	<div id=page>
+	<div class=page>
 		<div id="character">
 			<table>
 				<tr><td colspan=2><div class='input'><label>Name</label><div><input type=text id="character-name"></input></div></div></td></tr>
@@ -266,6 +267,67 @@
 				<tr><td><label>Gold</label><span><input type=text></input></span></td><td rowspan=3><textarea></textarea></td></tr>
 				<tr><td><label>Silver</label><span><input type=text></input></span></td></tr>
 				<tr><td><label>Copper</label><span><input type=text></input></span></td></tr>
+			</table>
+		</div>
+	</div>
+
+	<div class=page>
+		<div id="gear">
+			<table>
+				<tr><th>Item</th><th>Location</th><th>Weight</th></tr>
+				<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
+				<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
+				<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
+				<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
+				<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
+				<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
+				<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
+				<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
+				<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
+				<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
+				<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
+				<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
+				<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
+				<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
+				<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
+				<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
+				<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
+				<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
+				<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
+				<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
+				<tr><td colspan=2>Total weight</td><td id='gear-total-weight'></td></td>
+			</table>
+		</div>
+		<div id="notes">
+			<table>
+				<tr><th>Notes</th></tr>
+				<td><textarea></textarea></td></tr>
+			</table>
+		</div>
+		<div id="spell-list">
+			<table vertical-tabindex=2>
+				<tr><th colspan=6>Spells</th></tr>
+				<tr><th>Spell</th><th>Level</th><th>Spell</th><th>Level</th><th>Spell</th><th>Level</th></tr>
+				<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
+				<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
+				<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
+				<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
+				<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
+				<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
+				<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
+				<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
+				<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
+				<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
+				<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
+				<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
+				<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
+				<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
+				<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
+				<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
+				<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
+				<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
+				<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
+				<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
 			</table>
 		</div>
 	</div>

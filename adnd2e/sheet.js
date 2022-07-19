@@ -178,20 +178,26 @@ function update_tabindex()
 		let table = tables[t];
 		let reverse = table.getAttribute("reverse-vertical") != null;
 		let index = table.querySelector("input, textarea").tabIndex;
+		let grouping = parseInt(table.getAttribute("vertical-tabindex"));
+		if (isNaN(grouping)) grouping = 1;
+		console.log(grouping);
 		let cols = get_num_cols(table);
-		for (let cc=0; cc<cols; cc++)
+		for (let cc=0; cc<cols; cc+=grouping)
 		{
-			let c = (reverse) ? cols-cc-1 : cc;
+			let c = (reverse) ? cols-cc-grouping : cc;
 			for (let r=0; r<table.rows.length; r++)
 			{
-				let cell = table.rows[r].cells[c];
-				if (cell == null) continue;
-				
-				let inputs = cell.querySelectorAll("input, textarea");
-				for (let i=0; i<inputs.length; i++)
+				for (let fc=c; fc<c+grouping; fc++)
 				{
-					let input = inputs[i];
-					input.tabIndex = index++;
+					let cell = table.rows[r].cells[fc];
+					if (cell == null) continue;
+					
+					let inputs = cell.querySelectorAll("input, textarea");
+					for (let i=0; i<inputs.length; i++)
+					{
+						let input = inputs[i];
+						input.tabIndex = index++;
+					}
 				}
 			}
 		}
@@ -442,6 +448,24 @@ function update_ability(e)
 	{
 		inputs[i].value = data[i];
 	}
+}
+
+function update_gear_weight()
+{
+	let gear = document.getElementById("gear");
+	let weights = gear.querySelectorAll("td:nth-child(3) input");
+	let sum = 0;
+	let valid = false;
+	for (let i=0; i<weights.length; i++)
+	{
+		let weight = parseFloat(weights[i].value);
+		if (isNaN(weight)) continue;
+		
+		sum += parseFloat(weights[i].value);
+		valid = true;
+	}
+	
+	document.getElementById("gear-total-weight").innerText = (valid) ? sum : "";
 }
 
 window.onload = function()
