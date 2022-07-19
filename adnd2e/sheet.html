@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link href="sheet.css" rel="stylesheet">
+	<link href="sheet.css" rel="stylesheet" id="the-sheet">
 	<script src="sheet.js"></script>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
 </head>
@@ -16,6 +16,17 @@
 		<div id="printer-friendly" class='show-tooltip'>
 			<input type=checkbox onchange="update_printer_friendly(event)"></input>
 			<div class='tooltip no-print'><span class="material-symbols-outlined">arrow_left</span>printer friendly mode</div>
+		</div>
+		<div id="font-selection" onclick='show_font_selector()' class='show-tooltip'>
+			<div id="font-list">
+				<select onchange="update_font(event)" id="font-selector">
+					<option>Default</option>
+					<option>Garamond</option>
+					<option>Raleway</option>
+				</select>
+			</div>
+			<span class="material-symbols-outlined no-click"><b>format_size</b></span>
+			<div class='tooltip no-print'><span class="material-symbols-outlined">arrow_left</span>select font</div>
 		</div>
 		<div id="show-instructions" onclick='show_instructions()' class='show-tooltip'>
 			<span class="material-symbols-outlined no-click"><b>question_mark</b></span>
@@ -41,13 +52,34 @@
 		<div id="logo">
 			<img src="adnd2-bw.png">
 		</div>
+		
+		<!--
+		<div id="abilities">
+			<table vertical-tabindex>
+				<tr><td></td><td></td>
+					<td>
+						<table>
+							<tr><td>Hit prob</td></tr>
+							<tr><td><input type='text'/></td></tr>
+						</table>
+					</td>
+				</tr>
+				<tr><td></td></tr>
+				<tr><td></td></tr>
+				<tr><td></td></tr>
+				<tr><td></td></tr>
+				<tr><td></td></tr>
+			</table>
+		</div>
+		-->
+
 		<div id="abilities">
 			<table vertical-tabindex>
 				<tr><td><input type=text onchange='update_ability(event);'></input></td><td>STR</td>
 					<td>
 						<table>
 							<tr><td>Hit prob</td><td>Dmg adj</td><td>Wt Allow</td><td>Max press</td><td>Open door</td><td>Bb/Lg</td></tr>
-							<tr><td><span><input type='text'/></span></td><td><span><input type='text'/></span></td><td><span><input type='text'/></span></td><td><span><input type='text'/></span></td><td><span><input type='text'/></span></td><td><span><input type='text'/></span></td></tr>
+							<tr><td><input type='text'/></td><td><input type='text'/></td><td><input type='text'/></td><td><input type='text'/></td><td><input type='text'/></td><td><input type='text'/></td></tr>
 						</table>
 					</td>
 				</tr>
@@ -55,7 +87,7 @@
 					<td>
 						<table>
 							<tr><td>Rctn adj</td><td>Missile atk adj</td><td>Def adj</td></tr>
-							<tr><td><span><input type='text'/></span></td><td><span><input type='text'/></span></td><td><span><input type='text'/></span></td></tr>
+							<tr><td><input type='text'/></td><td><input type='text'/></td><td><input type='text'/></td></tr>
 						</table>
 					</td>
 				</tr>
@@ -63,7 +95,7 @@
 					<td>
 						<table>
 							<tr><td>HP adj</td><td>Sys shock</td><td>Res sur</td><td>Pois save</td><td>Regen</td></tr>
-							<tr><td><span><input type='text'/></span></td><td><span><input type='text'/></span></td><td><span><input type='text'/></span></td><td><span><input type='text'/></span></td><td><span><input type='text'/></span></td></tr>
+							<tr><td><input type='text'/></td><td><input type='text'/></td><td><input type='text'/></td><td><input type='text'/></td><td><input type='text'/></td></tr>
 						</table>
 					</td>
 				</tr>
@@ -71,7 +103,7 @@
 					<td>
 						<table>
 							<tr><td># Lang</td><td>Spell level</td><td>Lrn spell</td><td>Spells/level</td><td>Spell immun</td></tr>
-							<tr><td><span><input type='text'/></span></td><td><span><input type='text'/></span></td><td><span><input type='text'/></span></td><td><span><input type='text'/></span></td><td><span><input type='text'/></span></td></tr>
+							<tr><td><input type='text'/></td><td><input type='text'/></td><td><input type='text'/></td><td><input type='text'/></td><td><input type='text'/></td></tr>
 						</table>
 					</td>
 				</tr>
@@ -79,7 +111,7 @@
 					<td>
 						<table>
 							<tr><td>Mag def adj</td><td>Bonus spells</td><td>Spell fail</td><td>Spell immun</td></tr>
-							<tr><td><span><input type='text'/></span></td><td><span><input type='text'/></span></td><td><span><input type='text'/></span></td><td><span><input type='text'/></span></td></tr>
+							<tr><td><input type='text'/></td><td><input type='text'/></td><td><input type='text'/></td><td><input type='text'/></td></tr>
 						</table>
 					</td>
 				</tr>
@@ -87,12 +119,13 @@
 					<td>
 						<table>
 							<tr><td>Max henchmen</td><td>Loyalty base</td><td>Rctn adj</td></tr>
-							<tr><td><input type='text'/></td><td><span><input type='text'/></span></td><td><span><input type='text'/></span></td></tr>
+							<tr><td><input type='text'/></td><td><input type='text'/></td><td><input type='text'/></td></tr>
 						</table>
 					</td>
 				</tr>
 			</table>
 		</div>
+
 		<div id="movement">
 			<table>
 				<tr><td colspan=2>Base rate</td><td><input type=text id=base-movement onchange="on_set_movement();"></input></tr>

@@ -528,6 +528,45 @@ function update_printer_friendly(e)
 	}
 }
 
+function show_font_selector()
+{
+	let list = document.getElementById("font-list");
+	list.classList.add('visible');
+}
+
+function hide_font_selector()
+{
+	let list = document.getElementById("font-list");
+	list.classList.remove('visible');
+}
+
+function update_font()
+{
+	let list = document.getElementById("font-selector");
+	let font = list.value;
+	if (font == "Default") font = "Indie Flower";
+	set_font(font);
+	hide_font_selector();
+}
+
+function set_font(font)
+{
+	var rules = document.styleSheets[0].cssRules;
+	for (var i=0; i<rules.length; i++)
+	{
+		if (rules[i].selectorText == 'input, textarea' || rules[i].selectorText == '#gear-total-weight')
+		{
+			console.log(rules[i].selectorText);
+			rules[i].style.fontFamily = font;
+		}
+		
+//		if (rules[i].selectorText != ".interactive") continue;
+//		
+//		rules[i].style.display = (interactive) ? null : "none";
+//		return;
+	}
+}
+
 window.onload = function()
 {
 	document.addEventListener("keydown", function(e)
@@ -542,6 +581,7 @@ window.onload = function()
 	document.onclick = (e) =>
 	{
 		if (e.target.id != "instructions" && e.target.id != "show-instructions") hide_instructions();
+		if (!e.path.some(o => o.id == "font-selection")) hide_font_selector();
 	}
 
 	show_instructions();

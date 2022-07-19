@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Amarante&family=Averia+Serif+Libre:ital,wght@0,300;0,700;1,300;1,400;1,700&display=block');
 @import url('https://fonts.googleapis.com/css2?family=Indie+Flower:wght@400&display=block');
+@import url('https://fonts.googleapis.com/css2?family=Raleway&family=EB+Garamond&display=swap');
 
 @page
 {
@@ -141,7 +142,7 @@ input, textarea
 //	top: 0px;	
 //	width: 256px;
 	left: -4px;
-	top: 200px;
+	top: 256px;
 	font-size: 10pt;
 //	text-align: center;
 //	transform: translate(-50%, 0);
@@ -198,6 +199,31 @@ input, textarea
 {
 	content: "format_color_reset";
 }
+#font-selection
+{
+	position: relative;
+	width: 38px;
+}
+#menu #font-list
+{
+	display: none;
+	position: absolute;
+	left: 24px;
+	transform: translate(0, -50%);
+	z-index: 6;
+}
+#menu #font-list.visible
+{
+	display: block;
+}
+#font-list select
+{
+	font-size: 16px;
+	padding: 4px 8px;
+	border: 2px solid black;
+	border-radius: 6px;
+}
+
 #modal-bg
 {
 	position: fixed;
@@ -240,7 +266,8 @@ div.input
 #character #character-name
 {
 	font-size: 13pt;
-	transform: unset;
+	transform: translate(0, -1pt);
+	box-sizing: border-box;
 }
 #character label
 {
@@ -281,6 +308,14 @@ div.input
 	width: 11.3cm;
 	box-sizing: border-box;
 	height: 100%;
+}
+#abilities > table > tbody > tr > td
+{
+	height: 14.5pt;
+}
+#abilities > table > tbody > tr > td > table tr:nth-child(2) td
+{
+	height: 8.9pt;
 }
 #abilities table td
 {
@@ -340,7 +375,7 @@ div.input
 	text-align: center;
 	font-size: 9pt;
 	width: 99%;
-	box-sizing: border-box;
+//	box-sizing: border-box;
 	height: 8.9pt;
 }
 #abilities table table tr td:nth-child(1) input
@@ -377,7 +412,9 @@ div.input
 {
 	font-size: 10pt;
 	text-align: center;
-	box-sizing: border-box;
+//	box-sizing: border-box;
+	height: 6pt;
+//	display: none;
 }
 #movement #base-movement
 {
@@ -389,20 +426,21 @@ div.input
 #movement td:nth-child(3)
 {
 	width: 	0;
+	height: 8pt;
 }
 #movement td:nth-child(2) input
 {
 	border: 0;
 	width: 0.7cm;
 	height: 8pt;
-	font-size: 8pt;
+	font-size: 6pt;
 }
 #movement td:nth-child(3) input
 {
 	border: 0;
 	border-bottom: 1pt solid black;
 	width: 1cm;
-	height: 8pt;
+	height: 6pt;
 	margin: 0;
 }
 #saving-throws
@@ -1176,22 +1214,22 @@ div.input
 	height: 8pt;
 	margin: 0;
 }
-#spell-list span:not(.material-symbols-outlined)
-{
-	color: #999;
-	background: none;
-	overflow: visible;
-	
-	font-family: 'Indie Flower', cursive;
-	font-weight: 600;
-
-	box-sizing: border-box;
-	font-size: 10pt;
-	height: 15pt;
-	width: 100%;
-	border: 0;
-	text-align: left;
-}
+//#spell-list span:not(.material-symbols-outlined)
+//{
+//	color: #999;
+//	background: none;
+//	overflow: visible;
+//	
+//	font-family: 'Indie Flower', cursive;
+//	font-weight: 600;
+//
+//	box-sizing: border-box;
+//	font-size: 10pt;
+//	height: 15pt;
+//	width: 100%;
+//	border: 0;
+//	text-align: left;
+//}
 #spell-list label
 {
 	cursor: pointer;
