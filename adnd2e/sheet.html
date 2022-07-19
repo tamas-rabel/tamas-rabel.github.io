@@ -34,8 +34,8 @@
 		<div id="character">
 			<table>
 				<tr><td colspan=2><div class='input'><label>Name</label><div><input type=text id="character-name"></input></div></div></td></tr>
-				<tr><td><div class='input'><label>Alignment</label><div><input type=text></input></div></div></td><td><div class='input'><label>Race</label><div><input type=text></input></div></div></td></tr>
-				<tr><td><div class='input'><label>Class</label><div><input type=text></input></div></div></td><td><div class='input'><label>Level</label><div><input type=text></input></div></div></td></tr>
+				<tr><td><div class='input'><label>Alignment</label><div><input type='text'/></div></div></td><td><div class='input'><label>Race</label><div><input type='text'/></div></div></td></tr>
+				<tr><td><div class='input'><label>Class</label><div><input type='text'/></div></div></td><td><div class='input'><label>Level</label><div><input type='text'/></div></div></td></tr>
 			</table>
 		</div>
 		<div id="logo">
@@ -47,7 +47,7 @@
 					<td>
 						<table>
 							<tr><td>Hit prob</td><td>Dmg adj</td><td>Wt Allow</td><td>Max press</td><td>Open door</td><td>Bb/Lg</td></tr>
-							<tr><td><span><input type=text></input></span></td><td><span><input type=text></input></span></td><td><span><input type=text></input></span></td><td><span><input type=text></input></span></td><td><span><input type=text></input></span></td><td><span><input type=text></input></span></td></tr>
+							<tr><td><span><input type='text'/></span></td><td><span><input type='text'/></span></td><td><span><input type='text'/></span></td><td><span><input type='text'/></span></td><td><span><input type='text'/></span></td><td><span><input type='text'/></span></td></tr>
 						</table>
 					</td>
 				</tr>
@@ -55,7 +55,7 @@
 					<td>
 						<table>
 							<tr><td>Rctn adj</td><td>Missile atk adj</td><td>Def adj</td></tr>
-							<tr><td><span><input type=text></input></span></td><td><span><input type=text></input></span></td><td><span><input type=text></input></span></td></tr>
+							<tr><td><span><input type='text'/></span></td><td><span><input type='text'/></span></td><td><span><input type='text'/></span></td></tr>
 						</table>
 					</td>
 				</tr>
@@ -63,7 +63,7 @@
 					<td>
 						<table>
 							<tr><td>HP adj</td><td>Sys shock</td><td>Res sur</td><td>Pois save</td><td>Regen</td></tr>
-							<tr><td><span><input type=text></input></span></td><td><span><input type=text></input></span></td><td><span><input type=text></input></span></td><td><span><input type=text></input></span></td><td><span><input type=text></input></span></td></tr>
+							<tr><td><span><input type='text'/></span></td><td><span><input type='text'/></span></td><td><span><input type='text'/></span></td><td><span><input type='text'/></span></td><td><span><input type='text'/></span></td></tr>
 						</table>
 					</td>
 				</tr>
@@ -71,7 +71,7 @@
 					<td>
 						<table>
 							<tr><td># Lang</td><td>Spell level</td><td>Lrn spell</td><td>Spells/level</td><td>Spell immun</td></tr>
-							<tr><td><span><input type=text></input></span></td><td><span><input type=text></input></span></td><td><span><input type=text></input></span></td><td><span><input type=text></input></span></td><td><span><input type=text></input></span></td></tr>
+							<tr><td><span><input type='text'/></span></td><td><span><input type='text'/></span></td><td><span><input type='text'/></span></td><td><span><input type='text'/></span></td><td><span><input type='text'/></span></td></tr>
 						</table>
 					</td>
 				</tr>
@@ -79,7 +79,7 @@
 					<td>
 						<table>
 							<tr><td>Mag def adj</td><td>Bonus spells</td><td>Spell fail</td><td>Spell immun</td></tr>
-							<tr><td><span><input type=text></input></span></td><td><span><input type=text></input></span></td><td><span><input type=text></input></span></td><td><span><input type=text></input></span></td></tr>
+							<tr><td><span><input type='text'/></span></td><td><span><input type='text'/></span></td><td><span><input type='text'/></span></td><td><span><input type='text'/></span></td></tr>
 						</table>
 					</td>
 				</tr>
@@ -87,7 +87,7 @@
 					<td>
 						<table>
 							<tr><td>Max henchmen</td><td>Loyalty base</td><td>Rctn adj</td></tr>
-							<tr><td><input type=text></input></td><td><span><input type=text></input></span></td><td><span><input type=text></input></span></td></tr>
+							<tr><td><input type='text'/></td><td><span><input type='text'/></span></td><td><span><input type='text'/></span></td></tr>
 						</table>
 					</td>
 				</tr>
@@ -96,39 +96,39 @@
 		<div id="movement">
 			<table>
 				<tr><td colspan=2>Base rate</td><td><input type=text id=base-movement onchange="on_set_movement();"></input></tr>
-				<tr><td>Light</td><td>(<input type=text></input>)</td><td><input type=text></input></td></tr>
-				<tr><td>Mod</td><td>(<input type=text></input>)</td><td><input type=text></input></td></tr>
-				<tr><td>Hvy</td><td>(<input type=text></input>)</td><td><input type=text></input></td></tr>
-				<tr><td>Svr</td><td>(<input type=text></input>)</td><td><input type=text></input></td></tr>
-				<tr><td>Jog</td><td>(<input type=text value="X2" disabled></input>)</td><td><input type=text></input></td></tr>
-				<tr><td>Run</td><td>(<input type=text value="X3" disabled></input>)</td><td><input type=text></input></td></tr>
-				<tr><td>Run</td><td>(<input type=text value="X4" disabled></input>)</td><td><input type=text></input></td></tr>
-				<tr><td>Run</td><td>(<input type=text value="X5" disabled></input>)</td><td><input type=text></input></td></tr>
+				<tr><td>Light</td><td>(<input type='text'/>)</td><td><input type='text'/></td></tr>
+				<tr><td>Mod</td><td>(<input type='text'/>)</td><td><input type='text'/></td></tr>
+				<tr><td>Hvy</td><td>(<input type='text'/>)</td><td><input type='text'/></td></tr>
+				<tr><td>Svr</td><td>(<input type='text'/>)</td><td><input type='text'/></td></tr>
+				<tr><td>Jog</td><td>(<input type=text value="X2" disabled></input>)</td><td><input type='text'/></td></tr>
+				<tr><td>Run</td><td>(<input type=text value="X3" disabled></input>)</td><td><input type='text'/></td></tr>
+				<tr><td>Run</td><td>(<input type=text value="X4" disabled></input>)</td><td><input type='text'/></td></tr>
+				<tr><td>Run</td><td>(<input type=text value="X5" disabled></input>)</td><td><input type='text'/></td></tr>
 			</table>
 		</div>
 		<div id="saving-throws">
 			<table vertical-tabindex reverse-vertical>
-				<tr><td><input type=text></input></td><td>Paralization/<br>Poison</td><td><input type=text></input></td></tr>
-				<tr><td><input type=text></input></td><td>Rod, Staff,<br> or Wand</td><td><input type=text></input></td></tr>
-				<tr><td><input type=text></input></td><td>Petrification/<br>Polymorph</td><td><input type=text></input></td></tr>
-				<tr><td><input type=text></input></td><td>Breath<br>Weapon</td><td><input type=text></input></td></tr>
-				<tr><td><input type=text></input></td><td>Spells</td><td><input type=text></input></td></tr>
+				<tr><td><input type='text'/></td><td>Paralization/<br>Poison</td><td><input type='text'/></td></tr>
+				<tr><td><input type='text'/></td><td>Rod, Staff,<br> or Wand</td><td><input type='text'/></td></tr>
+				<tr><td><input type='text'/></td><td>Petrification/<br>Polymorph</td><td><input type='text'/></td></tr>
+				<tr><td><input type='text'/></td><td>Breath<br>Weapon</td><td><input type='text'/></td></tr>
+				<tr><td><input type='text'/></td><td>Spells</td><td><input type='text'/></td></tr>
 				<tr><td>Modifier</td><td></td><td>Save</td></tr>
 			</table>
 		</div>
 		<div id="ac">
 			<table>
-				<tr><td rowspan=4 class=shield>AC<input type=text></input></td><td>Adjusted AC</td><td>Armor type (pieces)</td></tr>
-				<tr><td><div class='input'><label>Surprised</label><div><input type=text></input></div></div></td><td><div><input type=text></input></div></td></tr>
-				<tr><td><div class='input'><label>Shieldless</label><div><input type=text></input></div></div></td><td><div><input type=text></input></div></td></tr>
-				<tr><td><div class='input'><label>Rear</label><div><input type=text></input></div></div></td><td><div><input type=text></input></div></td></tr>
-				<tr><td colspan=3><div class='input'><label>Defenses</label><div><input type=text></input></div></div></td></tr>
+				<tr><td rowspan=4 class=shield>AC<input type='text'/></td><td>Adjusted AC</td><td>Armor type (pieces)</td></tr>
+				<tr><td><div class='input'><label>Surprised</label><div><input type='text'/></div></div></td><td><div><input type='text'/></div></td></tr>
+				<tr><td><div class='input'><label>Shieldless</label><div><input type='text'/></div></div></td><td><div><input type='text'/></div></td></tr>
+				<tr><td><div class='input'><label>Rear</label><div><input type='text'/></div></div></td><td><div><input type='text'/></div></td></tr>
+				<tr><td colspan=3><div class='input'><label>Defenses</label><div><input type='text'/></div></div></td></tr>
 			</table>
 		</div>
 		<div id="hp">
 			<table>
 				<tr><td>HIT POINTS</td><td>Wounds</td></tr>
-				<tr><td><input type=text></input></td><td><textarea></textarea></td></tr>
+				<tr><td><input type='text'/></td><td><textarea></textarea></td></tr>
 			</table>
 		</div>
 		<div id="weapons">
@@ -137,38 +137,38 @@
 					<tr><th>Weapon</th><th>#AT</th><th>Attack adj / Dmg adj</th><th>THAC0</th><th>Damage (SM/L)</th><th>Range</th><th>Weight</th><th>Size</th><th>Type</th><th>Speed</th></tr>
 				</thead>
 				<tbody>
-					<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input>/<input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input>/<input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
-					<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input>/<input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input>/<input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
-					<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input>/<input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input>/<input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
-					<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input>/<input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input>/<input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
-					<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input>/<input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input>/<input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
-					<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input>/<input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input>/<input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
+					<tr><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/>/<input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/>/<input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td></td>
+					<tr><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/>/<input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/>/<input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td></td>
+					<tr><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/>/<input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/>/<input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td></td>
+					<tr><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/>/<input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/>/<input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td></td>
+					<tr><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/>/<input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/>/<input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td></td>
+					<tr><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/>/<input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/>/<input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td></td>
 				</tbody>
 			</table>
 		</div>
 		<div id="thieving">
 			<table>
 				<tr>
-					<td><input type=text></input></td>
-					<td><input type=text></input></td>
-					<td><input type=text></input></td>
-					<td><input type=text></input></td>
-					<td><input type=text></input></td>
-					<td><input type=text></input></td>
-					<td><input type=text></input></td>
-					<td><input type=text></input></td>
-					<td><input type=text></input></td>
+					<td><input type='text'/></td>
+					<td><input type='text'/></td>
+					<td><input type='text'/></td>
+					<td><input type='text'/></td>
+					<td><input type='text'/></td>
+					<td><input type='text'/></td>
+					<td><input type='text'/></td>
+					<td><input type='text'/></td>
+					<td><input type='text'/></td>
 				</tr>
 				<tr>
-					<td><input type=text></input></td>
-					<td><input type=text></input></td>
-					<td><input type=text></input></td>
-					<td><input type=text></input></td>
-					<td><input type=text></input></td>
-					<td><input type=text></input></td>
-					<td><input type=text></input></td>
-					<td><input type=text></input></td>
-					<td><input type=text></input></td>
+					<td><input type='text'/></td>
+					<td><input type='text'/></td>
+					<td><input type='text'/></td>
+					<td><input type='text'/></td>
+					<td><input type='text'/></td>
+					<td><input type='text'/></td>
+					<td><input type='text'/></td>
+					<td><input type='text'/></td>
+					<td><input type='text'/></td>
 				</tr>
 				<tr>
 					<td>Pick Pockets</td>
@@ -186,19 +186,19 @@
 		<div id="turning">
 			<table>
 				<tr>
-					<td><input type=text></input></td>
-					<td><input type=text></input></td>
-					<td><input type=text></input></td>
-					<td><input type=text></input></td>
-					<td><input type=text></input></td>
-					<td><input type=text></input></td>
-					<td><input type=text></input></td>
-					<td><input type=text></input></td>
-					<td><input type=text></input></td>
-					<td><input type=text></input></td>
-					<td><input type=text></input></td>
-					<td><input type=text></input></td>
-					<td><input type=text></input></td>
+					<td><input type='text'/></td>
+					<td><input type='text'/></td>
+					<td><input type='text'/></td>
+					<td><input type='text'/></td>
+					<td><input type='text'/></td>
+					<td><input type='text'/></td>
+					<td><input type='text'/></td>
+					<td><input type='text'/></td>
+					<td><input type='text'/></td>
+					<td><input type='text'/></td>
+					<td><input type='text'/></td>
+					<td><input type='text'/></td>
+					<td><input type='text'/></td>
 				</tr>
 				<tr>
 					<td>Skeleton<br>or 1 HD</td>
@@ -220,15 +220,15 @@
 		<div id="spells">
 			<table>
 				<tr>
-					<td><input type=text></input></td>
-					<td><input type=text></input></td>
-					<td><input type=text></input></td>
-					<td><input type=text></input></td>
-					<td><input type=text></input></td>
-					<td><input type=text></input></td>
-					<td><input type=text></input></td>
-					<td><input type=text></input></td>
-					<td><input type=text></input></td>
+					<td><input type='text'/></td>
+					<td><input type='text'/></td>
+					<td><input type='text'/></td>
+					<td><input type='text'/></td>
+					<td><input type='text'/></td>
+					<td><input type='text'/></td>
+					<td><input type='text'/></td>
+					<td><input type='text'/></td>
+					<td><input type='text'/></td>
 				</tr>
 				<tr>
 					<td>1st</td>
@@ -249,13 +249,13 @@
 					<tr><th colspan=2>Special abilities</th></tr>
 				</thead>
 				<tbody>
-					<tr><td><input type=text></input></td><td><input type=text></input></td></tr>
-					<tr><td><input type=text></input></td><td><input type=text></input></td></tr>
-					<tr><td><input type=text></input></td><td><input type=text></input></td></tr>
-					<tr><td><input type=text></input></td><td><input type=text></input></td></tr>
-					<tr><td><input type=text></input></td><td><input type=text></input></td></tr>
-					<tr><td><input type=text></input></td><td><input type=text></input></td></tr>
-					<tr><td><input type=text></input></td><td><input type=text></input></td></tr>
+					<tr><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td></tr>
+					<tr><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td></tr>
+					<tr><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td></tr>
+					<tr><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td></tr>
+					<tr><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td></tr>
+					<tr><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td></tr>
+					<tr><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td></tr>
 				</tbody>
 			</table>
 		</div>
@@ -265,13 +265,13 @@
 					<tr><th>Non-weapon proficiencies</th><th>Weapon proficiencies</th></tr>
 				</thead>
 				<tbody>
-					<tr><td><input type=text></input>(<input type=text></input>/<input type=text></input>)</td><td><input type=text></input></td></tr>
-					<tr><td><input type=text></input>(<input type=text></input>/<input type=text></input>)</td><td><input type=text></input></td></tr>
-					<tr><td><input type=text></input>(<input type=text></input>/<input type=text></input>)</td><td><input type=text></input></td></tr>
-					<tr><td><input type=text></input>(<input type=text></input>/<input type=text></input>)</td><td><input type=text></input></td></tr>
-					<tr><td><input type=text></input>(<input type=text></input>/<input type=text></input>)</td><td><input type=text></input></td></tr>
-					<tr><td><input type=text></input>(<input type=text></input>/<input type=text></input>)</td><td><input type=text></input></td></tr>
-					<tr><td><input type=text></input>(<input type=text></input>/<input type=text></input>)</td><td><input type=text></input></td></tr>
+					<tr><td><div><span><input type='text'/>(<input type='text'/>/<input type='text'/>)</span></div></td><td><div><span><input type='text'/></span></div></td></tr>
+					<tr><td><div><span><input type='text'/>(<input type='text'/>/<input type='text'/>)</span></div></td><td><div><span><input type='text'/></span></div></td></tr>
+					<tr><td><div><span><input type='text'/>(<input type='text'/>/<input type='text'/>)</span></div></td><td><div><span><input type='text'/></span></div></td></tr>
+					<tr><td><div><span><input type='text'/>(<input type='text'/>/<input type='text'/>)</span></div></td><td><div><span><input type='text'/></span></div></td></tr>
+					<tr><td><div><span><input type='text'/>(<input type='text'/>/<input type='text'/>)</span></div></td><td><div><span><input type='text'/></span></div></td></tr>
+					<tr><td><div><span><input type='text'/>(<input type='text'/>/<input type='text'/>)</span></div></td><td><div><span><input type='text'/></span></div></td></tr>
+					<tr><td><div><span><input type='text'/>(<input type='text'/>/<input type='text'/>)</span></div></td><td><div><span><input type='text'/></span></div></td></tr>
 				</tbody>
 			</table>
 		</div>
@@ -283,8 +283,8 @@
 				<tbody>
 					<tr><td colspan=2><input type=text id='total-xp'></input></td></tr>
 					<tr>
-						<td><label>Next level</label><span><input type=text></input></span></td>
-						<td id='bonus-xp'><label>Bonus</label><span><input type=text></input></span></td>
+						<td><label>Next level</label><span><input type='text'/></span></td>
+						<td id='bonus-xp'><label>Bonus</label><span><input type='text'/></span></td>
 					</tr>
 				</tbody>
 			</table>
@@ -295,9 +295,9 @@
 					<tr><th>Coins</th><th>Gems</th></tr>
 				</thead>
 				<tbody>
-					<tr><td><label>Gold</label><span><input type=text></input></span></td><td rowspan=3><textarea></textarea></td></tr>
-					<tr><td><label>Silver</label><span><input type=text></input></span></td></tr>
-					<tr><td><label>Copper</label><span><input type=text></input></span></td></tr>
+					<tr><td><label>Gold</label><span><input type='text'/></span></td><td rowspan=3><textarea></textarea></td></tr>
+					<tr><td><label>Silver</label><span><input type='text'/></span></td></tr>
+					<tr><td><label>Copper</label><span><input type='text'/></span></td></tr>
 				</tbody>
 			</table>
 		</div>
@@ -310,26 +310,26 @@
 					<tr><th>Item</th><th>Location</th><th>Weight</th></tr>
 				</thead>
 				<tbody>
-					<tr><td><div class='input'><div><input type=text></input></div></div></td><td><div><input type=text></input></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
-					<tr><td><div class='input'><div><input type=text></input></div></div></td><td><div><input type=text></input></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
-					<tr><td><div class='input'><div><input type=text></input></div></div></td><td><div><input type=text></input></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
-					<tr><td><div class='input'><div><input type=text></input></div></div></td><td><div><input type=text></input></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
-					<tr><td><div class='input'><div><input type=text></input></div></div></td><td><div><input type=text></input></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
-					<tr><td><div class='input'><div><input type=text></input></div></div></td><td><div><input type=text></input></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
-					<tr><td><div class='input'><div><input type=text></input></div></div></td><td><div><input type=text></input></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
-					<tr><td><div class='input'><div><input type=text></input></div></div></td><td><div><input type=text></input></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
-					<tr><td><div class='input'><div><input type=text></input></div></div></td><td><div><input type=text></input></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
-					<tr><td><div class='input'><div><input type=text></input></div></div></td><td><div><input type=text></input></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
-					<tr><td><div class='input'><div><input type=text></input></div></div></td><td><div><input type=text></input></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
-					<tr><td><div class='input'><div><input type=text></input></div></div></td><td><div><input type=text></input></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
-					<tr><td><div class='input'><div><input type=text></input></div></div></td><td><div><input type=text></input></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
-					<tr><td><div class='input'><div><input type=text></input></div></div></td><td><div><input type=text></input></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
-					<tr><td><div class='input'><div><input type=text></input></div></div></td><td><div><input type=text></input></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
-					<tr><td><div class='input'><div><input type=text></input></div></div></td><td><div><input type=text></input></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
-					<tr><td><div class='input'><div><input type=text></input></div></div></td><td><div><input type=text></input></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
-					<tr><td><div class='input'><div><input type=text></input></div></div></td><td><div><input type=text></input></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
-					<tr><td><div class='input'><div><input type=text></input></div></div></td><td><div><input type=text></input></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
-					<tr><td><div class='input'><div><input type=text></input></div></div></td><td><div><input type=text></input></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
+					<tr><td><div class='input'><div><input type='text'/></div></div></td><td><div><input type='text'/></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
+					<tr><td><div class='input'><div><input type='text'/></div></div></td><td><div><input type='text'/></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
+					<tr><td><div class='input'><div><input type='text'/></div></div></td><td><div><input type='text'/></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
+					<tr><td><div class='input'><div><input type='text'/></div></div></td><td><div><input type='text'/></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
+					<tr><td><div class='input'><div><input type='text'/></div></div></td><td><div><input type='text'/></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
+					<tr><td><div class='input'><div><input type='text'/></div></div></td><td><div><input type='text'/></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
+					<tr><td><div class='input'><div><input type='text'/></div></div></td><td><div><input type='text'/></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
+					<tr><td><div class='input'><div><input type='text'/></div></div></td><td><div><input type='text'/></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
+					<tr><td><div class='input'><div><input type='text'/></div></div></td><td><div><input type='text'/></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
+					<tr><td><div class='input'><div><input type='text'/></div></div></td><td><div><input type='text'/></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
+					<tr><td><div class='input'><div><input type='text'/></div></div></td><td><div><input type='text'/></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
+					<tr><td><div class='input'><div><input type='text'/></div></div></td><td><div><input type='text'/></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
+					<tr><td><div class='input'><div><input type='text'/></div></div></td><td><div><input type='text'/></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
+					<tr><td><div class='input'><div><input type='text'/></div></div></td><td><div><input type='text'/></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
+					<tr><td><div class='input'><div><input type='text'/></div></div></td><td><div><input type='text'/></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
+					<tr><td><div class='input'><div><input type='text'/></div></div></td><td><div><input type='text'/></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
+					<tr><td><div class='input'><div><input type='text'/></div></div></td><td><div><input type='text'/></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
+					<tr><td><div class='input'><div><input type='text'/></div></div></td><td><div><input type='text'/></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
+					<tr><td><div class='input'><div><input type='text'/></div></div></td><td><div><input type='text'/></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
+					<tr><td><div class='input'><div><input type='text'/></div></div></td><td><div><input type='text'/></div></td><td><div><input type=text onchange="update_gear_weight()"></input></div></td></td>
 					<tr><td colspan=2>Total weight</td><td id='gear-total-weight'></td></td>
 				</tbody>
 			</table>
@@ -356,26 +356,26 @@
 				</thead>
 				<tbody>
 					<tr><th>Spell</th><th>Level</th><th>Spell</th><th>Level</th><th>Spell</th><th>Level</th></tr>
-					<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
-					<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
-					<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
-					<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
-					<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
-					<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
-					<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
-					<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
-					<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
-					<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
-					<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
-					<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
-					<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
-					<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
-					<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
-					<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
-					<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
-					<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
-					<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
-					<tr><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td><td><div><input type=text></input></div></td></td>
+					<tr><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td></td>
+					<tr><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td></td>
+					<tr><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td></td>
+					<tr><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td></td>
+					<tr><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td></td>
+					<tr><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td></td>
+					<tr><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td></td>
+					<tr><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td></td>
+					<tr><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td></td>
+					<tr><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td></td>
+					<tr><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td></td>
+					<tr><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td></td>
+					<tr><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td></td>
+					<tr><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td></td>
+					<tr><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td></td>
+					<tr><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td></td>
+					<tr><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td></td>
+					<tr><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td></td>
+					<tr><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td></td>
+					<tr><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td><td><div><input type='text'/></div></td></td>
 				</tbody>
 			</table>
 		</div>

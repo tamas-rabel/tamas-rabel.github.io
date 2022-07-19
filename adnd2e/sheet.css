@@ -740,19 +740,35 @@ div.input
 	width: 49%;
 	margin-top: 0.5cm;
 	border: 1pt solid black;
-	height: 4cm;
+	height: 3.5cm;
 }
 #special-abilities input
 {
 	border: 0;
-	border-bottom: 1pt solid black;
 	width: 4.3cm;
-	height: 8pt;
+//	height: 8pt;
 	margin: 0;
+	box-sizing: border-box;
+	transform: translate(0, -1pt);
+}
+#special-abilities div
+{
+	display: block;
+	border-bottom: 1pt solid black;
+	height: 11pt;
+	padding: 0;
+	vertical-align: top;
 }
 #special-abilities table
 {
 	width: 100%;
+	height: 100%;
+	border-collapse: collapse;
+}
+#special-abilities td
+{
+	padding: 0 1mm;
+	height: 9.5pt;
 }
 #special-abilities td:last-child
 {
@@ -764,19 +780,43 @@ div.input
 	width: 49%;
 	margin-top: 0.5cm;
 	border: 1pt solid black;
-	height: 4cm;
+	height: 3.5cm;
 }
 #proficiencies input
 {
 	border: 0;
-	border-bottom: 1pt solid black;
 	width: 1cm;
-	height: 8pt;
 	margin: 0;
+	background: none;
+	box-sizing: border-box;
+	transform: translate(0, 1pt);
+}
+#proficiencies div
+{
+	display: block;
+	border-bottom: 1pt solid black;
+	height: 11pt;
+	padding: 0;
+	margin: 0 0.5mm;
+	vertical-align: top;
+}
+#proficiencies span
+{
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+	transform: translate(0, -2pt);
 }
 #proficiencies table
 {
 	width: 100%;
+	height: 100%;
+	border-collapse: collapse;
+}
+#proficiencies td
+{
+	padding: 0 1mm;
+	height: 9.5pt;
 }
 #proficiencies td:last-child
 {
@@ -788,13 +828,13 @@ div.input
 }
 #proficiencies td input:nth-child(2)
 {
-	width: 0.5cm;
+	width: 0.6cm;
 	text-align: center;
 	font-size: 8.5pt;
 }
 #proficiencies td input:nth-child(3)
 {
-	width: 0.5cm;
+	width: 0.6cm;
 	text-align: center;
 }
 #proficiencies td:nth-child(2) input:nth-child(1)
@@ -908,7 +948,7 @@ div.input
 	box-sizing: border-box;
 	font-size: 12pt;
 	height: 12pt;
-	text-align: right;
+	text-align: center;
 }
 #money span
 {
@@ -973,7 +1013,7 @@ div.input
 	width: 100%;
 	border: 0;
 	text-align: center;
-	transform: translate(0, -0.5mm);
+	transform: translate(0, -1pt);
 }
 #gear td:nth-child(1) input[type=text]
 {
@@ -1158,19 +1198,20 @@ div.input
 }
 X
 {
-  font-family: 'Material Symbols Outlined';
-  font-weight: 800;
-  font-style: normal;
-  display: inline-block;
-  white-space: nowrap;
-  word-wrap: normal;
-  direction: ltr;
-  -webkit-font-smoothing: antialiased;
-  cursor: pointer;
+	font-family: 'Material Symbols Outlined';
+	font-weight: 800;
+	font-style: normal;
+	display: inline-block;
+	white-space: nowrap;
+	word-wrap: normal;
+	direction: ltr;
+	-webkit-font-smoothing: antialiased;
+	cursor: pointer;
 }
 X:before
 {
 	content: 'close';
+	line-height: 14pt;
 }
 #spell-list-edit
 {
