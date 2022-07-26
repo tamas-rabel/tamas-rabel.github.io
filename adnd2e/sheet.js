@@ -90,7 +90,6 @@ function load(file)
 	for (let i in data)
 	{
 		let value = data[i];
-		console.log(i + ": " + value);
 		let element = null;
 		if (!i.includes('/'))
 		{
@@ -102,7 +101,6 @@ function load(file)
 			let index = i.split('/')[1];
 			if (version == 1 && id == 'spell-list')
 			{
-				console.log("geci?")
 				index--;
 				index = Math.floor(index / 6) * 14 + (index % 6);
 				index++;
