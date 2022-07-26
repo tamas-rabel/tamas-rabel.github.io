@@ -1160,13 +1160,84 @@ div.input
 	height: 9.5pt;
 	padding: 0 1mm;
 }
-#spell-list col:nth-child(2n+2)
+#spell-list col:nth-child(7n+4), #spell-list col:nth-child(7n+5), #spell-list col:nth-child(7n+6), #spell-list col:nth-child(7n+7)
 {
-	width: 5%;
+	width: 5mm;
 }
-#spell-list td:nth-child(2n+2) input
+#spell-list col:nth-child(7n+2), #spell-list col:nth-child(7n+3)
+{
+	width: 7mm;
+}
+#spell-list td:nth-child(7n+2) input, #spell-list td:nth-child(7n+3) input
 {
 	text-align: center;
+}
+#spell-list td:nth-child(7n+4) div
+{
+	border: 0;
+}
+#spell-list td input[type=checkbox]
+{
+	width: 0;
+	height: 100%;
+}
+#spell-list td:nth-child(7n+4) input[type=checkbox]:not(:checked):before
+{
+	left: 0;
+	display: block;
+	content: ' ';
+	width: 4pt;
+	height: 4pt;
+	border: 1pt solid black;
+	border-radius: 6pt;
+	cursor: pointer;
+	transform: translate(-50%, 6pt);
+}
+#spell-list td:nth-child(7n+4) input[type=checkbox]:checked:after
+{
+	position: relative;
+	top: 0;
+	display: block;
+	background: black;
+	content: ' ';
+	width: 4pt;
+	height: 4pt;
+	border: 1pt solid black;
+	border-radius: 6pt;
+	cursor: pointer;
+	transform: translate(-50%, 6pt);
+}
+#spell-list :is(td:nth-child(7n+5), td:nth-child(7n+6), td:nth-child(7n+7)) input[type=checkbox]:not(:checked):before
+{
+	display: block;
+	content: ' ';
+	width: 6pt;
+	height: 6pt;
+//	border: 1pt solid black;
+	cursor: pointer;
+	transform: translate(0, 3pt);
+}
+#spell-list :is(td:nth-child(7n+5), td:nth-child(7n+6), td:nth-child(7n+7)) input[type=checkbox]:checked:after
+{
+	position: relative;
+	top: 0;
+	display: block;
+	width: 6pt;
+	height: 6pt;
+	cursor: pointer;
+	transform: translate(2pt, 0);
+}
+#spell-list td:nth-child(7n+5) input[type=checkbox]:checked:after
+{
+	content: 'V';
+}
+#spell-list td:nth-child(7n+6) input[type=checkbox]:checked:after
+{
+	content: 'S';
+}
+#spell-list td:nth-child(7n+7) input[type=checkbox]:checked:after
+{
+	content: 'M';
 }
 #spell-list tr:first-child td
 {

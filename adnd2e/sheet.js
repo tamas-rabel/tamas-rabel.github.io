@@ -56,10 +56,18 @@ function save()
 		{
 			id += "/" + Array.from(owner.querySelectorAll("input, textarea")).findIndex(e => e == input);
 		}
-		data[id] = input.value;
+		
+		if (input.nodeName == "INPUT" && input.getAttribute("type") == "checkbox")
+		{
+			data[id] = input.checked;
+		}
+		else
+		{
+			data[id] = input.value;
+		}
 	}
 	
-	file.version = 1;
+	file.version = 2;
 	file.data = data;
 	
 	let uri = encodeURI("data:application/json;charset=utf-8," + JSON.stringify(file));
@@ -82,6 +90,7 @@ function load(file)
 	for (let i in data)
 	{
 		let value = data[i];
+		console.log(i + ": " + value);
 		let element = null;
 		if (!i.includes('/'))
 		{
@@ -91,10 +100,24 @@ function load(file)
 		{
 			let id = i.split('/')[0];
 			let index = i.split('/')[1];
+			if (version == 1 && id == 'spell-list')
+			{
+				console.log("geci?")
+				index--;
+				index = Math.floor(index / 6) * 14 + (index % 6);
+				index++;
+			}
 			element = document.getElementById(id).querySelectorAll("input, textarea")[index];
 		}
 		
-		element.value = value;
+		if (element.nodeName == "INPUT" && element.getAttribute("type") == "checkbox")
+		{
+			element.checked = value;
+		}
+		else
+		{
+			element.value = value;
+		}
 	}	
 
 	hide_instructions();
@@ -178,7 +201,7 @@ function update_tabindex()
 		let reverse = table.getAttribute("reverse-vertical") != null;
 		let index = table.querySelector("input, textarea").tabIndex;
 		let grouping = parseInt(table.getAttribute("vertical-tabindex"));
-		if (isNaN(grouping)) grouping = 1;
+		if (isNaN(grouping)) grouping = 1;		
 		let cols = get_num_cols(table);
 		for (let cc=0; cc<cols; cc+=grouping)
 		{
@@ -556,7 +579,6 @@ function set_font(font)
 	{
 		if (rules[i].selectorText == 'input, textarea' || rules[i].selectorText == '#gear-total-weight')
 		{
-			console.log(rules[i].selectorText);
 			rules[i].style.fontFamily = font;
 		}
 		
