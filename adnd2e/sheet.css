@@ -2,6 +2,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Indie+Flower:wght@400&display=block');
 @import url('https://fonts.googleapis.com/css2?family=Raleway&family=EB+Garamond&display=swap');
 
+:root
+{
+  --colour: #9f9f9f;
+  --font: "Indie Flower";
+}
+
 @page
 {
   size: A4;
@@ -62,11 +68,11 @@ html
 //}
 input, textarea
 {
-	color: #999;
+	color: var(--colour);
 	background: none;
 	overflow: visible;
 	
-	font-family: 'Indie Flower', cursive;
+	font-family: var(--font);
 	font-weight: 600;
 }
 .tooltip
@@ -142,7 +148,7 @@ input, textarea
 //	top: 0px;	
 //	width: 256px;
 	left: -4px;
-	top: 256px;
+	top: 300px;
 	font-size: 10pt;
 //	text-align: center;
 //	transform: translate(-50%, 0);
@@ -222,6 +228,34 @@ input, textarea
 	padding: 4px 8px;
 	border: 2px solid black;
 	border-radius: 6px;
+}
+#colour-selection
+{
+	position: relative;
+	width: 38px;
+	height: 22px;
+	padding-top: 4px;
+}
+#colour-selection input[type=color]
+{
+	width: 0;
+	height: 0;
+	padding: 0;
+	border: 0;
+	visibility: hidden;
+}
+#colour-selection input[type=color]:before
+{
+	visibility: visible;
+	display: block;
+	width: 16px;
+	height: 16px;
+	margin-left: 3px;
+	border: 2px solid black;
+	border-radius: 24px;
+	background: var(--colour);
+	content: " ";
+	cursor: pointer;
 }
 
 #modal-bg
@@ -1079,10 +1113,10 @@ div.input
 }
 #gear-total-weight
 {
-	color: #999;
+	color: var(--colour);
 	background: none;
 	overflow: visible;
-	font-family: 'Indie Flower', cursive;
+	font-family: var(--font);
 	font-weight: 600;
 	font-size: 10pt;
 	text-align: center !important;
@@ -1287,11 +1321,11 @@ div.input
 }
 //#spell-list span:not(.material-symbols-outlined)
 //{
-//	color: #999;
+//	color: var(--colour);
 //	background: none;
 //	overflow: visible;
 //	
-//	font-family: 'Indie Flower', cursive;
+//	font-family: var(--font);
 //	font-weight: 600;
 //
 //	box-sizing: border-box;

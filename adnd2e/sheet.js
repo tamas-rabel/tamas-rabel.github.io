@@ -67,8 +67,13 @@ function save()
 		}
 	}
 	
-	file.version = 2;
+	let c = document.getElementById('pencil-colour');
+	let font_list = document.getElementById("font-selector");
+
+	file.version = 3;
 	file.data = data;
+	file.font = font_list.value;
+	file.colour = c.value.trim();
 	
 	let uri = encodeURI("data:application/json;charset=utf-8," + JSON.stringify(file));
 	uri = uri.replace(/#/g, '%23')
@@ -86,6 +91,17 @@ function load(file)
 {
 	let version = file.version
 	let data = file.data
+	
+	if (version >= 3)
+	{
+		let font_list = document.getElementById("font-selector");
+		font_list.value = file.font;
+		font_list.onchange();
+		
+		let c = document.getElementById('pencil-colour');
+		c.value = file.colour;
+		c.onchange();
+	}
 	
 	for (let i in data)
 	{
@@ -572,19 +588,15 @@ function update_font()
 
 function set_font(font)
 {
-	var rules = document.styleSheets[0].cssRules;
-	for (var i=0; i<rules.length; i++)
-	{
-		if (rules[i].selectorText == 'input, textarea' || rules[i].selectorText == '#gear-total-weight')
-		{
-			rules[i].style.fontFamily = font;
-		}
-		
-//		if (rules[i].selectorText != ".interactive") continue;
-//		
-//		rules[i].style.display = (interactive) ? null : "none";
-//		return;
-	}
+	let r = document.querySelector(":root");
+	r.style.setProperty('--font', font)
+}
+
+function change_pencil_colour(e)
+{
+	let c = document.getElementById('pencil-colour');
+	let r = document.querySelector(":root");
+	r.style.setProperty('--colour', c.value)
 }
 
 window.onload = function()
@@ -611,4 +623,9 @@ window.onload = function()
 //	}, 5000);
 	
 	update_tabindex();
+
+	let r = document.querySelector(":root");
+	let c = document.getElementById('pencil-colour');
+	let colour = getComputedStyle(r).getPropertyValue('--colour').trim();
+	c.value = colour;
 }
