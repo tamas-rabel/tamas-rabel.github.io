@@ -1213,7 +1213,6 @@ div.input
 #spell-list td input[type=checkbox]
 {
 	width: 0;
-	height: 100%;
 }
 #spell-list td:nth-child(7n+4) input[type=checkbox]:not(:checked):before
 {
@@ -1225,7 +1224,7 @@ div.input
 	border: 1pt solid black;
 	border-radius: 6pt;
 	cursor: pointer;
-	transform: translate(-50%, 6pt);
+	transform: translate(-50%, 4pt);
 }
 #spell-list td:nth-child(7n+4) input[type=checkbox]:checked:after
 {
@@ -1239,7 +1238,7 @@ div.input
 	border: 1pt solid black;
 	border-radius: 6pt;
 	cursor: pointer;
-	transform: translate(-50%, 6pt);
+	transform: translate(-50%, 4pt);
 }
 #spell-list :is(td:nth-child(7n+5), td:nth-child(7n+6), td:nth-child(7n+7)) input[type=checkbox]:not(:checked):before
 {
