@@ -116,26 +116,23 @@ TrelloPowerUp.initialize(
             condition: 'edit'
         }];
     },
-    'attachment-sections': function (t, opts)
+    'card-back-section': function (t, opts)
     {
-        console.log("Attachment?")
         return t.get('card', 'shared', 'mb-subtasks', []).then(async function(subtasks)
         {
             if (subtasks.length == 0)
             {
-                console.log("No attachment")
                 return [];
             }
             
-            console.log("YES attachment")
-
             return [
             {
                 title: "Subtasks",
                 content:
                 {
                     type: 'iframe',
-                    url: 'subtasks-section.html',
+                    url: t.signUrl('subtasks-section.html'),
+                    height: 256,
                 }
             }];
         });
