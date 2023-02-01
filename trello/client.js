@@ -62,9 +62,12 @@ async function on_add_blocker(context)
                                 t.set('card', 'shared', 'mb-blocked-by', blocked_by);
                             }).then(() =>
                             {
+                                console.log("Adding blocks")
+                                console.log(cards[c].id)
                                 t.get(cards[c].id, 'shared', 'mb-blocks', []).then((blocks) =>
                                 {
                                     blocks.push(card.id)
+                                    console.log(blocks)
                                     t.set(cards[c].id, 'shared', 'mb-blocks', blocks).then
                                     {
                                         t.closePopup();
