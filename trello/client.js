@@ -15,16 +15,20 @@ TrelloPowerUp.initialize(
                     .then((response) => response.json())
                     .then((items) =>
                     {
-                        console.log(items)
-                        console.log(items.length)
-                        
                         result.push({color: 'light-gray', text: card.checklists[c].name});
                         for (let i=0; i<items.length; i++)
                         {
                             result.push({text: ((items[i].state == 'complete') ? '☐ ' : '☐ ') + items[i].name});
                         }
                     });
+                    console.log("Result done");
                 });
+            }
+            
+            if (card.checklists.length > )
+            {
+                console.log("RETURNING");
+                console.log(result);
             }
             
             return result;
