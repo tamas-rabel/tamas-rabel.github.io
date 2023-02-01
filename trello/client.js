@@ -121,15 +121,17 @@ TrelloPowerUp.initialize(
                 });
             }
 
+            console.log("getting cards");
             await t.cards('id', 'name', 'cover').then(async function(cards)
             {
-                let parent = await t.get('card', 'shared', 'mb-blocked-by', null);
-                if (parent != null)
+                console.log(cards);
+                let blocked_by = await t.get('card', 'shared', 'mb-blocked-by', []);
+                for (let bb=0; bb<blocked_by.length; bb++)
                 {
-                    card = cards.find((c) => c.id == parent)
+                    card = cards.find((c) => c.id == blocked_by[bb])
                     if (card != null)
                     {
-                        result.unshift({color: red, text: "Blocked by " + card.name, icon: "https://icons.getbootstrap.com/assets/icons/sign-stop.svg"});
+                        result.push({color: red, text: "Blocked by " + card.name, icon: "https://icons.getbootstrap.com/assets/icons/sign-stop.svg"});
                     }
                 }
                 
@@ -139,19 +141,19 @@ TrelloPowerUp.initialize(
                     card = cards.find((c) => c.id == blocks[b])
                     if (card != null)
                     {
-                        result.unshift({color: red, text: "Blocking " + card.name, icon: "https://icons.getbootstrap.com/assets/icons/exclamation-circle.svg"});
+                        result.push({color: red, text: "Blocking " + card.name, icon: "https://icons.getbootstrap.com/assets/icons/exclamation-circle.svg"});
                     }
                 }
                 
-                let blocked_by = await t.get('card', 'shared', 'mb-parent', []);
-                for (let bb=0; bb<blocked_by.length; bb++)
+                let parent = await t.get('card', 'shared', 'mb-parent', null);
+                if (parent != null)
                 {
-                    card = cards.find((c) => c.id == blocked_by[bb])
+                    card = cards.find((c) => c.id == parent)
                     if (card != null)
                     {
                         let colour = card.cover.color;
                         if (colour == null || !g_valid_colours.includes(colour)) colour = "light-gray";
-                        result.unshift({color: colour, text: card.name});
+                        result.push({color: colour, text: card.name});
                     }
                 }
             });
