@@ -191,7 +191,7 @@ TrelloPowerUp.initialize(
                     url: t.signUrl('./parent-section.html'),
                 }
             }];
-        });
+        }));
         result.concat(await t.get('card', 'shared', 'mb-blocks', []).then(async function(blocks)
         {
             if (blocks.length == 0)
@@ -209,7 +209,7 @@ TrelloPowerUp.initialize(
                     url: t.signUrl('./blocking-section.html'),
                }
             }];
-        });
+        }));
         result.concat(await t.get('card', 'shared', 'mb-blocked_by', []).then(async function(blocked_by)
         {
             if (blocked_by.length == 0)
@@ -227,7 +227,7 @@ TrelloPowerUp.initialize(
                     url: t.signUrl('./blocked-section.html'),
                 }
             }];
-        });
+        }));
         
         return result;
     },
