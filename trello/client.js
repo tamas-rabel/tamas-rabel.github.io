@@ -18,12 +18,10 @@ TrelloPowerUp.initialize(
                         let num_done = 0;
                         for (let i=0; i<items.length; i++)
                         {
-                            boolean done = (items[i].state == 'complete');
-                            console.log(items[i].name + ": " + done);
+                            let done = (items[i].state == 'complete');
                             if (done) num_done++;
                             result.push({text: (done ? '☑ ' : '☐ ') + items[i].name});
                         }
-                        console.log(num_done + "/" + items.length + " " card.checklists[c].name);
                         result.unshift({color: 'light-gray', text: (num_done + "/" + items.length + " " card.checklists[c].name + "                   ")});
                     });
                 });
