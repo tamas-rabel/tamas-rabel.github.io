@@ -5,7 +5,7 @@ function on_subtask(t, options)
         title: 'Add subtask',
         items: function(t, options)
         {
-            return t.cards('id', 'name').then(function(cards))
+            return t.cards('id', 'name').then(function(cards)
             {
                 console.log(cards);
                 let result = []
@@ -18,11 +18,11 @@ function on_subtask(t, options)
                         {
                             alert(text);
                         },
-                    })
+                    });
                 }
                 
                 return result;
-            }
+            });
         },
         search:
         {
