@@ -1,7 +1,6 @@
 async function on_subtask(tt, options)
 {
-    console.log(tt)
-    tt.popup(
+    let context = await tt.popup(
     {
         title: 'Add subtask',
         items: async function(t, options)
@@ -23,7 +22,7 @@ async function on_subtask(tt, options)
                             {
                                 subtasks.push(cards[c].id);
                                 t.set('card', 'shared', 'mb-subtasks', subtasks);
-                                tt.closePopup();
+                                context.closePopup();
                             });
                         },
                     });
@@ -39,6 +38,8 @@ async function on_subtask(tt, options)
             empty: 'No cards found',
         }
     });
+    
+    console.log(context);
 }
 
 g_valid_colours = ['blue', 'green', 'orange', 'red', 'yellow', 'purple', 'pink', 'sky', 'lime', 'light-gray'];
