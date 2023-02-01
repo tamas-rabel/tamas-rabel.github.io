@@ -1,6 +1,6 @@
-async function on_subtask(tt, options)
+async function on_subtask(context)
 {
-    let context = await tt.popup(
+    context.popup(
     {
         title: 'Add subtask',
         items: async function(t, options)
@@ -16,13 +16,15 @@ async function on_subtask(tt, options)
                     result.push(
                     {
                         text: cards[c].name,
-                        callback: function(t, opts)
+                        callback: function(t)
                         {
                             t.get('card', 'shared', 'mb-subtasks', []).then(function(subtasks)
                             {
                                 subtasks.push(cards[c].id);
                                 t.set('card', 'shared', 'mb-subtasks', subtasks);
-                                context.closePopup();
+                                
+                                var pct = TrelloPowerUp.iframe();
+                                pct.closePopup();
                             });
                         },
                     });
