@@ -125,26 +125,26 @@ TrelloPowerUp.initialize(
             await t.cards('id', 'name', 'cover').then(async function(cards)
             {
                 let blocked_by = await t.get('card', 'shared', 'mb-blocked-by', []);
-                console.log(blocked_by);
                 for (let bb=0; bb<blocked_by.length; bb++)
                 {
                     console.log(blocked_by[bb]);
                     card = cards.find((c) => c.id == blocked_by[bb])
+                    console.log(card);
                     if (card != null)
                     {
-                        result.push({color: red, text: "Blocked by " + card.name, icon: "https://icons.getbootstrap.com/assets/icons/sign-stop.svg"});
+                        result.push({color: 'red', text: "Blocked by " + card.name, icon: "https://icons.getbootstrap.com/assets/icons/sign-stop.svg"});
                     }
                 }
                 
                 let blocks = await t.get('card', 'shared', 'mb-blocks', []);
-                console.log(blocks);
                 for (let b=0; b<blocks.length; b++)
                 {
                     console.log(blocks[b]);
                     card = cards.find((c) => c.id == blocks[b])
+                    console.log(card);
                     if (card != null)
                     {
-                        result.push({color: red, text: "Blocking " + card.name, icon: "https://icons.getbootstrap.com/assets/icons/exclamation-circle.svg"});
+                        result.push({color: 'red', text: "Blocking " + card.name, icon: "https://icons.getbootstrap.com/assets/icons/exclamation-circle.svg"});
                     }
                 }
                 
