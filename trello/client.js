@@ -133,20 +133,20 @@ TrelloPowerUp.initialize(
                     }
                 }
                 
-                let parent = await t.get('card', 'shared', 'mb-blocks', null);
-                if (parent != null)
+                let blocks = await t.get('card', 'shared', 'mb-blocks', []);
+                for (let b=0; b<blocks.length; b++)
                 {
-                    card = cards.find((c) => c.id == parent)
+                    card = cards.find((c) => c.id == blocks[b])
                     if (card != null)
                     {
                         result.unshift({color: red, text: "Blocking " + card.name, icon: "https://icons.getbootstrap.com/assets/icons/exclamation-circle.svg"});
                     }
                 }
                 
-                let parent = await t.get('card', 'shared', 'mb-parent', null);
-                if (parent != null)
+                let blocked_by = await t.get('card', 'shared', 'mb-parent', []);
+                for (let bb=0; bb<blocked_by.length; bb++)
                 {
-                    card = cards.find((c) => c.id == parent)
+                    card = cards.find((c) => c.id == blocked_by[bb])
                     if (card != null)
                     {
                         let colour = card.cover.color;
