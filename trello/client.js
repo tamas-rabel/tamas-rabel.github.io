@@ -130,7 +130,7 @@ TrelloPowerUp.initialize(
                 content:
                 {
                     type: 'iframe',
-                    url: './subtasks-section.html',
+                    url: t.signUrl('./subtasks-section.html'),
                     height: 256,
                 }
             }];
