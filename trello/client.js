@@ -11,14 +11,14 @@ function on_subtask(t, options)
                 let result = []
                 for (let c=0; c<cards.length; c++)
                 {
-                    if (!cards[c].name.includes(options.search)) continue;
+                    if (!cards[c].name.toLowerCase().includes(options.search.toLowerCase())) continue;
                     
                     result.push(
                     {
                         text: cards[c].name,
                         callback: function(t, opts)
                         {
-                            debug.log(cards[c]);
+                            console.log(cards[c]);
                         },
                     });
                 }
