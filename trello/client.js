@@ -77,10 +77,8 @@ TrelloPowerUp.initialize(
                     card = cards.find((c) => c.id == subtasks[s])
                     if (card != null)
                     {
-                        console.log(card);
                         let colour = card.cover.color;
-                        if (colour != null) colour = "blue"
-                        console.log(colour);
+                        if (colour == null) colour = "blue"
                         result.unshift({color: colour, text: card.name});
                     }
                 }
