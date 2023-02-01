@@ -1,9 +1,10 @@
 TrelloPowerUp.initialize({
   'card-badges': function(t, options){
       console.log(options);
-    t.card('id', 'checklists').then(function (card) {
+    t.card('id', 'checklists', 'checkItems').then(function (card) {
         if (card.checklists.length > 0)
         {
+            console.log(card.checklists[0])
             console.log(card.checklists[0].id)
             fetch('https://api.trello.com/1/checklists/' + card.checklists[0].id + '/checkItems')
             .then((response) => response.json())
