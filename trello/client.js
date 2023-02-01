@@ -2,10 +2,13 @@ TrelloPowerUp.initialize({
   'card-badges': function(t, options){
       console.log(options);
     t.card('id', 'checklists').then(function (card) {
-        console.log(JSON.stringify(card, null, 2));
-        fetch('https://api.trello.com/1/checklists/' + card.checklists.id + '/checkItems')
-        .then((response) => response.json())
-        .then((json) => console.log(json));
+        console.log(card.checklists)
+        if (card.checklists != null)
+        {
+            fetch('https://api.trello.com/1/checklists/' + card.checklists.id + '/checkItems')
+            .then((response) => response.json())
+            .then((json) => console.log(json));
+        }
     });
     
     return [
