@@ -4,30 +4,33 @@ TrelloPowerUp.initialize(
     {        
         t.card('id', 'checklists').then(function (card)
         {
-            if (card.checklists.length > 0)
+            for (let c=0; c<card.checklists.length; c++)
             {
+                console.log(card.checklists[c])
+                
                 t.getRestApi()
                 .getToken()
                 .then(function(token)
                 {
-                    fetch('https://api.trello.com/1/checklists/' + card.checklists[0].id + '/checkItems?key=2673af39e812244706daa1292a259359&token='+token)
+                    fetch('https://api.trello.com/1/checklists/' + card.checklists[c].id + '/checkItems?key=2673af39e812244706daa1292a259359&token='+token)
                     .then((response) => response.json())
-                    .then((json) => console.log(json));
+                    .then((items) =>
+                    {
+                        console.log(items)
+                        
+                        let lines = [];
+                        lines.push({color: 'light-gray', text: card.checklists[c].name});
+                        for (let i=0; i<items.length; i++)
+                        {
+                            lines.push({text: ((items[i].state == 'complete') ? '☐ ' : '☐ ') + items[i].name});
+                        }
+                        return lines;
+                    });
                 });
             }
         });
 
-        return [
-        {
-            color: 'light-gray',
-            text: '1/2 Initial spike',
-        },
-        {
-            text: '☐ Peer to peer vs client-server?',
-        },
-        {
-            text: '☑ Check this item',
-        }];
+        return [];
     },
     'board-buttons': function (t, opts)
     {
