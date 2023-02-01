@@ -1,23 +1,19 @@
 TrelloPowerUp.initialize(
 {
     'card-badges': function(t, options)
-    {
-        t.getRestApi()
-        .getToken()
-        .then(function(token)
-        {
-            console.log(token);
-        });
-        
+    {        
         t.card('id', 'checklists').then(function (card)
         {
             if (card.checklists.length > 0)
             {
-                console.log(card.checklists[0])
-                console.log(card.checklists[0].id)
-                fetch('https://api.trello.com/1/checklists/' + card.checklists[0].id + '/checkItems')
-                .then((response) => response.json())
-                .then((json) => console.log(json));
+                t.getRestApi()
+                .getToken()
+                .then(function(token)
+                {
+                    fetch('https://api.trello.com/1/checklists/' + card.checklists[0].id + '/checkItems?key=2673af39e812244706daa1292a259359&token='+token);
+                    .then((response) => response.json())
+                    .then((json) => console.log(json));
+                });
             }
         });
 
