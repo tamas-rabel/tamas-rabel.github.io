@@ -1,3 +1,5 @@
+console.log(window.TrelloPowerUp);
+var t = window.TrelloPowerUp.iframe();
 t.getRestApi().isAuthorized().then(function(isAuthorized)
 {
     if (!isAuthorized)
