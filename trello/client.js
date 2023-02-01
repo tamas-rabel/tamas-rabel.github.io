@@ -10,7 +10,7 @@ TrelloPowerUp.initialize(
                 .getToken()
                 .then(function(token)
                 {
-                    fetch('https://api.trello.com/1/checklists/' + card.checklists[0].id + '/checkItems?key=2673af39e812244706daa1292a259359&token='+token);
+                    fetch('https://api.trello.com/1/checklists/' + card.checklists[0].id + '/checkItems?key=2673af39e812244706daa1292a259359&token='+token)
                     .then((response) => response.json())
                     .then((json) => console.log(json));
                 });
