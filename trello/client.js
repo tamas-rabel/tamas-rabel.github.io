@@ -17,6 +17,7 @@ TrelloPowerUp.initialize(
                     .then((items) =>
                     {
                         console.log(items)
+                        console.log(items.length)
                         
                         let lines = [];
                         lines.push({color: 'light-gray', text: card.checklists[c].name});
@@ -24,6 +25,9 @@ TrelloPowerUp.initialize(
                         {
                             lines.push({text: ((items[i].state == 'complete') ? '☐ ' : '☐ ') + items[i].name});
                         }
+                        
+                        console.log(lines)
+                        
                         return lines;
                     });
                 });
