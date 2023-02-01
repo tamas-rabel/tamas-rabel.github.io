@@ -1,5 +1,8 @@
 console.log(window.TrelloPowerUp);
-var t = window.TrelloPowerUp.iframe();
+var t = window.TrelloPowerUp.iframe({
+    appKey: '2673af39e812244706daa1292a259359',
+    appName: 'mb',
+});
 t.getRestApi().isAuthorized().then(function(isAuthorized)
 {
     if (!isAuthorized)
@@ -42,5 +45,5 @@ TrelloPowerUp.initialize(
 },
 {
     appKey: '2673af39e812244706daa1292a259359',
-    appName: 'mb'
+    appName: 'mb',
 });
