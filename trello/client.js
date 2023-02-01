@@ -1,5 +1,6 @@
-function on_subtask(t, options)
+async function on_subtask(t, options)
 {
+    let orig_t = t;
     return t.popup(
     {
         title: 'Add subtask',
@@ -27,7 +28,7 @@ function on_subtask(t, options)
                     });
                 }
                 
-                t.closePopup();
+                orig_t.closePopup();
                 return result;
             });
         },
