@@ -175,7 +175,7 @@ TrelloPowerUp.initialize(
     {
         console.log("Checking parent")
         let result = []
-        let fos = await t.get('card', 'shared', 'mb-parent', null).then(function(parent)
+        let parent = await t.get('card', 'shared', 'mb-parent', null).then(function(parent)
         {
             console.log(parent)
             if (parent == null)
@@ -194,11 +194,12 @@ TrelloPowerUp.initialize(
                 }
             }];
         });
-        console.log(typeof(fos));
-        console.log(fos);
-        result.concat(fos);
+        console.log(typeof(parent));
+        console.log(parent);
+        result.concat(parent);
+        console.log(result);
         console.log("Checking blocks")
-        result.concat(await t.get('card', 'shared', 'mb-blocks', []).then(function(blocks)
+        let blocks = await t.get('card', 'shared', 'mb-blocks', []).then(function(blocks)
         {
             console.log(blocks)
             if (blocks.length == 0)
@@ -216,9 +217,10 @@ TrelloPowerUp.initialize(
                     url: t.signUrl('./blocking-section.html'),
                }
             }];
-        }));
+        });
+        result.concat(blocks);
         console.log("Checking blocked by")
-        result.concat(await t.get('card', 'shared', 'mb-blocked_by', []).then(function(blocked_by)
+        let blocked_by = await t.get('card', 'shared', 'mb-blocked_by', []).then(function(blocked_by)
         {
             console.log(blocked_by)
             if (blocked_by.length == 0)
@@ -236,7 +238,8 @@ TrelloPowerUp.initialize(
                     url: t.signUrl('./blocked-section.html'),
                 }
             }];
-        }));
+        });
+        result.concat(blocked_by)
         
         console.log(result);
         
