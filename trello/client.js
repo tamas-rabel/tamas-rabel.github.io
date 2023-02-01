@@ -4,20 +4,24 @@ TrelloPowerUp.initialize(
     {
         return t.card('id', 'checklists').then(async function (card)
         {
-            var result = [];
+            let result = [];
             for (let c=0; c<card.checklists.length; c++)
             {
+                console.log(card.checklists[c]);
                 await t.getRestApi()
                 .getToken()
                 .then(function(token)
                 {
+                    console.log("Getting checklist");
                     fetch('https://api.trello.com/1/checklists/' + card.checklists[c].id + '/checkItems?key=2673af39e812244706daa1292a259359&token='+token)
                     .then((response) => response.json())
                     .then((items) =>
                     {
+                        console.log(items);
                         result.push({color: 'light-gray', text: card.checklists[c].name});
                         for (let i=0; i<items.length; i++)
                         {
+                            console.log("Adding item");
                             result.push({text: ((items[i].state == 'complete') ? '☐ ' : '☑ ') + items[i].name});
                         }
                     });
