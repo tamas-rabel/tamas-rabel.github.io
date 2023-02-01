@@ -173,7 +173,8 @@ TrelloPowerUp.initialize(
     },
     'card-back-section': function (t, opts)
     {
-        return t.get('card', 'shared', 'mb-parent', []).then(async function(parent)
+        let result = []
+        result.concat(await t.get('card', 'shared', 'mb-parent', null).then(async function(parent)
         {
             if (parent == null)
             {
@@ -188,9 +189,17 @@ TrelloPowerUp.initialize(
                 {
                     type: 'iframe',
                     url: t.signUrl('./parent-section.html'),
-                    height: 256,
                 }
-            },
+            }];
+        };
+        result.concat(await t.get('card', 'shared', 'mb-blocks', []).then(async function(blocks)
+        {
+            if (blocks.length == 0)
+            {
+                return [];
+            }
+            
+            return [
             {
                 title: "Blocking",
                 icon: 'https://cdn.hyperdev.com/us-east-1%3A3d31b21c-01a0-4da2-8827-4bc6e88b7618%2Ficon-gray.svg',
@@ -198,9 +207,17 @@ TrelloPowerUp.initialize(
                 {
                     type: 'iframe',
                     url: t.signUrl('./blocking-section.html'),
-                    height: 256,
-                }
-            },
+               }
+            }];
+        };
+        result.concat(await t.get('card', 'shared', 'mb-blocked_by', []).then(async function(blocked_by)
+        {
+            if (blocked_by.length == 0)
+            {
+                return [];
+            }
+            
+            return [
             {
                 title: "Blocked by",
                 icon: 'https://cdn.hyperdev.com/us-east-1%3A3d31b21c-01a0-4da2-8827-4bc6e88b7618%2Ficon-gray.svg',
@@ -208,7 +225,6 @@ TrelloPowerUp.initialize(
                 {
                     type: 'iframe',
                     url: t.signUrl('./blocked-section.html'),
-                    height: 256,
                 }
             }];
         });
