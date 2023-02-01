@@ -68,6 +68,7 @@ TrelloPowerUp.initialize(
 
                 await t.cards('id', 'name', 'cover').then(function(cards)
                 {
+                    console.log(id);
                     let subtasks = t.get('card', 'shared', 'mb-subtasks', []);
                     console.log(subtasks);
                     for (let s=0; s<subtasks.length; s++)
