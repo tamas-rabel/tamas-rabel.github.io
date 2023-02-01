@@ -26,8 +26,6 @@ TrelloPowerUp.initialize(
             text: '☑ Check this item',
         }];
     },
-},
-{
     'board-buttons': function (t, opts)
     {
         return [
@@ -36,6 +34,7 @@ TrelloPowerUp.initialize(
             url: 'https://trello.com/1/authorize?expiration=1day&name=MyPersonalToken&scope=read&response_type=token&key=2673af39e812244706daa1292a259359',
         }];
     },
+},
 {
     appKey: '2673af39e812244706daa1292a259359',
     appName: 'mb'
