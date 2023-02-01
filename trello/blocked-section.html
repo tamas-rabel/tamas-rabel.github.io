@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang=en>
+  <head>
+    <meta charset=utf-8>
+    <link rel="stylesheet" href="https://p.trellocdn.com/power-up.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://p.trellocdn.com/power-up.min.js"></script>
+    <style>
+        .mb-delete
+        {
+            cursor: pointer;
+        }
+    </style>
+    <title>Blocked by</title>
+  </head>
+  <body>
+    <div id='parent'></div>
+    <script src="https://p.trellocdn.com/power-up.min.js"></script>
+    <script>
+        var Promise = TrelloPowerUp.Promise;
+        var t = TrelloPowerUp.iframe();
+        t.get('card', 'shared', 'mb-blocked-by', []).then(async function(blocked_by)
+        {
+            t.cards('id', 'name', 'cover').then(function(cards)
+            {
+                let html = "";
+                for (let b=0; b<blocked_by.length; b++)
+                {
+                    let card = cards.find((c) => c.id == blocked_by[b])
+                    if (card == null) return;
+                    
+                    html += "<button type='button'>" + card.name + "</button><i class='fa-regular fa-circle-xmark mb-delete' onclick='delete_block();'></i>"
+                }
+                document.getElementById('parent').innerHTML = html;
+            });
+        });
+        
+        function delete_block()
+        {
+        }
+    </script>
+  </body>
+</html>

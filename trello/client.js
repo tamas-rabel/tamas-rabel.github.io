@@ -7,7 +7,6 @@ async function on_parent(context)
         {
             return await t.cards('id', 'name', 'cover').then(function(cards)
             {
-                //console.log(cards);
                 let result = []
                 for (let c=0; c<cards.length; c++)
                 {
@@ -36,8 +35,57 @@ async function on_parent(context)
             empty: 'No cards found',
         }
     });
-    
-    console.log(context);
+}
+
+async function on_add_blocker(context)
+{
+    context.popup(
+    {
+        title: 'Blocked by',
+        items: async function(t, options)
+        {
+            return await t.cards('id', 'name', 'cover').then(function(cards)
+            {
+                let result = []
+                for (let c=0; c<cards.length; c++)
+                {
+                    if (!cards[c].name.toLowerCase().includes(options.search.toLowerCase())) continue;
+                    
+                    result.push(
+                    {
+                        text: cards[c].name,
+                        callback: function(t)
+                        {
+                            t.get('card', 'shared', 'mb-blocked-by', []).then((blocked_by) =>
+                            {
+                                blocked_by.push(cards[c].id);
+                                t.set('card', 'shared', 'mb-blocked-by', blocked_by);
+                            }
+                            t.card('id', 'checklists').then((card) =>
+                            {
+                                t.get(cards[c].id, 'shared', 'mb-blocks', []).then((blocks) =>
+                                {
+                                    blocks.push(id)
+                                    t.set(cards[c].id, 'shared', 'mb-blocks', id).then
+                                    {
+                                        t.closePopup();
+                                    }
+                                }
+                            })
+                        },
+                    });
+                }
+                
+                return result;
+            });
+        },
+        search:
+        {
+            count: 10,
+            placeholder: 'Search cards',
+            empty: 'No cards found',
+        }
+    });
 }
 
 g_valid_colours = ['blue', 'green', 'orange', 'red', 'yellow', 'purple', 'pink', 'sky', 'lime', 'light-gray'];
@@ -112,7 +160,14 @@ TrelloPowerUp.initialize(
             text: 'Set parent',
             callback: on_parent,
             condition: 'edit'
-        }];
+        },
+        {
+            icon: "https://cdn.hyperdev.com/us-east-1%3A3d31b21c-01a0-4da2-8827-4bc6e88b7618%2Ficon-gray.svg",
+            text: 'Add blocker',
+            callback: on_add_blocker,
+            condition: 'edit'
+        },
+        ];
     },
     'card-back-section': function (t, opts)
     {
@@ -131,6 +186,26 @@ TrelloPowerUp.initialize(
                 {
                     type: 'iframe',
                     url: t.signUrl('./parent-section.html'),
+                    height: 256,
+                }
+            },
+            {
+                title: "Blocking",
+                icon: 'https://cdn.hyperdev.com/us-east-1%3A3d31b21c-01a0-4da2-8827-4bc6e88b7618%2Ficon-gray.svg',
+                content:
+                {
+                    type: 'iframe',
+                    url: t.signUrl('./blocking-section.html'),
+                    height: 256,
+                }
+            },
+            {
+                title: "Blocked by",
+                icon: 'https://cdn.hyperdev.com/us-east-1%3A3d31b21c-01a0-4da2-8827-4bc6e88b7618%2Ficon-gray.svg',
+                content:
+                {
+                    type: 'iframe',
+                    url: t.signUrl('./blocked-section.html'),
                     height: 256,
                 }
             }];
