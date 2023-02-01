@@ -7,33 +7,24 @@ TrelloPowerUp.initialize(
             let result = [];
             for (let c=0; c<card.checklists.length; c++)
             {
-                console.log(card.checklists[c]);
                 await t.getRestApi()
                 .getToken()
                 .then(async function(token)
                 {
-                    console.log("Getting checklist");
                     await fetch('https://api.trello.com/1/checklists/' + card.checklists[c].id + '/checkItems?key=2673af39e812244706daa1292a259359&token='+token)
                     .then((response) => response.json())
                     .then((items) =>
                     {
-                        console.log(items);
-                        result.push({color: 'light-gray', text: card.checklists[c].name});
+                        let num_done = 0;
                         for (let i=0; i<items.length; i++)
                         {
-                            console.log("Adding item");
-                            result.push({text: ((items[i].state == 'complete') ? '☐ ' : '☑ ') + items[i].name});
+                            boolean done = (items[i].state == 'complete');
+                            if (done) num_done++;
+                            result.push({text: (done ? '☑ ' : '☐ ') + items[i].name});
                         }
+                        result.unshift({color: 'light-gray', text: num_done + "/" + items.length + " " card.checklists[c].name + "                   "});
                     });
-                    console.log("Result done");
-                    console.log(result);
                 });
-            }
-            
-            if (card.checklists.length > 0)
-            {
-                console.log("RETURNING");
-                console.log(result);
             }
             
             return result;
