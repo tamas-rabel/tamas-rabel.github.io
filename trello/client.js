@@ -1,15 +1,13 @@
 TrelloPowerUp.initialize(
 {
-    'card-badges': async function(t, options)
+    'card-badges': function(t, options)
     {
-        let result = [];
-        await t.card('id', 'checklists').then(function (card)
+        return t.card('id', 'checklists').then(async function (card)
         {
+            let result = [];
             for (let c=0; c<card.checklists.length; c++)
             {
-                console.log(card.checklists[c])
-                
-                t.getRestApi()
+                await t.getRestApi()
                 .getToken()
                 .then(function(token)
                 {
@@ -25,20 +23,12 @@ TrelloPowerUp.initialize(
                         {
                             result.push({text: ((items[i].state == 'complete') ? '☐ ' : '☐ ') + items[i].name});
                         }
-                        
-                        console.log("Result done");
                     });
                 });
             }
+            
+            return result;
         });
-        
-        if (card.checklists.length > 0)
-        {
-            console.log("Returning result");
-            console.log(result);
-        }
-
-        return result;
     },
     'board-buttons': function (t, opts)
     {
