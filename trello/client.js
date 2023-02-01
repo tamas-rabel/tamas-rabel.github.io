@@ -1,7 +1,7 @@
-async function on_subtask(t, options)
+async function on_subtask(tt, options)
 {
-    let orig_t = t;
-    await t.popup(
+    console.log(tt)
+    tt.popup(
     {
         title: 'Add subtask',
         items: async function(t, options)
@@ -23,7 +23,7 @@ async function on_subtask(t, options)
                             {
                                 subtasks.push(cards[c].id);
                                 t.set('card', 'shared', 'mb-subtasks', subtasks);
-                                orig_t.closePopup();
+                                tt.closePopup();
                             });
                         },
                     });
