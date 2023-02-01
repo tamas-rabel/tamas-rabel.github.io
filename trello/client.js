@@ -3,9 +3,9 @@ function on_subtask(t, options)
     return t.popup(
     {
         title: 'Add subtask',
-        items: function(t, options)
+        items: async function(t, options)
         {
-            return t.cards('id', 'name', 'cover').then(function(cards)
+            return await t.cards('id', 'name', 'cover').then(function(cards)
             {
                 //console.log(cards);
                 let result = []
