@@ -35,21 +35,28 @@
             });
         });
         
-        function delete_block(index)
+        async function delete_block(index)
         {
+            console.log("start")
             t.get('card', 'shared', 'mb-blocked-by', []).then((blocked_by) =>
             {
+                console.log(blocked_by)
                 let id = blocked_by[index]
                 blocked_by.splice(index, 1)
+                console.log(blocked_by)
                 t.set('card', 'shared', 'mb-blocked-by', blocked_by).then(() =>
                 {
+                    console.log("blocked_by set")
                     t.card('id', 'checklists').then((card) =>
                     {
+                        console.log(card)
                         t.get(id, 'shared', 'mb-blocks', []).then((blocks) =>
                         {
+                            console.log(blocks)
                             let blocks_index = blocks.findIndex((b) => { return b == card.id})
                             blocks.splice(blocks_index, 1)
                             t.set(id, 'shared', 'mb-blocks', blocks);
+                            console.log("DONE")
                         });
                     });
                 });
