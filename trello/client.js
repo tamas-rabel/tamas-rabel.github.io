@@ -2,6 +2,13 @@ TrelloPowerUp.initialize(
 {
     'card-badges': function(t, options)
     {
+        t.getRestApi()
+        .getToken()
+        .then(function(token)
+        {
+            console.log(token);
+        });
+        
         t.card('id', 'checklists').then(function (card)
         {
             if (card.checklists.length > 0)
