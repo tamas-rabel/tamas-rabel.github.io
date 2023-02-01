@@ -1,3 +1,38 @@
+function on_subtask(t, options)
+{
+    return t.popup(
+    {
+        title: 'Add subtask',
+        items: function(t, options)
+        {
+            return t.cards('id', 'name').then(function(cards))
+            {
+                console.log(cards);
+                let result = []
+                for (let c=0; c<cards.length; c++)
+                {
+                    result.push(
+                    {
+                        text: cards[c].name,
+                        callback: function(t, opts)
+                        {
+                            alert(text);
+                        },
+                    })
+                }
+                
+                return result;
+            }
+        },
+        search:
+        {
+            count: 10,
+            placeholder: 'Search cards',
+            empty: 'No cards found',
+        }
+    });
+}
+
 TrelloPowerUp.initialize(
 {
     'card-badges': function(t, options)
@@ -43,6 +78,16 @@ TrelloPowerUp.initialize(
                     url: './authorize.html'
                 });                
             },
+        }];
+    },
+    'card-buttons': function(t, options)
+    {
+        return [
+        {
+            icon: "https://cdn.hyperdev.com/us-east-1%3A3d31b21c-01a0-4da2-8827-4bc6e88b7618%2Ficon-gray.svg",
+            text: 'Add subtask',
+            callback: on_subtask,
+            condition: 'edit'
         }];
     },
 },
