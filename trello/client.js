@@ -22,9 +22,7 @@ async function on_subtask(context)
                             {
                                 subtasks.push(cards[c].id);
                                 t.set('card', 'shared', 'mb-subtasks', subtasks);
-                                
-                                var pct = TrelloPowerUp.iframe();
-                                pct.closePopup();
+                                t.closePopup();
                             });
                         },
                     });
@@ -117,6 +115,23 @@ TrelloPowerUp.initialize(
             callback: on_subtask,
             condition: 'edit'
         }];
+    },
+    'attachment-sections': function (t, opts)
+    {
+        return t.get('card', 'shared', 'mb-subtasks', []).then(async function(subtasks)
+        {
+            if (subtasks.length == 0) return []
+            
+            return [
+            {
+                title: "Subtasks",
+                content:
+                {
+                    type: 'iframe',
+                    url: 'subtasks-section.html',
+                }
+            }];
+        });
     },
 },
 {
