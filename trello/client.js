@@ -22,7 +22,7 @@ TrelloPowerUp.initialize(
                             if (done) num_done++;
                             result.push({text: (done ? '☑ ' : '☐ ') + items[i].name});
                         }
-                        result.unshift({color: 'light-gray', text: ("\n\"" + num_done + "/" + items.length + " " + card.checklists[c].name + " \"\n")});
+                        result.unshift({color: 'light-gray', text: (num_done + "/" + items.length + " " + card.checklists[c].name + "                                                                                                    ")});
                     });
                 });
             }
