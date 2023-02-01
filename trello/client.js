@@ -118,6 +118,19 @@ TrelloPowerUp.initialize(
     },
     'card-back-section': function (t, opts)
     {
+        return [
+        {
+            title: "NO Subtasks",
+            content:
+            {
+                type: 'iframe',
+                icon: 'https://cdn.hyperdev.com/us-east-1%3A3d31b21c-01a0-4da2-8827-4bc6e88b7618%2Ficon-gray.svg',
+                url: t.signUrl('subtasks-section.html'),
+                height: 256,
+            }
+        }];
+
+/*            
         return t.get('card', 'shared', 'mb-subtasks', []).then(async function(subtasks)
         {
             if (subtasks.length == 0)
@@ -147,6 +160,7 @@ TrelloPowerUp.initialize(
                 }
             }];
         });
+        */
     },
 },
 {
