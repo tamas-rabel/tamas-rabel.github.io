@@ -1,7 +1,10 @@
 TrelloPowerUp.initialize({
   'card-badges': function(t, options){
       console.log(options);
-      console.log(t.get('card', 'shared', 'checklist'));
+    t.card('id', 'checklists').then(function (card) {
+      console.log(JSON.stringify(card, null, 2));
+    });
+    
     return [
     {
       color: 'light-gray',
