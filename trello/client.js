@@ -123,6 +123,26 @@ TrelloPowerUp.initialize(
 
             await t.cards('id', 'name', 'cover').then(async function(cards)
             {
+                let parent = await t.get('card', 'shared', 'mb-blocked-by', null);
+                if (parent != null)
+                {
+                    card = cards.find((c) => c.id == parent)
+                    if (card != null)
+                    {
+                        result.unshift({color: red, text: "Blocked by " + card.name, icon: "https://icons.getbootstrap.com/assets/icons/sign-stop.svg"});
+                    }
+                }
+                
+                let parent = await t.get('card', 'shared', 'mb-blocks', null);
+                if (parent != null)
+                {
+                    card = cards.find((c) => c.id == parent)
+                    if (card != null)
+                    {
+                        result.unshift({color: red, text: "Blocking " + card.name, icon: "https://icons.getbootstrap.com/assets/icons/exclamation-circle.svg"});
+                    }
+                }
+                
                 let parent = await t.get('card', 'shared', 'mb-parent', null);
                 if (parent != null)
                 {
