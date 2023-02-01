@@ -1,6 +1,6 @@
 TrelloPowerUp.initialize(
 {
-    'card-badges': function(t, options)
+    'card-badges': async function(t, options)
     {
         let result = [];
         await t.card('id', 'checklists').then(function (card)
