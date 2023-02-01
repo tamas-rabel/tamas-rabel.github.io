@@ -22,12 +22,12 @@ function on_subtask(t, options)
                             {
                                 subtasks.push(cards[c].id);
                                 t.set('card', 'shared', 'mb-subtasks', subtasks);
-                                t.closePopup();
                             });
                         },
                     });
                 }
                 
+                t.closePopup();
                 return result;
             });
         },
