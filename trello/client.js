@@ -33,10 +33,11 @@ TrelloPowerUp.initialize(
             text: 'mb',
             callback: function(t, options)
             {
-                t.getRestApi().authorize({ scope: 'read,write' }).then(function(t)
+                return t.popup(
                 {
-                    alert('Success!');
-                });
+                    title: 'Authorize to continue',
+                    url: './authorize.html'
+                });                
             },
         }];
     },
