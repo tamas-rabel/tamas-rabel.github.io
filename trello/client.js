@@ -25,10 +25,18 @@ TrelloPowerUp.initialize(
                         {
                             result.push({text: ((items[i].state == 'complete') ? '☐ ' : '☐ ') + items[i].name});
                         }
+                        
+                        console.log("Result done");
                     });
                 });
             }
         });
+        
+        if (card.checklists.length > 0)
+        {
+            console.log("Returning result");
+            console.log(result);
+        }
 
         return result;
     },
