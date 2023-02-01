@@ -2,7 +2,7 @@ async function on_subtask(context)
 {
     context.popup(
     {
-        title: 'Add subtask',
+        title: 'Parent',
         items: async function(t, options)
         {
             return await t.cards('id', 'name', 'cover').then(function(cards)
@@ -18,12 +18,10 @@ async function on_subtask(context)
                         text: cards[c].name,
                         callback: function(t)
                         {
-                            t.get('card', 'shared', 'mb-subtasks', []).then(function(subtasks)
+                            t.set('card', 'shared', 'mb-parent', cards[c].id).then
                             {
-                                subtasks.push(cards[c].id);
-                                t.set('card', 'shared', 'mb-subtasks', subtasks);
                                 t.closePopup();
-                            });
+                            }
                         },
                     });
                 }
@@ -75,10 +73,10 @@ TrelloPowerUp.initialize(
 
             await t.cards('id', 'name', 'cover').then(async function(cards)
             {
-                let subtasks = await t.get('card', 'shared', 'mb-subtasks', []);
-                for (let s=0; s<subtasks.length; s++)
+                let parent = await t.get('card', 'shared', 'mb-parent', null);
+                if (parent != null)
                 {
-                    card = cards.find((c) => c.id == subtasks[s])
+                    card = cards.find((c) => c.id == parent)
                     if (card != null)
                     {
                         let colour = card.cover.color;
@@ -118,9 +116,9 @@ TrelloPowerUp.initialize(
     },
     'card-back-section': function (t, opts)
     {
-        return t.get('card', 'shared', 'mb-subtasks', []).then(async function(subtasks)
+        return t.get('card', 'shared', 'mb-parent', []).then(async function(parent)
         {
-            if (subtasks.length == 0)
+            if (parent == null)
             {
                 return [];
             }
