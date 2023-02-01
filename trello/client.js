@@ -80,7 +80,7 @@ TrelloPowerUp.initialize(
                     if (card != null)
                     {
                         let colour = card.cover.color;
-                        if (colour == null || !g_valid_colours.include(colour)) colour = "light-gray";
+                        if (colour == null || !g_valid_colours.includes(colour)) colour = "light-gray";
                         result.unshift({color: colour, text: card.name});
                     }
                 }
