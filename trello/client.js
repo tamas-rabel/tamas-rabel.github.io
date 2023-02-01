@@ -4,7 +4,7 @@ TrelloPowerUp.initialize(
     {
         return t.card('id', 'checklists').then(async function (card)
         {
-            let result = [];
+            var result = [];
             for (let c=0; c<card.checklists.length; c++)
             {
                 await t.getRestApi()
