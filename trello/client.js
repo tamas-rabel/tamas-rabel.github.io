@@ -10,10 +10,10 @@ TrelloPowerUp.initialize(
                 console.log(card.checklists[c]);
                 await t.getRestApi()
                 .getToken()
-                .then(function(token)
+                .then(async function(token)
                 {
                     console.log("Getting checklist");
-                    fetch('https://api.trello.com/1/checklists/' + card.checklists[c].id + '/checkItems?key=2673af39e812244706daa1292a259359&token='+token)
+                    await fetch('https://api.trello.com/1/checklists/' + card.checklists[c].id + '/checkItems?key=2673af39e812244706daa1292a259359&token='+token)
                     .then((response) => response.json())
                     .then((items) =>
                     {
