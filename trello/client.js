@@ -118,10 +118,17 @@ TrelloPowerUp.initialize(
     },
     'attachment-sections': function (t, opts)
     {
+        console.log("Attachment?")
         return t.get('card', 'shared', 'mb-subtasks', []).then(async function(subtasks)
         {
-            if (subtasks.length == 0) return []
+            if (subtasks.length == 0)
+            {
+                console.log("No attachment")
+                return [];
+            }
             
+            console.log("YES attachment")
+
             return [
             {
                 title: "Subtasks",
