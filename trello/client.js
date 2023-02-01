@@ -5,7 +5,7 @@ function on_subtask(t, options)
         title: 'Add subtask',
         items: function(t, options)
         {
-            return t.cards('id', 'name').then(function(cards)
+            return t.cards('id', 'name', 'cover').then(function(cards)
             {
                 //console.log(cards);
                 let result = []
@@ -18,7 +18,12 @@ function on_subtask(t, options)
                         text: cards[c].name,
                         callback: function(t, opts)
                         {
-                            console.log(cards[c]);
+                            console.log(cards[c])
+                            /*
+                            let subtasks = t.get('card', 'shared', 'mb-subtasks', []);
+                            subtasks.push(cards[c].id);
+                            t.set('card', 'shared', 'mb-subtasks', subtasks);
+                            */
                         },
                     });
                 }
@@ -62,6 +67,19 @@ TrelloPowerUp.initialize(
                         result.unshift({color: 'light-gray', text: (num_done + "/" + items.length + " " + card.checklists[c].name + "                                                                                                    ")});
                     });
                 });
+
+                await t.cards('id', 'name', 'cover').then(function(cards)
+                {
+                    let subtasks = t.get('card', 'shared', 'mb-subtasks', []);
+                    for (let s=0; s<subtasks.length; s++)
+                    {
+                        card = cards.find((c) => c.id == subtasks[s])
+                        if (card != null)
+                        {
+                            result.unshift({color: 'light-gray', text: card.name});
+                        }
+                    }
+                }
             }
             
             return result;
