@@ -19,10 +19,12 @@ TrelloPowerUp.initialize(
                         for (let i=0; i<items.length; i++)
                         {
                             boolean done = (items[i].state == 'complete');
+                            console.log(items[i].name + ": " + done);
                             if (done) num_done++;
                             result.push({text: (done ? '☑ ' : '☐ ') + items[i].name});
                         }
-                        result.unshift({color: 'light-gray', text: num_done + "/" + items.length + " " card.checklists[c].name + "                   "});
+                        console.log(num_done + "/" + items.length + " " card.checklists[c].name);
+                        result.unshift({color: 'light-gray', text: (num_done + "/" + items.length + " " card.checklists[c].name + "                   ")});
                     });
                 });
             }
