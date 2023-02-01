@@ -175,7 +175,7 @@ TrelloPowerUp.initialize(
     {
         console.log("Checking parent")
         let result = []
-        result.concat(await t.get('card', 'shared', 'mb-parent', null).then(function(parent)
+        result.concat(t.get('card', 'shared', 'mb-parent', null).then(function(parent)
         {
             console.log(parent)
             if (parent == null)
@@ -195,7 +195,7 @@ TrelloPowerUp.initialize(
             }];
         }));
         console.log("Checking blocks")
-        result.concat(await t.get('card', 'shared', 'mb-blocks', []).then(function(blocks)
+        result.concat(t.get('card', 'shared', 'mb-blocks', []).then(function(blocks)
         {
             console.log(blocks)
             if (blocks.length == 0)
@@ -215,7 +215,7 @@ TrelloPowerUp.initialize(
             }];
         }));
         console.log("Checking blocked by")
-        result.concat(await t.get('card', 'shared', 'mb-blocked_by', []).then(function(blocked_by)
+        result.concat(t.get('card', 'shared', 'mb-blocked_by', []).then(function(blocked_by)
         {
             console.log(blocked_by)
             if (blocked_by.length == 0)
