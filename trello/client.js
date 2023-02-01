@@ -18,14 +18,14 @@ TrelloPowerUp.initialize(
                         result.push({color: 'light-gray', text: card.checklists[c].name});
                         for (let i=0; i<items.length; i++)
                         {
-                            result.push({text: ((items[i].state == 'complete') ? '☐ ' : '☐ ') + items[i].name});
+                            result.push({text: ((items[i].state == 'complete') ? '☐ ' : '☑ ') + items[i].name});
                         }
                     });
                     console.log("Result done");
                 });
             }
             
-            if (card.checklists.length > )
+            if (card.checklists.length > 0)
             {
                 console.log("RETURNING");
                 console.log(result);
