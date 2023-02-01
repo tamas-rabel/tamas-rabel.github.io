@@ -79,7 +79,7 @@ TrelloPowerUp.initialize(
                             result.unshift({color: 'light-gray', text: card.name});
                         }
                     }
-                }
+                });
             }
             
             return result;
