@@ -22,6 +22,7 @@ TrelloPowerUp.initialize(
                         }
                     });
                     console.log("Result done");
+                    console.log(result);
                 });
             }
             
