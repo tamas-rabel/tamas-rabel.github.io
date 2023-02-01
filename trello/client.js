@@ -18,10 +18,12 @@ function on_subtask(t, options)
                         text: cards[c].name,
                         callback: function(t, opts)
                         {
-                            let subtasks = t.get('card', 'shared', 'mb-subtasks', []);
-                            console.log(subtasks);
-                            subtasks.push(cards[c].id);
-                            t.set('card', 'shared', 'mb-subtasks', subtasks);
+                            t.get('card', 'shared', 'mb-subtasks', []).then(function(subtasks)
+                            {
+                                console.log(subtasks);
+                                subtasks.push(cards[c].id);
+                                t.set('card', 'shared', 'mb-subtasks', subtasks);
+                            });
                         },
                     });
                 }
@@ -67,9 +69,9 @@ TrelloPowerUp.initialize(
                 });
             }
 
-            await t.cards('id', 'name', 'cover').then(function(cards)
+            await t.cards('id', 'name', 'cover').then(async function(cards)
             {
-                let subtasks = t.get('card', 'shared', 'mb-subtasks', null);
+                let subtasks = await t.get('card', 'shared', 'mb-subtasks', []);
                 console.log(subtasks);
                 for (let s=0; s<subtasks.length; s++)
                 {
