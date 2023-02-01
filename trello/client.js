@@ -65,24 +65,24 @@ TrelloPowerUp.initialize(
                         result.unshift({color: 'light-gray', text: (num_done + "/" + items.length + " " + card.checklists[c].name + "                                                                                                    ")});
                     });
                 });
-
-                await t.cards('id', 'name', 'cover').then(function(cards)
-                {
-                    console.log(id);
-                    let subtasks = t.get('card', 'shared', 'mb-subtasks', []);
-                    console.log(subtasks);
-                    for (let s=0; s<subtasks.length; s++)
-                    {
-                        card = cards.find((c) => c.id == subtasks[s])
-                        if (card != null)
-                        {
-                            let colour = card.cover.color;
-                            if (colour != null) colour = "blue"
-                            result.unshift({color: 'light-gray', text: card.name});
-                        }
-                    }
-                });
             }
+
+            await t.cards('id', 'name', 'cover').then(function(cards)
+            {
+                console.log(id);
+                let subtasks = t.get('card', 'shared', 'mb-subtasks', []);
+                console.log(subtasks);
+                for (let s=0; s<subtasks.length; s++)
+                {
+                    card = cards.find((c) => c.id == subtasks[s])
+                    if (card != null)
+                    {
+                        let colour = card.cover.color;
+                        if (colour != null) colour = "blue"
+                        result.unshift({color: 'light-gray', text: card.name});
+                    }
+                }
+            });
             
             return result;
         });
