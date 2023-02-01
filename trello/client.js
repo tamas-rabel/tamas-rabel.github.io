@@ -40,6 +40,8 @@ function on_subtask(t, options)
     });
 }
 
+g_valid_colours = ['blue', 'green', 'orange', 'red', 'yellow', 'purple', 'pink', 'sky', 'lime', 'light-gray'];
+
 TrelloPowerUp.initialize(
 {
     'card-badges': function(t, options)
@@ -78,7 +80,7 @@ TrelloPowerUp.initialize(
                     if (card != null)
                     {
                         let colour = card.cover.color;
-                        if (colour == null) colour = "blue"
+                        if (colour == null || !g_valid_colours.include(colour)) colour = "light-gray";
                         result.unshift({color: colour, text: card.name});
                     }
                 }
