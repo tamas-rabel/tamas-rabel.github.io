@@ -31,7 +31,13 @@ TrelloPowerUp.initialize(
         return [
         {
             text: 'mb',
-            url: 'https://trello.com/1/authorize?expiration=1day&name=MyPersonalToken&scope=read&response_type=token&key=2673af39e812244706daa1292a259359',
+            callback: function(t, options)
+            {
+                t.getRestApi().authorize({ scope: 'read,write' }).then(function(t)
+                {
+                    alert('Success!');
+                });
+            },
         }];
     },
 },
