@@ -12,16 +12,25 @@
     <script>
         var Promise = TrelloPowerUp.Promise;
         var t = TrelloPowerUp.iframe();
+        console.log("Getting shit")
         t.get('card', 'shared', 'mb-parent', null).then(async function(parent)
         {
+            console.log("Shit got")
+            console.log(parent)
             if (parent == null) return;
 
+            console.log("Getting more shit")
             t.cards('id', 'name', 'cover').then(function(cards)
             {
+                console.log("More shit got")
+                console.log(cards)
                 let card = cards.find((c) => c.id == parent)
+                console.log(card)
                 if (card == null) return;
                 
+                console.log("Adding shit")
                 document.getElementById('parent').innerHTML = "Parent card is <button type='button'>" + card.name + "</button>"
+                console.log("Shit added")
             });
         });
     </script>
