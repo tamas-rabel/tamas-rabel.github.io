@@ -1,7 +1,7 @@
 async function on_subtask(t, options)
 {
     let orig_t = t;
-    return t.popup(
+    await t.popup(
     {
         title: 'Add subtask',
         items: async function(t, options)
@@ -23,12 +23,12 @@ async function on_subtask(t, options)
                             {
                                 subtasks.push(cards[c].id);
                                 t.set('card', 'shared', 'mb-subtasks', subtasks);
+                                orig_t.closePopup();
                             });
                         },
                     });
                 }
                 
-                orig_t.closePopup();
                 return result;
             });
         },
