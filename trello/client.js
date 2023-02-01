@@ -7,16 +7,18 @@ function on_subtask(t, options)
         {
             return t.cards('id', 'name').then(function(cards)
             {
-                console.log(cards);
+                //console.log(cards);
                 let result = []
                 for (let c=0; c<cards.length; c++)
                 {
+                    if (!cards[c].name.includes(options.search)) continue;
+                    
                     result.push(
                     {
                         text: cards[c].name,
                         callback: function(t, opts)
                         {
-                            alert(text);
+                            debug.log(cards[c]);
                         },
                     });
                 }
