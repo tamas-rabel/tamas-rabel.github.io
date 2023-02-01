@@ -18,12 +18,9 @@ function on_subtask(t, options)
                         text: cards[c].name,
                         callback: function(t, opts)
                         {
-                            console.log(cards[c])
-                            /*
                             let subtasks = t.get('card', 'shared', 'mb-subtasks', []);
                             subtasks.push(cards[c].id);
                             t.set('card', 'shared', 'mb-subtasks', subtasks);
-                            */
                         },
                     });
                 }
@@ -76,6 +73,8 @@ TrelloPowerUp.initialize(
                         card = cards.find((c) => c.id == subtasks[s])
                         if (card != null)
                         {
+                            let colour = card.cover.color;
+                            if (colour != null) colour = "blue"
                             result.unshift({color: 'light-gray', text: card.name});
                         }
                     }
