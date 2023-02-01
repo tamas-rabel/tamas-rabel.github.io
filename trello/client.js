@@ -3,7 +3,7 @@ TrelloPowerUp.initialize(
     'card-badges': function(t, options)
     {
         let result = [];
-        t.card('id', 'checklists').then(function (card)
+        await t.card('id', 'checklists').then(function (card)
         {
             for (let c=0; c<card.checklists.length; c++)
             {
@@ -28,7 +28,7 @@ TrelloPowerUp.initialize(
                     });
                 });
             }
-        }).wait();
+        });
 
         return result;
     },
