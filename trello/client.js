@@ -1,4 +1,4 @@
-async function on_subtask(context)
+async function on_parent(context)
 {
     context.popup(
     {
@@ -109,8 +109,8 @@ TrelloPowerUp.initialize(
         return [
         {
             icon: "https://cdn.hyperdev.com/us-east-1%3A3d31b21c-01a0-4da2-8827-4bc6e88b7618%2Ficon-gray.svg",
-            text: 'Add subtask',
-            callback: on_subtask,
+            text: 'Set parent',
+            callback: on_parent,
             condition: 'edit'
         }];
     },
@@ -125,12 +125,12 @@ TrelloPowerUp.initialize(
             
             return [
             {
-                title: "Subtasks",
+                title: "Parent",
                 icon: 'https://cdn.hyperdev.com/us-east-1%3A3d31b21c-01a0-4da2-8827-4bc6e88b7618%2Ficon-gray.svg',
                 content:
                 {
                     type: 'iframe',
-                    url: t.signUrl('./subtasks-section.html'),
+                    url: t.signUrl('./parent-section.html'),
                     height: 256,
                 }
             }];
