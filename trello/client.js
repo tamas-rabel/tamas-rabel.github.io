@@ -191,6 +191,7 @@ TrelloPowerUp.initialize(
                 {
                     type: 'iframe',
                     url: t.signUrl('./parent-section.html'),
+                    height: 128;
                 }
             }];
         });
@@ -215,12 +216,13 @@ TrelloPowerUp.initialize(
                 {
                     type: 'iframe',
                     url: t.signUrl('./blocking-section.html'),
+                    height: 128;
                }
             }];
         });
         result = result.concat(blocks);
         console.log("Checking blocked by")
-        let blocked_by = await t.get('card', 'shared', 'mb-blocked_by', []).then(function(blocked_by)
+        let blocked_by = await t.get('card', 'shared', 'mb-blocked-by', []).then(function(blocked_by)
         {
             console.log(blocked_by)
             if (blocked_by.length == 0)
@@ -236,6 +238,7 @@ TrelloPowerUp.initialize(
                 {
                     type: 'iframe',
                     url: t.signUrl('./blocked-section.html'),
+                    height: 128;
                 }
             }];
         });
