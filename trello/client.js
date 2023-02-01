@@ -7,7 +7,8 @@ t.getRestApi().isAuthorized().then(function(isAuthorized)
             alert('Success!');
         });
     }
-}
+});
+
 TrelloPowerUp.initialize(
 {
     'card-badges': function(t, options)
