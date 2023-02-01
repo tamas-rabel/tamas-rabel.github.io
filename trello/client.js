@@ -20,9 +20,9 @@ function on_subtask(t, options)
                         {
                             t.get('card', 'shared', 'mb-subtasks', []).then(function(subtasks)
                             {
-                                console.log(subtasks);
                                 subtasks.push(cards[c].id);
                                 t.set('card', 'shared', 'mb-subtasks', subtasks);
+                                t.closePopup();
                             });
                         },
                     });
@@ -72,7 +72,6 @@ TrelloPowerUp.initialize(
             await t.cards('id', 'name', 'cover').then(async function(cards)
             {
                 let subtasks = await t.get('card', 'shared', 'mb-subtasks', []);
-                console.log(subtasks);
                 for (let s=0; s<subtasks.length; s++)
                 {
                     card = cards.find((c) => c.id == subtasks[s])
@@ -80,7 +79,7 @@ TrelloPowerUp.initialize(
                     {
                         let colour = card.cover.color;
                         if (colour != null) colour = "blue"
-                        result.unshift({color: 'light-gray', text: card.name});
+                        result.unshift({color: colour, text: card.name});
                     }
                 }
             });
