@@ -124,10 +124,11 @@ TrelloPowerUp.initialize(
             console.log("getting cards");
             await t.cards('id', 'name', 'cover').then(async function(cards)
             {
-                console.log(cards);
                 let blocked_by = await t.get('card', 'shared', 'mb-blocked-by', []);
+                console.log(blocked_by);
                 for (let bb=0; bb<blocked_by.length; bb++)
                 {
+                    console.log(blocked_by[bb]);
                     card = cards.find((c) => c.id == blocked_by[bb])
                     if (card != null)
                     {
@@ -136,8 +137,10 @@ TrelloPowerUp.initialize(
                 }
                 
                 let blocks = await t.get('card', 'shared', 'mb-blocks', []);
+                console.log(blocks);
                 for (let b=0; b<blocks.length; b++)
                 {
+                    console.log(blocks[b]);
                     card = cards.find((c) => c.id == blocks[b])
                     if (card != null)
                     {
