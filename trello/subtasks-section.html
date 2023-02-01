@@ -4,6 +4,12 @@
     <meta charset=utf-8>
     <link rel="stylesheet" href="https://p.trellocdn.com/power-up.min.css">
     <script src="https://p.trellocdn.com/power-up.min.js"></script>
+    <style>
+        .mb-delete
+        {
+            cursor: pointer;
+        }
+    </style>
     <title>Subtasks</title>
   </head>
   <body>
@@ -29,10 +35,15 @@
                 if (card == null) return;
                 
                 console.log("Adding shit")
-                document.getElementById('parent').innerHTML = "Parent card is <button type='button'>" + card.name + "</button>"
+                document.getElementById('parent').innerHTML = "Parent card is <button type='button'>" + card.name + "</button><i class='fa-regular fa-circle-xmark mb-delete' onclick='delete_parent();'></i>"
                 console.log("Shit added")
             });
         });
+        
+        function delete_parent()
+        {
+            t.set('card', 'shared', 'mb-parent', null);
+        }
     </script>
   </body>
 </html>
