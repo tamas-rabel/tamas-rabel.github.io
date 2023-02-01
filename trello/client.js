@@ -3,11 +3,12 @@ TrelloPowerUp.initialize({
       console.log(options);
     t.card('id', 'checklists').then(function (card) {
         console.log(card.checklists)
-        if (card.checklists != null)
+        if (card.checklists.length > 0)
         {
-            fetch('https://api.trello.com/1/checklists/' + card.checklists.id + '/checkItems')
-            .then((response) => response.json())
-            .then((json) => console.log(json));
+            console.log(card.checklists[0].id)
+//            fetch('https://api.trello.com/1/checklists/' + card.checklists[0].id + '/checkItems')
+//            .then((response) => response.json())
+//            .then((json) => console.log(json));
         }
     });
     
