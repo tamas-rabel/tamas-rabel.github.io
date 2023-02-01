@@ -29,14 +29,31 @@
                     let card = cards.find((c) => c.id == blocked_by[b])
                     if (card == null) return;
                     
-                    html += "<button type='button'>" + card.name + "</button><i class='fa-regular fa-circle-xmark mb-delete' onclick='delete_block();'></i>"
+                    html += "<button type='button'>" + card.name + "</button><i class='fa-regular fa-circle-xmark mb-delete' onclick='delete_block(' + b + ');'></i>"
                 }
                 document.getElementById('parent').innerHTML = html;
             });
         });
         
-        function delete_block()
+        function delete_block(index)
         {
+            t.get('card', 'shared', 'mb-blocked-by', []).then((blocked_by) =>
+            {
+                let id = blocked_by[index]
+                blocked_by.splice(index, 1)
+                t.set('card', 'shared', 'mb-blocked-by', blocked_by).then(() =>
+                {
+                    t.card('id', 'checklists').then((card) =>
+                    {
+                        t.get(id, 'shared', 'mb-blocks', []).then((blocks) =>
+                        {
+                            let blocks_index = blocks.findIndex((b) => { return b == card.id})
+                            blocks.splice(blocks_index, 1)
+                            t.set(id, 'shared', 'mb-blocks', blocks);
+                        });
+                    });
+                });
+            });
         }
     </script>
   </body>

@@ -62,16 +62,13 @@ async function on_add_blocker(context)
                                 t.set('card', 'shared', 'mb-blocked-by', blocked_by);
                             }).then(() =>
                             {
-                                t.card('id', 'checklists').then((card) =>
+                                t.get(cards[c].id, 'shared', 'mb-blocks', []).then((blocks) =>
                                 {
-                                    t.get(cards[c].id, 'shared', 'mb-blocks', []).then((blocks) =>
+                                    blocks.push(card.id)
+                                    t.set(cards[c].id, 'shared', 'mb-blocks', blocks).then
                                     {
-                                        blocks.push(card.id)
-                                        t.set(cards[c].id, 'shared', 'mb-blocks', blocks).then
-                                        {
-                                            t.closePopup();
-                                        }
-                                    });
+                                        t.closePopup();
+                                    }
                                 });
                             });
                         },
