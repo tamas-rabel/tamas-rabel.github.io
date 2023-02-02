@@ -241,7 +241,7 @@ TrelloPowerUp.initialize(
                 {
                     type: 'iframe',
                     url: t.signUrl('./blocking-section.html'),
-                    height: 42 * blocked_by.length,
+                    height: 42 * blocks.length,
                }
             }];
         });
