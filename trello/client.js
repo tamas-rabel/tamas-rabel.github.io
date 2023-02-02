@@ -192,9 +192,12 @@ TrelloPowerUp.initialize(
                 {
                     let cp = completed * 100 / children.length;
                     result.push({text: cp + "% (" + completed + "/" + children.length + ")"});
+                    console.log(result)
                 }
             });
-            
+
+            console.log(result)
+
             return result;
         });
     },
