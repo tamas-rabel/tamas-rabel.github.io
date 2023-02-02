@@ -76,10 +76,10 @@ async function on_add_blocker(context)
                                         t.get(cards[c].id, 'shared', 'mb-blocks', []).then((blocks) =>
                                         {
                                             blocks.push(card.id)
-                                            t.set(cards[c].id, 'shared', 'mb-blocks', blocks).then
+                                            t.set(cards[c].id, 'shared', 'mb-blocks', blocks).then(() =>
                                             {
                                                 t.closePopup();
-                                            }
+                                            });
                                         });
                                     });
                                 });
