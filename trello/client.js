@@ -178,6 +178,7 @@ TrelloPowerUp.initialize(
                 let children = await t.get('card', 'shared', 'mb-children', []);
                 if (children.length > 0)
                 {
+                    console.log(card.id)
                     console.log(children)
                 }
                 for (let ch=0; ch<children.length; ch++)
@@ -190,8 +191,10 @@ TrelloPowerUp.initialize(
                 }
                 if (children.length > 0)
                 {
+                    console.log("adding to result")
                     let cp = completed * 100 / children.length;
                     result.push({text: cp + "% (" + completed + "/" + children.length + ")"});
+                    console.log("added to result")
                     console.log(result)
                 }
             });
