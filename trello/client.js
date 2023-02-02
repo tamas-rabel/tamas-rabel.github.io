@@ -181,9 +181,9 @@ TrelloPowerUp.initialize(
                     console.log(card.id)
                     console.log(children)
                 }
+                let completed = 0;
                 for (let ch=0; ch<children.length; ch++)
                 {
-                    let completed = 0;
                     card = cards.find((c) => c.id == children[ch])
                     if (card != null)
                     {
