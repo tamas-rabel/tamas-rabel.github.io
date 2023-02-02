@@ -108,6 +108,9 @@ TrelloPowerUp.initialize(
     {
         return t.card('id', 'checklists').then(async function (card)
         {
+            let lists = await t.lists('id', 'name');
+            let completed_id = lists.find((l) => l.name.toLowerCase() == 'done').id
+            
             let result = [];
             for (let c=0; c<card.checklists.length; c++)
             {
@@ -131,8 +134,28 @@ TrelloPowerUp.initialize(
                 });
             }
 
-            await t.cards('id', 'name', 'cover', 'locationName', 'pos').then(async function(cards)
+            await t.cards('id', 'name', 'cover', 'idList').then(async function(cards)
             {
+                let children = await t.get('card', 'shared', 'mb-children', []);
+                if (children.length > 0)
+                {
+                    console.log(card)
+                }
+                let completed = 0;
+                for (let ch=0; ch<children.length; ch++)
+                {
+                    card = cards.find((c) => c.id == children[ch])
+                    if (card != null)
+                    {
+                        if (card.idList == completed_id) completed++;
+                    }
+                }
+                if (children.length > 0)
+                {
+                    let cp = completed * 100 / children.length;
+                    result.push({text: cp + "% (" + completed + "/" + children.length + ")\n"});
+                }
+                
                 let blocked_by = await t.get('card', 'shared', 'mb-blocked-by', []);
                 for (let bb=0; bb<blocked_by.length; bb++)
                 {
@@ -169,25 +192,6 @@ TrelloPowerUp.initialize(
                         if (colour == null || !g_valid_colours.includes(colour)) colour = "light-gray";
                         result.push({color: colour, text: card.name});
                     }
-                }
-
-                let children = await t.get('card', 'shared', 'mb-children', []);
-                if (children.length > 0)
-                {
-                    console.log(card)
-                }
-                let completed = 0;
-                for (let ch=0; ch<children.length; ch++)
-                {
-                    card = cards.find((c) => c.id == children[ch])
-                    if (card != null)
-                    {
-                    }
-                }
-                if (children.length > 0)
-                {
-                    let cp = completed * 100 / children.length;
-                    result.push({text: cp + "% (" + completed + "/" + children.length + ")\n"});
                 }
             });
 
