@@ -21,11 +21,15 @@ async function on_parent(context)
                             {
                                 t.card('id').then((card) =>
                                 {
+                                    console.log(card.id)
                                     t.get(cards[c].id, 'shared', 'mb-children', []).then((children) =>
                                     {
+                                        console.log(children)
                                         children.push(card.id);
+                                        console.log(children)
                                         t.set(cards[c].id, 'shared', 'mb-children', children).then
                                         {
+                                            console.log("Children set")
                                             t.closePopup();
                                         };
                                     });
@@ -172,6 +176,10 @@ TrelloPowerUp.initialize(
                 }
 
                 let children = await t.get('card', 'shared', 'mb-children', []);
+                if (children.length > 0)
+                {
+                    console.log(children)
+                }
                 for (let ch=0; ch<children.length; ch++)
                 {
                     let completed = 0;
