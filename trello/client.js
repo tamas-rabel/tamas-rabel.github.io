@@ -150,7 +150,7 @@ TrelloPowerUp.initialize(
                 {
                     let cp = completed * 100 / children.length;
                     let text = cp + "% (" + completed + "/" + children.length + ")"
-                    text.padEnd(25, ' ');
+                    text = text.padEnd(25, ' ');
                     result.push({text: text});
                 }
                 
