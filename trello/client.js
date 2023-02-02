@@ -129,7 +129,9 @@ TrelloPowerUp.initialize(
                     card = cards.find((c) => c.id == blocked_by[bb])
                     if (card != null)
                     {
-                        result.push({color: 'red', text: "Blocked by " + card.name, icon: "https://icons.getbootstrap.com/assets/icons/sign-stop.svg"});
+                        let colour = card.cover.color;
+                        if (colour == null || !g_valid_colours.includes(colour)) colour = "light-gray";
+                        result.push({color: colour, text: "Blocked by " + card.name, icon: "https://icons.getbootstrap.com/assets/icons/sign-stop.svg"});
                     }
                 }
                 
@@ -139,7 +141,9 @@ TrelloPowerUp.initialize(
                     card = cards.find((c) => c.id == blocks[b])
                     if (card != null)
                     {
-                        result.push({color: 'red', text: "Blocking " + card.name, icon: "https://icons.getbootstrap.com/assets/icons/exclamation-circle.svg"});
+                        let colour = card.cover.color;
+                        if (colour == null || !g_valid_colours.includes(colour)) colour = "light-gray";
+                        result.push({color: colour, text: "Blocking " + card.name, icon: "https://icons.getbootstrap.com/assets/icons/exclamation-circle.svg"});
                     }
                 }
                 
