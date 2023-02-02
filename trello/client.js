@@ -216,7 +216,7 @@ TrelloPowerUp.initialize(
                 {
                     type: 'iframe',
                     url: t.signUrl('./parent-section.html'),
-                    height: 128,
+                    height: 42,
                 }
             }];
         });
@@ -241,7 +241,7 @@ TrelloPowerUp.initialize(
                 {
                     type: 'iframe',
                     url: t.signUrl('./blocking-section.html'),
-                    height: 128,
+                    height: 42 * blocked_by.length,
                }
             }];
         });
@@ -263,7 +263,7 @@ TrelloPowerUp.initialize(
                 {
                     type: 'iframe',
                     url: t.signUrl('./blocked-section.html'),
-                    height: 128,
+                    height: 42 * blocked_by.length,
                 }
             }];
         });
