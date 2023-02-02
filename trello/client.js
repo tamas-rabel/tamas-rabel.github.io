@@ -121,15 +121,12 @@ TrelloPowerUp.initialize(
                 });
             }
 
-            console.log("getting cards");
             await t.cards('id', 'name', 'cover').then(async function(cards)
             {
                 let blocked_by = await t.get('card', 'shared', 'mb-blocked-by', []);
                 for (let bb=0; bb<blocked_by.length; bb++)
                 {
-                    console.log(blocked_by[bb]);
                     card = cards.find((c) => c.id == blocked_by[bb])
-                    console.log(card);
                     if (card != null)
                     {
                         result.push({color: 'red', text: "Blocked by " + card.name, icon: "https://icons.getbootstrap.com/assets/icons/sign-stop.svg"});
@@ -139,9 +136,7 @@ TrelloPowerUp.initialize(
                 let blocks = await t.get('card', 'shared', 'mb-blocks', []);
                 for (let b=0; b<blocks.length; b++)
                 {
-                    console.log(blocks[b]);
                     card = cards.find((c) => c.id == blocks[b])
-                    console.log(card);
                     if (card != null)
                     {
                         result.push({color: 'red', text: "Blocking " + card.name, icon: "https://icons.getbootstrap.com/assets/icons/exclamation-circle.svg"});
@@ -198,11 +193,9 @@ TrelloPowerUp.initialize(
     },
     'card-back-section': async function (t, opts)
     {
-        console.log("Checking parent")
         let result = []
         let parent = await t.get('card', 'shared', 'mb-parent', null).then(function(parent)
         {
-            console.log(parent)
             if (parent == null)
             {
                 return [];
@@ -220,14 +213,9 @@ TrelloPowerUp.initialize(
                 }
             }];
         });
-        console.log(typeof(parent));
-        console.log(parent);
         result = result.concat(parent);
-        console.log(result);
-        console.log("Checking blocks")
         let blocks = await t.get('card', 'shared', 'mb-blocks', []).then(function(blocks)
         {
-            console.log(blocks)
             if (blocks.length == 0)
             {
                 return [];
@@ -246,10 +234,8 @@ TrelloPowerUp.initialize(
             }];
         });
         result = result.concat(blocks);
-        console.log("Checking blocked by")
         let blocked_by = await t.get('card', 'shared', 'mb-blocked-by', []).then(function(blocked_by)
         {
-            console.log(blocked_by)
             if (blocked_by.length == 0)
             {
                 return [];
@@ -268,8 +254,6 @@ TrelloPowerUp.initialize(
             }];
         });
         result = result.concat(blocked_by)
-        
-        console.log(result);
         
         return result;
     },
