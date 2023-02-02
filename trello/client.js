@@ -151,7 +151,7 @@ TrelloPowerUp.initialize(
                     let cp = completed * 100 / children.length;
                     let text = cp + "% (" + completed + "/" + children.length + ")"
                     text.padEnd(25);
-                    result.push({text: padEnd});
+                    result.push({text: text});
                 }
                 
                 let blocked_by = await t.get('card', 'shared', 'mb-blocked-by', []);
