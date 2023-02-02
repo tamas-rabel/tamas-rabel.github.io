@@ -137,10 +137,6 @@ TrelloPowerUp.initialize(
             await t.cards('id', 'name', 'cover', 'idList').then(async function(cards)
             {
                 let children = await t.get('card', 'shared', 'mb-children', []);
-                if (children.length > 0)
-                {
-                    console.log(card)
-                }
                 let completed = 0;
                 for (let ch=0; ch<children.length; ch++)
                 {
@@ -153,7 +149,7 @@ TrelloPowerUp.initialize(
                 if (children.length > 0)
                 {
                     let cp = completed * 100 / children.length;
-                    result.push({text: cp + "% (" + completed + "/" + children.length + ")                                         "});
+                    result.push({text: cp + "% (" + completed + "/" + children.length + ")                                                            "});
                 }
                 
                 let blocked_by = await t.get('card', 'shared', 'mb-blocked-by', []);
