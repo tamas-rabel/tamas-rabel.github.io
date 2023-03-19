@@ -565,6 +565,13 @@ function update_printer_friendly(e)
 	}
 }
 
+function update_player_aid(e)
+{
+	let show_player_aid = e.target.checked;
+    let player_aid = document.getElementById("player-aid");
+    player_aid.style.display = (show_player_aid) ? "block" : "none";
+}
+
 function show_font_selector()
 {
 	let list = document.getElementById("font-list");
@@ -613,7 +620,7 @@ window.onload = function()
 	document.onclick = (e) =>
 	{
 		if (e.target.id != "instructions" && e.target.id != "show-instructions") hide_instructions();
-		if (!e.path.some(o => o.id == "font-selection")) hide_font_selector();
+		if (e.path && !e.path.some(o => o.id == "font-selection")) hide_font_selector();
 	}
 
 	show_instructions();

@@ -3,7 +3,7 @@
 <head>
 	<link href="sheet.css" rel="stylesheet" id="the-sheet">
 	<script src="sheet.js"></script>
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0..1,0" />
 </head>
 <body ondragenter="on_drag_enter(event);" ondragover="on_drag_enter(event);" ondrop="on_drop(event);" ondragleave="on_drag_leave(event);">
 
@@ -32,6 +32,10 @@
 			<input id="pencil-colour" type="color" onchange='change_pencil_colour(event)' oninput='change_pencil_colour(event)'></input>
 			<div class='tooltip no-print'><span class="material-symbols-outlined">arrow_left</span>select pencil colour</div>
 		</div>
+		<div id="show-player-aid" class='show-tooltip'>
+			<input type=checkbox onchange="update_player_aid(event)" checked></input>
+			<div class='tooltip no-print'><span class="material-symbols-outlined">arrow_left</span>Show/Hide player aid notes</div>
+		</div>
 		<div id="show-instructions" onclick='show_instructions()' class='show-tooltip'>
 			<span class="material-symbols-outlined no-click"><b>question_mark</b></span>
 			<div class='tooltip no-print'><span class="material-symbols-outlined">arrow_left</span>display help</div>
@@ -46,6 +50,24 @@
 	</div>
 
 	<div class=page>
+        <div id="player-aid">
+            <div id="help-saving-throws">
+                Roll over<br>
+                (The smaller the better)
+            </div>
+            <div id="help-ac">
+                The smaller the better<br>
+                (Starts from 10)
+            </div>
+            <div id="help-thac0">
+                The smaller the better
+                (THAC0 - roll = AC hit)
+            </div>
+            <div id="help-turning">
+                Roll over<br>
+                (The smaller<br>the better)
+            </div>
+        </div>
 		<div id="character">
 			<table>
 				<tr><td colspan=2><div class='input'><label>Name</label><div><input type=text id="character-name"></input></div></div></td></tr>

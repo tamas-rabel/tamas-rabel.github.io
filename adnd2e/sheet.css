@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Amarante&family=Averia+Serif+Libre:ital,wght@0,300;0,700;1,300;1,400;1,700&display=block');
 @import url('https://fonts.googleapis.com/css2?family=Indie+Flower:wght@400&display=block');
 @import url('https://fonts.googleapis.com/css2?family=Raleway&family=EB+Garamond&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Mynerve&display=block');
 :root
 {
   --colour: #9f9f9f;
@@ -148,7 +148,7 @@ input, textarea
 //	top: 0px;	
 //	width: 256px;
 	left: -4px;
-	top: 300px;
+	top: 350px;
 	font-size: 10pt;
 //	text-align: center;
 //	transform: translate(-50%, 0);
@@ -168,6 +168,7 @@ input, textarea
 {
 	position: relative;
 	width: 38px;
+    font-variation-settings: 'FILL' 1;
 }
 #show-instructions
 {
@@ -204,6 +205,38 @@ input, textarea
 #printer-friendly input[type=checkbox]:checked:after
 {
 	content: "format_color_reset";
+}
+#show-player-aid
+{
+	position: relative;
+	width: 38px;
+}
+#show-player-aid div
+{
+  font-family: 'Material Symbols Outlined';
+  font-weight: 800;
+  font-style: normal;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  cursor: pointer;
+}
+#show-player-aid input[type=checkbox]
+{
+	all: unset;
+	width: 0;
+	height: 0;
+    font-weight: normal;
+}
+#show-player-aid input[type=checkbox]:not(:checked):after
+{
+	content: "subtitles_off";
+}
+#show-player-aid input[type=checkbox]:checked:after
+{
+	content: "subtitles";
 }
 #font-selection
 {
@@ -1382,4 +1415,40 @@ X:before
 #spell-list-edit:checked:after
 {
 	content: "edit";
+}
+#player-aid
+{
+    font-family: "Mynerve";
+    color: darkblue;
+}
+#help-saving-throws
+{
+    position: absolute;
+    text-align: center;
+    transform: rotate(90deg);
+    right: -26pt;
+    top: 135pt;
+}
+#help-ac
+{
+    position: absolute;
+    text-align: center;
+    transform: rotate(-90deg);
+    left: -22pt;
+    top: 240pt;
+}
+#help-thac0
+{
+    position: absolute;
+    text-align: center;
+    left: 210pt;
+    top: 290pt;
+}
+#help-turning
+{
+    position: absolute;
+    text-align: center;
+    transform: rotate(-90deg);
+    left: -6pt;
+    top: 460pt;
 }
