@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Ramaraja&display=swap');
+
+body
+{
+    font-family: Ramaraja;
+    font-size: 16pt;
+}
+p
+{
+    margin: 0;
+}
+table
+{
+    margin: auto;
+}
+label
+{
+    margin: 8px;
+}
+#map
+{
+}
+#controls
+{
+    vertical-align: top;
+}
+canvas
+{
+    max-width: (100vh - 320px);
+    max-height: calc(100vh - 24px);
+}
+#tiled
+{
+    font-size: 75%;
+    margin-left: 8pt;
+}

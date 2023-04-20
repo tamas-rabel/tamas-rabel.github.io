@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+    <head>
+        <link href="hex_world_generator.css" rel="stylesheet" id="the-sheet">
+        <script src="https://cdn.jsdelivr.net/gh/pigulla/mersennetwister@master/src/MersenneTwister.js"></script>
+        <script src="hex_world_generator.js"></script>
+    </head>
+    <body onpageshow="init();">
+        <table>
+            <tr>
+                <td id="map">
+                    <canvas id="canvas">
+                    </canvas>
+                </td>
+                <td id="controls">
+                    <p><input type="text" id="seed" onchange="update_generation();"></input>                                              <label for="seed">seed</label><input type="button" value="randomize" onclick="randomize()"></input></p>
+                    <p><input type="range" id="height-power" oninput="update_generation();" min="0.1" max="4" step="any"></input>         <label for="height-power">height power</label>  </p>
+                    <p><input type="range" id="height-offset" oninput="update_generation();" min="-1" max="1" step="any"></input>         <label for="height-offset">height offset</label></p>
+                    <p><input type="range" id="height-range" oninput="update_generation();" min="-1" max="1" step="any"></input>          <label for="height-range">height range</label>  </p>
+                    <p><input type="range" id="biome-offset" oninput="update_generation();" min="-1" max="1" step="any"></input>          <label for="biome-offset">biome offset</label>  </p>
+                    <p><input type="radio" id="display-normal" name="display-mode" onchange="update_display(event);" checked></input><label for="display-normal">normal</label>      </p>
+                    <p><input type="radio" id="display-height" name="display-mode" onchange="update_display(event);"></input>        <label for="display-normal">height</label>      </p>
+                    <p><input type="radio" id="display-biome" name="display-mode" onchange="update_display(event);"></input>         <label for="display-normal">biome</label>    </p>
+                    <p><input type="checkbox" id="smooth-rivers" onchange="update_generation();" checked></input>                         <label for="smooth-rivers">smooth rivers</label></p>
+                    <p><input type="range" id="num-rivers" oninput="update_generation();" min="0" max="16" step="1"></input>              <label for="num-rivers">number of rivers</label>  </p>
+                    <p><input type="range" id="swamp-threshold" oninput="update_generation();" min="0.5" max="2" step="any"></input>      <label for="swamp-threshold">swamp threshold</label>  </p>
+                    <p><input type="range" id="num-biome-iterations" oninput="update_generation();" min="1" max="40" step="1"></input>    <label for="num-biome-iterations">number of biome iterations</label></p>
+                    <p><input type="checkbox" id="show-hexes" onchange="update_display();"></input>                                       <label for="show-hexes">show hexes</label></p>
+                    <p><input type="checkbox" id="display-elevation" onchange="update_display();"></input>                                <label for="display-elevation">display elevation</label></p>
+                    <p><a id="export-tiled" onclick="document.getElementById('export-river-overlay').click()">Export for Tiled</a> <span id='tiled'>(You can download Tiled from <a href='https://www.mapeditor.org/'>here</a>)</span></p>
+                    <p><a id="export-river-overlay">Export river overlay</a></p>
+                    <p><a id="download-tileset" href="./tileset.zip">Download tileset</a></p>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>
