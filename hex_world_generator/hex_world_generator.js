@@ -29,6 +29,7 @@ var g_river_blob = null;
 var g_elevation_overlay = null;
 var g_display_elevation = false;
 var g_num_biome_iterations = 10;
+var g_show_numbers = true;
 
 function set_seed(s)
 {
@@ -413,6 +414,7 @@ function generate()
     document.getElementById("show-hexes").checked = g_show_hexes;
     document.getElementById("num-biome-iterations").value = g_num_biome_iterations;
     document.getElementById("display-elevation").checked = g_display_elevation;
+    document.getElementById("show-numbers").checked = g_show_numbers;
 
     draw();
     
@@ -603,6 +605,8 @@ async function draw()
     if (g_show_hexes)
     {
 		let dash = Math.floor(g_hex_width / 16);
+		ctx.textAlign = "center";
+		ctx.font = "12pt Ramaraja";
 		ctx.setLineDash([dash, dash]);
 		//ctx.strokeStyle = "#0003";
         for (let y=0; y<g_height; y++)
@@ -624,8 +628,14 @@ async function draw()
                     }
                 }
                 ctx.stroke();
+				
+				if (g_show_numbers)
+				{
+					let hex = get_hex_center(x, y);
+					ctx.fillText((x+1).toString().padStart(2, '0') + "" + (y+1).toString().padStart(2, '0'), hex.x, hex.y + g_hex_height/2 - 8);
+				}
             }
-        }            
+        }
     }
     
     // Elevation lines
@@ -686,7 +696,10 @@ function update_display(e)
     if (document.getElementById("display-biome").checked) g_display_mode = "display-biome";
     g_show_hexes = document.getElementById("show-hexes").checked;
     g_display_elevation = document.getElementById("display-elevation").checked;
-    draw();
+    g_show_numbers = document.getElementById("show-numbers").checked;
+	
+	generate();
+    //draw();
 }
 
 function parse_url()

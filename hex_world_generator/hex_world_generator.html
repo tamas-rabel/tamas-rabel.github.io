@@ -26,6 +26,7 @@
                     <p><input type="range" id="swamp-threshold" oninput="update_generation();" min="0.5" max="2" step="any"></input>      <label for="swamp-threshold">swamp threshold</label>  </p>
                     <p><input type="range" id="num-biome-iterations" oninput="update_generation();" min="1" max="40" step="1"></input>    <label for="num-biome-iterations">number of biome iterations</label></p>
                     <p><input type="checkbox" id="show-hexes" onchange="update_display();"></input>                                       <label for="show-hexes">show hexes</label></p>
+                    <p><input type="checkbox" id="show-numbers" onchange="update_display();"></input>                                     <label for="show-numbers">show numbers</label></p>
                     <p><input type="checkbox" id="display-elevation" onchange="update_display();"></input>                                <label for="display-elevation">display elevation</label></p>
                     <p><a id="export-tiled" onclick="document.getElementById('export-river-overlay').click()">Export for Tiled</a> <span id='tiled'>(You can download Tiled from <a href='https://www.mapeditor.org/'>here</a>)</span></p>
                     <p><a id="export-river-overlay">Export river overlay</a></p>
