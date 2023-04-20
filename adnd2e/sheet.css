@@ -1419,7 +1419,7 @@ X:before
 #player-aid
 {
     font-family: "Mynerve";
-    color: darkblue;
+    color: #00a;
 }
 #help-saving-throws
 {
@@ -1450,5 +1450,13 @@ X:before
     text-align: center;
     transform: rotate(-90deg);
     left: -6pt;
-    top: 460pt;
+    top: 475pt;
+}
+#help-ability-checks
+{
+    position: absolute;
+    text-align: center;
+    transform: rotate(-90deg);
+    left: 0pt;
+    top: 147pt;
 }
