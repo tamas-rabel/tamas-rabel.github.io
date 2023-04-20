@@ -1,5 +1,5 @@
 # tamas-rabel.github.io
 
-Various random stuff.
-
-Some of these stuff uses [Font Awesome](https://fontawesome.com/)
+[2nd edition AD&D character sheet](./adnd2e/sheet.html)
+[Cortex Prime character sheet](./cortex/sheet.html)
+[Hex world generator](./hex_world_generator/hex_world_generator.html)
