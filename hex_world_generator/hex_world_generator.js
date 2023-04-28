@@ -1,15 +1,12 @@
-// ?seed=1680545304814
-// ?seed=1680552840037
-// ?seed=42&height_power=1&height_offset=0&height_range=1&biome_offset=0&smooth_rivers=true&num_rivers=4&swamp_threshold=1
-
 var canvas = null;
 var ctx = null;
 var g_heightmap = null;
 var g_biomemap = null;
-var g_water_override = null;
+var g_hexmap = null;
+var g_settlements = [];
 var g_width = 25;
 var g_height = 20;
-var g_tiles = {};
+var g_tile_cache = {};
 var g_random = null
 var g_display_mode = "display-normal";
 var g_height_power = 1;
@@ -25,11 +22,25 @@ var g_seed = null;
 var g_hex_width = 104;
 var g_hex_height = 90;
 var g_river_overlay = null;
+var g_settlement_overlay = null;
+var g_road_overlay = null;
+var g_border_overlay = null;
 var g_river_blob = null;
+var g_settlement_blob = null;
+var g_road_blob = null;
+var g_border_blob = null;
 var g_elevation_overlay = null;
 var g_display_elevation = false;
 var g_num_biome_iterations = 10;
 var g_show_numbers = true;
+var g_num_cities = 5;
+var g_num_towns = 5;
+var g_ocean_tiles = [];
+var g_roads = [];
+var g_road_simplification_threshold = 16;
+var g_show_settlements = true;
+var g_show_roads = true;
+var g_show_borders = true;
 
 function set_seed(s)
 {
@@ -47,10 +58,14 @@ function init()
     
     g_river_overlay = new OffscreenCanvas(canvas.width + g_hex_width/4, canvas.height + g_hex_height/2);
     g_elevation_overlay = new OffscreenCanvas(canvas.width + g_hex_width/4, canvas.height + g_hex_height/2);
+    g_settlement_overlay = new OffscreenCanvas(canvas.width + g_hex_width/4, canvas.height + g_hex_height/2);
+    g_road_overlay = new OffscreenCanvas(canvas.width + g_hex_width/4, canvas.height + g_hex_height/2);
+    g_border_overlay = new OffscreenCanvas(canvas.width + g_hex_width/4, canvas.height + g_hex_height/2);
     
     g_heightmap = new Float32Array(g_width * g_height);
     g_biomemap = new Float32Array(g_width * g_height);
-    g_water_override = new Float32Array(g_width * g_height);
+    g_hexmap = new Array(g_width * g_height);
+    g_ocean_tiles = new Uint8Array(g_width * g_height);
  
     let inputs = document.getElementById("controls").getElementsByTagName("input");
     for (let i=0; i<inputs.length; i++)
@@ -280,7 +295,7 @@ function generate_rivers(water_sources)
             
             if (!valid)
             {
-                g_water_override[current_hex.y * g_width + current_hex.x] = 1;
+                g_biomemap[current_hex.y * g_width + current_hex.x] = 100;
                 break;
             }
             
@@ -328,6 +343,373 @@ function generate_rivers(water_sources)
     }    
 }
 
+function compute_score(x, y)
+{
+    let score = 0;
+    
+    if (x == 0 || y == 0 || x == g_width-1 || y == g_height-1) return -10000;
+    
+    switch (g_hexmap[y * g_width + x])
+    {
+        case "costal_water": score += -10; break;
+        case "desert_sandy": score += -5; break;
+        case "grass": score += 10; break;
+        case "forested_hills": score += 8; break;
+        case "heavy_forest": score += 4; break;
+        case "hills": score += 0; break;
+        case "hills_green": score += 2; break;
+        case "jungle": score += -2; break;
+        case "jungle_hills": score += -4; break; 
+        case "light_forest": score += 6; break;
+        case "mountains": score += 0; break;
+        case "swamp": score += -15; break;
+        case "farmland": score += 20; break;
+    }
+    
+    let neighbours = {}
+    for (let n=0; n<6; n++)
+    {
+        let pos = get_neighbour(x, y, n);
+        let type = g_hexmap[pos.y * g_width + pos.x];
+        switch (type)
+        {
+            case "costal_water":
+                if (!("costal_water" in neighbours))
+                {
+                    if (g_ocean_tiles[pos.y * g_width + pos.x] == 1)
+                    {
+                        score += 20; 
+                    }
+                    else
+                    {
+                        score += 2; 
+                    }
+                }
+                break;
+            case "desert_sandy": if (!("desert_sandy" in neighbours)) score += 0; break;
+            case "grass":
+                if (!("grass" in neighbours))
+                {
+                    score += 2;
+                }
+                else
+                {
+                    score += 0.1;
+                }
+                break;
+            case "forested_hills": if (!("forested_hills" in neighbours)) score += 4; break;
+            case "heavy_forest": if (!("heavy_forest" in neighbours)) score += 5; break;
+            case "hills": if (!("hills" in neighbours)) score += 3; break;
+            case "hills_green": if (!("hills_green" in neighbours)) score += 3; break;
+            case "jungle": if (!("jungle" in neighbours)) score += 2; break;
+            case "jungle_hills": if (!("jungle_hills" in neighbours)) score += 3; break;
+            case "light_forest": if (!("light_forest" in neighbours)) score += 5; break;
+            case "mountains": if (!("mountains" in neighbours)) score += 10; break;
+            case "swamp": if (!("swamp" in neighbours)) score += 0; break;
+            case "farmland": if (!("farmland" in neighbours)) score += 10; break;
+        }
+        neighbours[type] = true;
+    }
+    
+    return score;
+}
+
+var scores = [];
+function generate_settlements()
+{
+    g_roads = [];    
+    g_settlements = [];
+    for (let i=0; i<g_width * g_height; i++) g_ocean_tiles[i] = 0;
+
+    let found = true;
+    while (found)
+    {
+        found = false;
+        for (let y=0; y<g_height; y++)
+        {
+            for (let x=0; x<g_width; x++)
+            {
+                let index = y * g_width + x;
+                if (g_ocean_tiles[index] != 0) continue;
+                
+                let type = g_hexmap[y * g_width + x];
+                if (type != "costal_water") continue;
+                
+                if (x == 0 || y == 0 || x == g_width - 1 || y == g_height - 1)
+                {
+                    g_ocean_tiles[index] = 1;
+                    found = true;
+                    continue;
+                }
+                
+                for (let n=0; n<6; n++)
+                {
+                    let pos = get_neighbour(x, y, n);
+                    if (g_ocean_tiles[pos.y * g_width + pos.x] == 1)
+                    {
+                        g_ocean_tiles[index] = 1;
+                        found = true;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    
+    //let scores = new Array(g_width * g_height);
+    scores = new Array(g_width * g_height);
+    for (let y=0; y<g_height; y++)
+    {
+        for (let x=0; x<g_width; x++)
+        {
+            scores[y * g_width + x] = compute_score(x, y);
+        }
+    }
+	
+    // Place cities
+    for (let c=0; c<g_num_cities + g_num_towns; c++)
+    {
+        let settlement_type = (c < g_num_cities) ? "city" : "town";
+		let best_score = Math.max(...scores);
+		if (best_score < -100) break;
+		
+        let index = scores.indexOf(best_score);
+        
+        let cx = Math.floor(index % g_width);
+        let cy = Math.floor(index / g_width);
+        g_settlements.push({x: cx, y: cy, type: settlement_type});
+        
+        // Place market villages around cities
+        let num_satellites = (settlement_type == "city") ? 4 : 2;
+        for (let n=0; n<num_satellites; n++)
+        {
+            let pos = {x: cx, y: cy};
+            let tries = 0;
+            for (let s=0; s<2 && tries<10; s++, tries++)
+            {
+                let new_pos = get_neighbour(pos.x, pos.y, roll(6)-1);
+                let type = g_hexmap[new_pos.y * g_width + new_pos.x];
+                if ((type == "costal_water" || type == "swamp") && roll(6) < 3)
+                {
+                    s--;
+                    continue;
+                }
+                
+                pos = new_pos;
+            }
+            if (pos.x < 0 || pos.y < 0 || pos.x >= g_width-1 || pos.y >= g_height-1) continue;
+            
+            if (pos.x != cx || pos.y != cy)
+            {
+                let type = g_hexmap[pos.y * g_width + pos.x];
+                if (type == "costal_water") continue;
+                if (type == "swamp") continue;
+				if (g_settlements.find(e => e.x == pos.x && e.y == pos.y) == undefined)
+				{
+					g_settlements.push({x: pos.x, y: pos.y, type: "village"});
+                    let road = find_path({x: cx, y: cy}, pos);
+                    if (road != null) g_roads.push(road);
+				}
+            }
+        }
+        
+        // Update score around the city to have a nice spread of cities
+        let clear_radius = (settlement_type == "city") ? 8 : 4;
+        for (let y=0; y<g_height; y++)
+        {
+            for (let x=0; x<g_width; x++)
+            {
+                let dx = Math.abs(x - cx);
+                let dy = Math.abs(y - cy);
+                let d = dx + dy;    // Non-Euclidean
+                if (d > clear_radius) continue;
+
+                let path = find_path({x: cx, y: cy}, {x: x, y: y});
+                if (path != null && path.length > clear_radius) continue;
+  
+                scores[y * g_width + x] -= lerp(100, 0, d / clear_radius);
+            }
+        }
+    }
+    
+    g_settlements.sort((a, b) =>
+    {
+        return a.type.localeCompare(b.type);
+    });
+    
+    // Update biomes
+    for (let s=0; s<g_settlements.length; s++)
+    {
+        let settlement = g_settlements[s];
+        if (g_hexmap[settlement.y * g_width + settlement.x] == "grass") g_hexmap[settlement.y * g_width + settlement.x] = "farmland";
+        
+        if (settlement.type != "village")
+        {
+            for (let n=0; n<6; n++)
+            {
+                let pos = get_neighbour(settlement.x, settlement.y, n);
+                if (g_hexmap[pos.y * g_width + pos.x] == "grass") g_hexmap[pos.y * g_width + pos.x] = "farmland";
+                if (settlement.type != "town")
+                {
+                    for (let nn=0; nn<6; nn++)
+                    {
+                        let pos2 = get_neighbour(pos.x, pos.y, nn);
+                        if (g_hexmap[pos2.y * g_width + pos2.x] == "grass") g_hexmap[pos2.y * g_width + pos2.x] = "farmland";
+                    }
+                }
+            }
+        }
+    }
+}
+
+function get_roads_from(pos, threshold, debug)
+{
+    return g_roads.map(road => 
+    {       
+        if (road.length > threshold) return null;
+        if (road.length == 0) return null;
+
+        if (road[0].x == pos.x && road[0].y == pos.y)
+        {
+            return road;
+        }
+        else if (road[road.length-1].x == pos.x && road[road.length-1].y == pos.y)
+        {
+            return road.toReversed();
+        }
+        
+        return null;
+    }).filter(road => road != null);
+}
+
+function generate_roads()
+{    
+    let city_roads = g_roads.length;
+
+    // Connect each city to each other city
+    for (let c1=0; c1<g_num_cities-1; c1++)
+    {
+		let s1 = g_settlements[c1];
+        for (let c2=c1+1; c2<g_num_cities; c2++)
+        {
+			let s2 = g_settlements[c2];
+            let road = find_path(s1, s2);
+			if (road != null) g_roads.push(road);
+        }        
+    }
+
+    // Connect each town to a city
+    for (let c1=g_num_cities; c1<g_num_cities + g_num_towns; c1++)
+    {
+		let s1 = g_settlements[c1];
+//        let c2 = roll(g_num_cities) - 1;    // #todo Find nearest city
+        let road = null;
+        for (let c2=0; c2<g_num_cities; c2++)
+        {
+            let s2 = g_settlements[c2];
+            let new_road = find_path(s1, s2);
+            if (road == null || road.length > new_road.length) road = new_road;
+        }
+        if (road != null) g_roads.push(road);
+    }
+        		
+    // Remove unnecessary roads
+    for (let r=city_roads; r<g_roads.length; r++)
+    {
+        let start = g_roads[r][0];
+        let end = g_roads[r][g_roads[r].length-1];
+
+        let threshold = g_roads[r].length + g_road_simplification_threshold;
+        let options = get_roads_from(start, threshold).filter(road => road != g_roads[r]);
+        
+        while (options.length > 0)
+        {
+            let num_options = options.length;
+            for (let o=0; o<num_options; o++)
+            {
+                let option = options[o];
+                let current_end = option[option.length - 1];
+                let new_options = get_roads_from(current_end, threshold - option.length, r == 3).filter(road => option.find(pos => pos.x == road[road.length-1].x && pos.y == road[road.length-1].y) == undefined);
+                for (let n=0; n<new_options.length; n++)
+                {
+                    let new_option = new_options[n];
+                    if (new_option[new_option.length - 1].x == end.x && new_option[new_option.length - 1].y == end.y)
+                    {
+                        options = [];
+                        num_options = 0;
+                        g_roads[r] = [];
+                        break;
+                    }
+                    
+                    options.push(option.concat(new_option));
+                }
+            }
+            
+            options.splice(0, num_options);
+        }
+    }
+    
+    for (let r1=g_roads.length-1; r1>=city_roads && false; r1--)
+    {
+        let start = r1;
+        let redundant = r1;
+        let road1 = g_roads[r1];
+        for (let p=1; p<road1.length-1; p++)
+        {
+            let pos = road1[p];
+            for (let r2=city_roads; r2<r1; r2++)
+            {
+                let road2 = g_roads[r2];
+                if (road2.find(p => p.x == pos.x && p.y == pos.y) == undefined) continue;
+                
+                redundant = r2;
+                break;
+            }
+            
+            if (redundant != r1)
+            {
+                if (start == r1)
+                {
+                    road1.splice(0, p);
+                    p = 0;
+                    start = redundant;
+                }
+                else if (p == 0)
+                {
+                    road1.splice(0, p);
+                    p = 0;
+                    start = redundant;
+                }
+                else if (start == redundant)
+                {
+                    road1.splice(0, p);
+                    p = 0;
+                    start = redundant;
+                }
+                else if (p == 1)
+                {
+                    road1.splice(0, p);
+                    p = 0;
+                    start = redundant;
+                }
+                else
+                {
+                    road1.splice(p + 1);
+                    break;
+                }
+//                break;
+
+                redundant = r1;
+            }
+        }
+        
+//        if (redundant)
+//        {
+//            //g_roads.splice(r1, 1);
+//        }
+    }
+}
+
 function generate()
 {
 	set_seed(g_seed);
@@ -337,7 +719,6 @@ function generate()
     {
         g_heightmap[index] = 0;
         g_biomemap[index] = 0;
-        g_water_override[index] = 0;
     }
     
     // Generate height
@@ -399,8 +780,20 @@ function generate()
             process_hex(x, y, (ix, iy) => increase_biome(ix, iy, 0.1));
         }
     }
-    
+            
     generate_rivers(water_sources);
+
+    // Initial hexmap
+    for (let y=0; y<g_height; y++)
+    {
+        for (let x=0; x<g_width; x++)
+        {
+            g_hexmap[y * g_width + x] = compute_tile(x, y);
+        }
+    }        
+
+    generate_settlements();
+    generate_roads();
 
     // Update UI
     document.getElementById("seed").value = g_seed;
@@ -415,21 +808,27 @@ function generate()
     document.getElementById("num-biome-iterations").value = g_num_biome_iterations;
     document.getElementById("display-elevation").checked = g_display_elevation;
     document.getElementById("show-numbers").checked = g_show_numbers;
+    document.getElementById("num-cities").value = g_num_cities;
+    document.getElementById("num-towns").value = g_num_towns;
+    document.getElementById("road-simplification-threshold").value = g_road_simplification_threshold;
+    document.getElementById("show-settlements").checked = g_show_settlements;
+    document.getElementById("show-roads").checked = g_show_roads;
+    document.getElementById("show-borders").checked = g_show_borders;
 
     draw();
     
     update_tiled_export();
-    update_river_export();
+    update_export(g_river_blob, "export-river-overlay", "-rivers.png");
 }
 
-async function draw_tile(tile, x, y)
+async function draw_hex(src, x, y, c)
 {
-    let image = g_tiles[tile]
+    let image = g_tile_cache[src]
     if (image === undefined)
     {
         image = new Image();
-        image.src = "tiles/" + tile + ".png"
-        g_tiles[tile] = image;
+        image.src = src;
+        g_tile_cache[src] = image;
     }
     
     if (!image.complete)
@@ -438,7 +837,7 @@ async function draw_tile(tile, x, y)
     }
     
     let pos = get_hex_center(x, y);
-    ctx.drawImage(image, pos.x - g_hex_width/2, pos.y - g_hex_height/2, g_hex_width, g_hex_height);
+    c.drawImage(image, pos.x - g_hex_width/2, pos.y - g_hex_height/2, g_hex_width, g_hex_height);
 }
 
 function compute_tile_h(hex)
@@ -450,15 +849,14 @@ function compute_tile(x, y)
 {
     let h = g_heightmap[y * g_width + x];
     let b = g_biomemap[y * g_width + x];
-    let w = g_water_override[y * g_width + x];
     
-    if (w > 0.5) return "costal_water";
+    if (b >= 100) return "costal_water";
     if (h < 0.2) return "costal_water";
     if (h < 0.5)
     {
         if (b > g_swamp_threshold - h) return "swamp";
         if (b < 0.1) return "desert_sandy";
-        if (b < 0.4) return "farmland";
+        if (b < 0.4) return "grass";
         if (b < 0.6) return "light_forest";
         if (b < 0.99) return "heavy_forest";
         return "swamp";
@@ -540,7 +938,258 @@ async function draw_rivers()
     }
 
     g_river_blob = await g_river_overlay.convertToBlob()
-    update_river_export();
+    update_export(g_river_blob, "export-river-overlay", "-rivers.png");
+}
+
+async function draw_settlements()
+{
+    c = g_settlement_overlay.getContext('2d');
+    c.setTransform(1, 0, 0, 1, 0, 0);
+    c.clearRect(0, 0, g_settlement_overlay.width, g_settlement_overlay.height);
+    c.setTransform(1, 0, 0, 1, g_hex_width/4, g_hex_height/2);
+
+    c.textAlign = "center";
+    c.font = "32pt Ramaraja";
+
+    for (let s=0; s<g_settlements.length; s++)
+    {
+        let settlement = g_settlements[s];
+        await draw_hex("symbols/" + settlement.type + ".png", settlement.x, settlement.y, c);
+    }
+
+    //c.globalCompositeOperation = "luminosity";
+    
+    for (let s=0; s<g_settlements.length && false; s++)
+    {
+        let settlement = g_settlements[s];
+        if (settlement.type == "city")
+        {
+            let name = generate_name();
+            let pos = get_hex_center(settlement.x, settlement.y);
+            //c.lineWidth = 64;
+            //c.strokeStyle = '#0002';
+            //c.strokeText(name, pos.x, pos.y - g_hex_height/2);
+            c.fillStyle = '#000';
+            c.fillText(name, pos.x, pos.y - g_hex_height/3);
+        }
+    }
+
+    c.globalCompositeOperation = "source-over";
+
+    g_settlement_blob = await g_settlement_overlay.convertToBlob()
+    update_export(g_settlement_blob, "export-settlement-overlay", "-settlements.png");
+}
+
+function compute_cost(x, y)
+{
+//	return 0;
+	
+	switch (g_hexmap[y * g_width + x])
+	{
+        case "costal_water": return 10000; break;
+        case "desert_sandy": return 5; break;
+//        case "grass": return 1; break;
+//        case "forested_hills": return 8; break;
+        case "heavy_forest": return 4; break;
+//        case "hills": return 4; break;
+//        case "hills_green": return 5; break;
+//        case "jungle": return -5; break;
+//        case "jungle_hills": return 8; break; 
+//        case "light_forest": return 0.1; break;
+        case "mountains": return 10; break;
+        case "swamp": return 8; break;
+//        case "farmland": return 1; break;
+	}
+	
+	return 0.5;
+}
+
+function distance(p1, p2)
+{
+	let dx = p1.x - p2.x;
+	let dy = p1.y - p2.y;
+	
+	return Math.sqrt(dx*dx + dy*dy);
+}
+
+function find_path(start, end)
+{
+	// Simple A*
+	let paths = [];
+	paths.push({steps: [start], cost: distance(start, end)});
+	
+	let visited = new Uint8Array(g_width * g_height);
+	for (let i=0; i<g_width * g_height; i++) visited[i] = 0;
+	
+	let count = 0;
+	while (paths.length > 0 && count < 1000)
+	{
+		count++; 
+		
+		paths.sort((a, b) =>
+		{
+			return a.cost - b.cost;
+		})
+
+		let path = paths.shift();
+		
+		let last = path.steps[path.steps.length - 1];
+		
+		for (let n=0; n<6; n++)
+		{
+			let pos = get_neighbour(last.x, last.y, n);
+			if (pos.x < 0 || pos.y < 0 || pos.x >= g_width || pos.y >= g_height) continue;
+            if (g_hexmap[pos.y * g_width + pos.x] == "costal_water") continue;
+			if (visited[pos.y * g_width + pos.x] != 0) continue;
+			visited[pos.y * g_width + pos.x] = 1;
+			
+			//if (path.steps.find(p => p.x == pos.x && p.y == pos.y) != undefined) continue;
+			
+			let new_path = {steps: [...path.steps], cost: path.cost};
+			new_path.steps.push(pos);
+			new_path.cost += compute_cost(pos.x, pos.y);
+			new_path.cost -= distance(last, end);
+			new_path.cost += distance(pos, end);
+			//new_path.cost -= (Math.abs(last.x - end.x) + Math.abs(last.y - end.y)) * 2;
+			//new_path.cost += (Math.abs(pos.x - end.x) + Math.abs(pos.y - end.y)) * 2;
+			
+			if (pos.x == end.x && pos.y == end.y)
+			{
+				return new_path.steps.toReversed();
+			}
+			
+			paths.push(new_path)
+		}
+	}
+	
+    return null;
+}
+
+async function draw_roads()
+{
+    c = g_road_overlay.getContext('2d');
+    c.setTransform(1, 0, 0, 1, 0, 0);
+    c.clearRect(0, 0, g_road_overlay.width, g_road_overlay.height);
+    c.setTransform(1, 0, 0, 1, g_hex_width/4, g_hex_height/2);
+	
+	//c.globalCompositeOperation = "overlay";
+
+    let colours =
+    [
+        "#f00",
+        "#0f0",
+        "#00f",
+        "#ff0",
+        "#f0f",
+        "#000",
+        "#fff",
+    ]
+    let offsets = new Array(g_width * g_height);
+    for (let i=0; i<g_width * g_height; i++) offsets[i] = {x: roll(g_hex_width/4-1) - g_hex_width/8, y: roll(g_hex_width/4-1) - g_hex_width/8};
+
+    for (let r=0; r<g_roads.length; r++)    
+    {
+        let steps = g_roads[r];
+
+//        c.setLineDash([4, 4]);
+        c.setLineDash([6, 16]);
+//        c.setLineDash([8, 16]);
+//        c.setLineDash([]);
+        c.lineWidth = 6;
+        c.strokeStyle = '#ff0';
+		c.lineCap = 'round';
+        //if (r >= g_roads.length - colours.length) c.strokeStyle = colours[r - g_roads.length + colours.length];
+        c.beginPath();
+        for (let s=0; s<steps.length; s++)
+        {
+            let hex_pos = steps[s];
+            let pos = get_hex_center_h(hex_pos);
+            
+            let offset = offsets[hex_pos.y * g_width + hex_pos.x];
+            //pos.x += offset.x * 1;
+            //pos.y += offset.y * 1;
+            
+            if (s == 0)
+            {
+                c.moveTo(pos.x, pos.y);
+            }
+            else if (s == steps.length-1)
+            {
+                c.quadraticCurveTo(prev.x, prev.y, pos.x, pos.y);
+            }
+            else
+            {
+                pos.x += offset.x * 2;
+                pos.y += offset.y * 2;
+                c.quadraticCurveTo(prev.x, prev.y, (prev.x + pos.x) * 0.5, (prev.y + pos.y) * 0.5);
+                //c.lineTo(pos.x, pos.y);
+            }
+            prev = pos
+        }
+        c.stroke();
+    }
+
+	c.globalCompositeOperation = "source-over";
+
+    g_road_blob = await g_road_overlay.convertToBlob()
+    update_export(g_road_blob, "export-road-overlay", "-roads.png");
+}
+
+async function draw_borders()
+{
+    c = g_border_overlay.getContext('2d');
+    c.setTransform(1, 0, 0, 1, 0, 0);
+    c.clearRect(0, 0, g_border_overlay.width, g_border_overlay.height);
+    c.setTransform(1, 0, 0, 1, g_hex_width/4, g_hex_height/2);
+	
+	let owner = new Uint8Array(g_width * g_height);
+	for (let y=0; y<g_height; y++)
+	{
+		for (let x=0; x<g_width; x++)
+		{
+			let closest = 0;
+			let closest_distance = distance(get_hex_center(x, y), get_hex_center_h(g_settlements[0]));
+			for (let s=1; s<g_num_cities + g_num_towns; s++)
+			{
+				let d = distance(get_hex_center(x, y), get_hex_center_h(g_settlements[s]));
+				if (d < closest_distance)
+				{
+					closest_distance = d;
+					closest = s;
+				}
+			}
+			
+			owner[y * g_width + x] = closest;
+		}
+	}
+
+//	c.setLineDash([12, 12]);
+	c.setLineDash([]);
+	c.lineWidth = 6;
+	c.strokeStyle = '#c80000';
+
+	for (let y=0; y<g_height; y++)
+	{
+		for (let x=0; x<g_width; x++)
+		{
+			for (let n=0; n<6; n++)
+			{
+				let pos = get_neighbour(x, y, n);
+				if (pos.x < 0 || pos.y < 0 || pos.x >= g_width || pos.y >= g_height) continue;
+				if (owner[y * g_width + x] == owner[pos.y * g_width + pos.x]) continue;
+				
+				let start = get_hex_vertex(x, y, (n + 5) % 6);
+				let end = get_hex_vertex(x, y, n);
+				c.beginPath();
+				c.moveTo(start.x, start.y);
+				c.lineTo(end.x, end.y);
+				c.stroke();
+			}
+		}
+	}
+
+    g_border_blob = await g_border_overlay.convertToBlob()
+    update_export(g_border_blob, "export-border-overlay", "-borders.png");
 }
 
 async function draw()
@@ -551,12 +1200,21 @@ async function draw()
         {
             for (let x=0; x<g_width; x++)
             {
-                await draw_tile(compute_tile(x, y), x, y);
+                let tile = g_hexmap[y * g_width + x];
+                await draw_hex("tiles/" + tile + ".png", x, y, ctx);
             }
         }
         
-        draw_rivers();
+        await draw_rivers();        
+        await draw_settlements();
+        await draw_roads();
+		await draw_borders();
+		
         ctx.drawImage(g_river_overlay, -g_hex_width/4, -g_hex_height/2);
+        if (g_show_roads) ctx.drawImage(g_road_overlay, -g_hex_width/4, -g_hex_height/2);
+        if (g_show_settlements) ctx.drawImage(g_settlement_overlay, -g_hex_width/4, -g_hex_height/2);
+        if (g_show_borders) ctx.drawImage(g_border_overlay, -g_hex_width/4, -g_hex_height/2);
+		
     }
     else
     {
@@ -608,6 +1266,10 @@ async function draw()
 		ctx.textAlign = "center";
 		ctx.font = "12pt Ramaraja";
 		ctx.setLineDash([dash, dash]);
+		ctx.strokeStyle = "#000";
+		ctx.lineWidth = 2;
+		ctx.lineCap = "butt";
+
 		//ctx.strokeStyle = "#0003";
         for (let y=0; y<g_height; y++)
         {
@@ -617,7 +1279,6 @@ async function draw()
                 for (let v=0; v<4; v++)
                 {
                     let pos = get_hex_vertex(x, y, v);
-					console.log(pos);
                     if (v == 0)
                     {
                         ctx.moveTo(pos.x, pos.y)
@@ -643,7 +1304,6 @@ async function draw()
     {
         let c = g_elevation_overlay.getContext('2d');
         let image = c.createImageData(g_elevation_overlay.width, g_elevation_overlay.height);
-        console.log(image);
         for (let y=0; y<g_elevation_overlay.height; y++)
         {
             for (let x=0; x<g_elevation_overlay.width; x++)
@@ -685,7 +1345,10 @@ function update_generation()
     g_num_rivers = parseInt(document.getElementById("num-rivers").value);
     g_swamp_threshold = parseFloat(document.getElementById("swamp-threshold").value);
     g_num_biome_iterations = parseInt(document.getElementById("num-biome-iterations").value);
-    
+    g_num_cities = parseInt(document.getElementById("num-cities").value);
+    g_num_towns = parseInt(document.getElementById("num-towns").value);
+    g_road_simplification_threshold = parseInt(document.getElementById("road-simplification-threshold").value);
+	
     generate();
 }
 
@@ -697,6 +1360,9 @@ function update_display(e)
     g_show_hexes = document.getElementById("show-hexes").checked;
     g_display_elevation = document.getElementById("display-elevation").checked;
     g_show_numbers = document.getElementById("show-numbers").checked;
+    g_show_settlements = document.getElementById("show-settlements").checked;
+    g_show_roads = document.getElementById("show-roads").checked;
+    g_show_borders = document.getElementById("show-borders").checked;
 	
 	generate();
     //draw();
@@ -714,7 +1380,10 @@ function parse_url()
     g_num_rivers = params.get('num_rivers') || 4;
     g_swamp_threshold = params.get('swamp_threshold') || 1.2;
     g_num_biome_iterations = params.get('num_biome_iterations') || 10;
-    
+    g_num_cities = parseInt(params.get('num_cities') || 5);
+    g_num_towns = parseInt(params.get('num_towns') || 5);
+    g_road_simplification_threshold = parseInt(params.get('road_simplification_threshold') || 16);
+	
     generate();
 }
 
@@ -730,6 +1399,9 @@ function update_url()
     new_url += '&num_rivers=' + g_num_rivers;
     new_url += '&swamp_threshold=' + g_swamp_threshold;
     new_url += '&num_biome_iterations=' + g_num_biome_iterations;
+    new_url += '&num_cities=' + g_num_cities;
+    new_url += '&num_towns=' + g_num_towns;
+    new_url += '&road_simplification_threshold=' + g_road_simplification_threshold;
     if (window.history.pushState)
     {
         window.history.pushState(null, null, new_url)
@@ -751,7 +1423,7 @@ g_tiled_hexes =
 [
     "costal_water",
     "desert_sandy",
-    "farmland",
+    "grass",
     "forested_hills",
     "heavy_forest",
     "hills",
@@ -761,6 +1433,17 @@ g_tiled_hexes =
     "light_forest",
     "mountains",
     "swamp",    
+    "farmland",
+];
+g_tiled_symbols =
+[
+    "cave",
+    "city",
+    "danger",
+    "marker",
+    "ruins",
+    "town",
+    "village",
 ];
 
 function update_tiled_export()
@@ -770,7 +1453,8 @@ function update_tiled_export()
     var content = `<?xml version="1.0" encoding="UTF-8"?>
 <map version="1.10" tiledversion="1.10.0" orientation="hexagonal" renderorder="right-down" width="25" height="20" tilewidth="${g_hex_width}" tileheight="${g_hex_height}" infinite="0" hexsidelength="${g_hex_width/2-2}" staggeraxis="x" staggerindex="odd" nextlayerid="2" nextobjectid="1">
     <tileset firstgid="1" source="hex_world_generator.tsx"/>
-    <layer id="1" name="hex_world_generator" width="25" height="20">
+    <tileset firstgid="${g_tiled_hexes.length+1}" source="hex_world_generator_symbols.tsx"/>
+    <layer id="1" name="biomes" width="25" height="20">
         <data encoding="csv">\n`;
 
     for (let y=0; y<g_height; y++)
@@ -778,7 +1462,7 @@ function update_tiled_export()
         content += "            ";
         for (let x=0; x<g_width; x++)
         {
-            content += (g_tiled_hexes.indexOf(compute_tile(x, y))+1) + ",";
+            content += (g_tiled_hexes.indexOf(g_hexmap[y * g_width + x])+1) + ",";
         }
         content += "\n"
     }
@@ -791,6 +1475,44 @@ function update_tiled_export()
     <imagelayer id="2" name="rivers">
         <image source="${g_seed}-rivers.png" width="${g_river_overlay.width}" height="${g_river_overlay.height}"/>
     </imagelayer>
+    <layer id="3" name="settlements" width="25" height="20">
+        <data encoding="csv">\n`;
+
+//    <imagelayer id="3" name="settlements">
+//        <image source="${g_seed}-settlements.png" width="${g_settlement_overlay.width}" height="${g_settlement_overlay.height}"/>
+//    </imagelayer>
+
+    let settlements = new Array(g_width * g_height);
+    for (let i=0; i<g_width * g_height; i++) settlements[i] = null;
+    for (let s=0; s<g_settlements.length; s++)
+    {
+        let settlement = g_settlements[s]
+        settlements[settlement.y * g_width + settlement.x] = settlement.type;
+    }
+
+    for (let y=0; y<g_height; y++)
+    {
+        content += "            ";
+        for (let x=0; x<g_width; x++)
+        {
+            content += (settlements[y * g_width + x] == null) ? 0 : (g_tiled_symbols.indexOf(settlements[y * g_width + x])+g_tiled_hexes.length+1);
+            content += ",";
+        }
+        content += "\n"
+    }
+    
+    // Remove last comma
+    content = content.substring(0, content.length-2) + "\n";
+    
+    content += `        </data>
+    </layer>
+
+    <imagelayer id="4" name="roads">
+        <image source="${g_seed}-roads.png" width="${g_road_overlay.width}" height="${g_road_overlay.height}"/>
+    </imagelayer>
+    <imagelayer id="5" name="borders">
+        <image source="${g_seed}-borders.png" width="${g_border_overlay.width}" height="${g_border_overlay.height}"/>
+    </imagelayer>
 </map>`;
     
     var blob = new Blob([content], {type: 'text/plain'});
@@ -799,12 +1521,11 @@ function update_tiled_export()
     tiled.setAttribute("download", file_name);
 }
 
-function update_river_export()
+function update_export(content, id, postfix)
 {
-    var file_name = g_seed + "-rivers.png";
-    var content = g_river_blob;
+    var file_name = g_seed + postfix;
     var blob = new Blob([content], {type: 'image/png'});
-    var tiled = document.getElementById("export-river-overlay");
+    var tiled = document.getElementById(id);
     tiled.setAttribute("href", window.URL.createObjectURL(blob));
     tiled.setAttribute("download", file_name);
 }
@@ -853,4 +1574,11 @@ function interpolate(x, y, dataset)
     
     let b = compute_barycentric(get_hex_center(hex.x, hex.y), get_hex_vertex_h(hex, (quadrant + 5) % 6), get_hex_vertex_h(hex, quadrant), {x: x, y: y});
     return vc * b.u + v1 * b.v + v2 * b.w;
+}
+
+function export_tiled_overlays()
+{
+    document.getElementById('export-river-overlay').click()
+    document.getElementById('export-road-overlay').click()
+    document.getElementById('export-border-overlay').click()
 }

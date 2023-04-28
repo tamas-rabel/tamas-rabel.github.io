@@ -2,7 +2,9 @@
 <html>
     <head>
         <link href="hex_world_generator.css" rel="stylesheet" id="the-sheet">
+        
         <script src="https://cdn.jsdelivr.net/gh/pigulla/mersennetwister@master/src/MersenneTwister.js"></script>
+        <script src="namegen.js"></script>
         <script src="hex_world_generator.js"></script>
     </head>
     <body onpageshow="init();">
@@ -25,11 +27,20 @@
                     <p><input type="range" id="num-rivers" oninput="update_generation();" min="0" max="16" step="1"></input>              <label for="num-rivers">number of rivers</label>  </p>
                     <p><input type="range" id="swamp-threshold" oninput="update_generation();" min="0.5" max="2" step="any"></input>      <label for="swamp-threshold">swamp threshold</label>  </p>
                     <p><input type="range" id="num-biome-iterations" oninput="update_generation();" min="1" max="40" step="1"></input>    <label for="num-biome-iterations">number of biome iterations</label></p>
+                    <p><input type="range" id="num-cities" oninput="update_generation();" min="0" max="8" step="1"></input>               <label for="num-cities">number of cities</label></p>
+                    <p><input type="range" id="num-towns" oninput="update_generation();" min="0" max="32" step="1"></input>               <label for="num-towns">number of towns</label></p>
+                    <p><input type="range" id="road-simplification-threshold" oninput="update_generation();" min="0" max="20" step="1"></input>      <label for="road-simplification-threshold">road simplification threshold</label>  </p>
                     <p><input type="checkbox" id="show-hexes" onchange="update_display();"></input>                                       <label for="show-hexes">show hexes</label></p>
                     <p><input type="checkbox" id="show-numbers" onchange="update_display();"></input>                                     <label for="show-numbers">show numbers</label></p>
+                    <p><input type="checkbox" id="show-settlements" onchange="update_display();"></input>                                 <label for="show-settlements">show settlements</label></p>
+                    <p><input type="checkbox" id="show-roads" onchange="update_display();"></input>                                       <label for="show-roads">show roads</label></p>
+                    <p><input type="checkbox" id="show-borders" onchange="update_display();"></input>                                     <label for="show-borders">show borders</label></p>
                     <p style='display: none;'><input type="checkbox" id="display-elevation" onchange="update_display();"></input>                                <label for="display-elevation">display elevation</label></p>
-                    <p><a id="export-tiled" onclick="document.getElementById('export-river-overlay').click()">Export for Tiled</a> <span id='tiled'>(You can download Tiled from <a href='https://www.mapeditor.org/'>here</a>)</span></p>
+                    <p><a id="export-tiled" onclick="export_tiled_overlays();">Export for Tiled</a> <span id='tiled'>(You can download Tiled from <a href='https://www.mapeditor.org/'>here</a>)</span></p>
                     <p><a id="export-river-overlay">Export river overlay</a></p>
+                    <p><a id="export-settlement-overlay">Export settlement overlay</a></p>
+                    <p><a id="export-road-overlay">Export road overlay</a></p>
+                    <p><a id="export-border-overlay">Export border overlay</a></p>
                     <p><a id="download-tileset" href="./tileset.zip">Download tileset</a></p>
                 </td>
             </tr>
