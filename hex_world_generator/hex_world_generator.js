@@ -49,6 +49,13 @@ function set_seed(s)
     g_seed = s;
 }
 
+// Hackjob of a shim for Firefox compatibility.
+if (Array.prototype.toReversed === undefined) {
+    Array.prototype.toReversed = function() {
+        return this.slice().reverse();
+    }
+}
+
 function init()
 {    	
     canvas = document.getElementById("canvas")
