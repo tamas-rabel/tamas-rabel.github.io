@@ -562,6 +562,15 @@ function generate_settlements()
     }
 }
 
+function reverse_array(a)
+{
+    if (a.toReversed) return a.toReversed();
+        
+    let result = [...a];
+    result.reverse();
+    return result;
+}
+
 function get_roads_from(pos, threshold, debug)
 {
     return g_roads.map(road => 
@@ -575,7 +584,7 @@ function get_roads_from(pos, threshold, debug)
         }
         else if (road[road.length-1].x == pos.x && road[road.length-1].y == pos.y)
         {
-            return road.toReversed();
+            return reverse_array(road);
         }
         
         return null;
@@ -1055,7 +1064,7 @@ function find_path(start, end)
 			
 			if (pos.x == end.x && pos.y == end.y)
 			{
-				return new_path.steps.toReversed();
+				return reverse_array(new_path.steps);
 			}
 			
 			paths.push(new_path)
