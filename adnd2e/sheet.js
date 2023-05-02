@@ -135,6 +135,7 @@ function load(file)
 	}	
 
 	hide_instructions();
+    update_gear_weight();
 }
 
 function close_modal(e)
