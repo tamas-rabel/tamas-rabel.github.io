@@ -59,7 +59,7 @@
 }
 html
 {
-	font-family: 'Averia Serif Libre', cursive;
+	font-family: 'Averia Serif Libre';
 	font-size: 8pt;
 }
 //div
@@ -84,7 +84,7 @@ input, textarea
 	position: absolute;
 	background: none;
 	font-size: 10pt !important;
-	font-family: 'Averia Serif Libre', cursive !important;
+	font-family: 'Averia Serif Libre' !important;
 	margin: 0 !important;
 	padding: 0 !important;
 	left: calc(100% + 16px);
@@ -1077,7 +1077,8 @@ div.input
 }
 #gear
 {
-	float: left;
+//	float: left;
+    display: inline-block;
 	width: 49%;
 	margin-top: 0.5cm;
 	height: 9.5cm;
@@ -1459,4 +1460,85 @@ X:before
     transform: rotate(-90deg);
     left: 0pt;
     top: 147pt;
+}
+#portrait
+{
+    position: absolute;
+    display: block;
+    right: 1cm;
+    top: 11cm;
+    height: 4cm;
+    aspect-ratio: 1;
+	transform: translate(0%, -100%);
+    mix-blend-mode: multiply;
+}
+#portrait img
+{
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+#portrait #edit-image:before
+{
+    font-family: 'Material Symbols Outlined';
+    font-weight: 800;
+    font-style: normal;
+	font-size: 16px;
+	color: black;
+	content: "\f044";
+	width: 32px;
+	height: 32px;
+	position: absolute;
+	left: 8px;
+	top: 8px;
+	text-align: center;
+	line-height: 32px;
+	background: white;
+	border-radius: 5px;
+	box-shadow: 0 0 16px rgba(0, 0, 0, 0.3);
+	cursor: pointer;
+	transition: color 0.1s, opacity 0.2s;
+	z-index: 10;
+	opacity: 0;
+}
+#portrait:hover #edit-image:before
+{
+	display: block;
+	opacity: 0.5;
+	content: "edit";
+}
+#portrait:hover #edit-image:hover:before
+{
+	color: #28c8;
+	opacity: 1.0;
+}
+#url-modal
+{
+	padding: 8px;
+	left: 50%;
+	top: 50%;
+}
+.modal
+{
+	position: fixed;
+	width: 256px;
+	z-index: 30;
+	background: white;
+	border-radius: 5px;
+	box-shadow: 0 0 16px rgba(0, 0, 0, 0.3);
+	display: none;
+	transform: translate(-50%, -50%);
+}
+.modal input
+{
+	width: 100%;
+	font-family: 'Averia Serif Libre';
+}
+#help-portrait
+{
+    position: absolute;
+    text-align: left;
+    right: -12pt;
+    top: 9cm;
+	transform: translate(100%, -50%);
 }

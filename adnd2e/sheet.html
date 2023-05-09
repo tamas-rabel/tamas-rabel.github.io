@@ -7,7 +7,11 @@
 </head>
 <body ondragenter="on_drag_enter(event);" ondragover="on_drag_enter(event);" ondrop="on_drop(event);" ondragleave="on_drag_leave(event);">
 
-	<div id="modal-bg" onclick="close_modal(event)"></div>
+	<div id="modal-bg" onclick="close_modal(event)" class='no-print'></div>
+    <div id='url-modal' class='modal non-serialized'>
+        <p>Enter URL</p>
+        <input id='url' value="http://" onchange="close_modal(event)" onkeyup="if (event.key == 'Enter') { close_modal(event) }"/>
+    </div>
 	<div id="menu" class='no-print'>
 		<div id="save" onclick='save()' class='show-tooltip'>
 			<span class="material-symbols-outlined">save</span>
@@ -46,7 +50,8 @@
 		<b>Load</b>: drag and drop the .json file from your computer over the character sheet.<br>
 		<b>Print</b>: as usual. You can toggle printer-friendly mode from the menu bar.<br>
 		<b>Edit</b>: click on the various parts of the sheet to edit.<br>
-		<b>Spells</b>: you can memorize and cast spells after turning off edit mode for the spell list.
+		<b>Spells</b>: you can memorize and cast spells after turning off edit mode for the spell list.<br>
+		<b>Portrait</b>: to add a portrait mouse over the bottom right side of 'Notes' and click the button.
 	</div>
 
 	<div class=page>
@@ -366,6 +371,11 @@
 	</div>
 
 	<div class=page>
+        <div id="help" class="no-print">
+            <div id="help-portrait">
+                &#129048; Mouse over here for setting the portrait URL<br>
+            </div>
+        </div>
 		<div id="gear">
 			<table>
 				<thead>
@@ -406,6 +416,10 @@
 				</tbody>
 			</table>
 		</div>
+        <div id="portrait">
+            <div id="edit-image" class="no-print" onclick="change_image_url(event)"></div>
+            <img/>
+        </div>
 		<div id="spell-list">
 			<div class="tooltip-container show-tooltip">
 				<input type=checkbox id='spell-list-edit' class='no-print' onchange="update_spell_list_mode()" checked></input>

@@ -607,6 +607,54 @@ function change_pencil_colour(e)
 	r.style.setProperty('--colour', c.value)
 }
 
+g_modal_callback = null
+function close_modal(e)
+{
+	var modals = document.querySelectorAll(".modal")
+	for (var m=0; m<modals.length; m++)
+	{
+		modals[m].style.display = 'none'
+	}
+	var bg = document.getElementById("modal-bg")
+	bg.style.display = 'none'
+	if (g_modal_callback != null)
+	{
+		g_modal_callback()
+		g_modal_callback = null
+	}
+}
+function show_modal(id, left, top, callback)
+{
+	g_modal_callback = callback
+	var bg = document.getElementById("modal-bg")
+	bg.style.display = 'block'
+	var modal = document.getElementById(id)
+	modal.style.display = 'block'
+	modal.style.left = left
+	modal.style.top = top
+	var input = modal.querySelector("input");
+	if (input != null)
+	{
+		modal.querySelector("input").select()
+	}
+}
+function change_image_url(e)
+{
+	var url = document.querySelector("#url-modal input")
+	var img = e.target.parentElement.querySelector("img")
+	url.value = img.src
+	show_modal("url-modal", e.pageX, e.pageY, function()
+	{
+		img.src = url.value
+		img.setAttribute("data-x", 0)
+		img.setAttribute("data-y", 0)
+		img.setAttribute("data-zoom", 1)
+		img.style.transform = 'translate(0, 0) scale(1)'
+        
+        img.style.display = (url.value == "") ? "none" : "block";
+	})
+}
+
 window.onload = function()
 {
 	document.addEventListener("keydown", function(e)
