@@ -46,10 +46,13 @@ function save()
 	var file = {}
 	let data = {};
 	
-	let inputs = document.querySelectorAll("input, textarea");
+	let inputs = document.querySelectorAll("input, textarea, img");
 	for (let i=0; i<inputs.length; i++)
 	{
 		let input = inputs[i];
+        
+        if (input.classList.contains("non-serialized")) continue;
+        
 		let owner = find_owner(input);
 		let id = owner.id;
 		if (owner != input)
@@ -61,6 +64,10 @@ function save()
 		{
 			data[id] = input.checked;
 		}
+        else if (input.nodeName = "IMG")
+        {
+			data[id] = input.src;
+        }
 		else
 		{
 			data[id] = input.value;
@@ -127,6 +134,10 @@ function load(file)
 		if (element.nodeName == "INPUT" && element.getAttribute("type") == "checkbox")
 		{
 			element.checked = value;
+		}
+		else if (element.nodeName == "IMG")
+		{
+            set_image(element, value);
 		}
 		else
 		{
@@ -638,6 +649,15 @@ function show_modal(id, left, top, callback)
 		modal.querySelector("input").select()
 	}
 }
+function set_image(img, url)
+{
+    img.src = url
+    img.setAttribute("data-x", 0)
+    img.setAttribute("data-y", 0)
+    img.setAttribute("data-zoom", 1)
+    img.style.transform = 'translate(0, 0) scale(1)'    
+    img.style.display = (url == "") ? "none" : "block";
+}
 function change_image_url(e)
 {
 	var url = document.querySelector("#url-modal input")
@@ -645,13 +665,7 @@ function change_image_url(e)
 	url.value = img.src
 	show_modal("url-modal", e.pageX, e.pageY, function()
 	{
-		img.src = url.value
-		img.setAttribute("data-x", 0)
-		img.setAttribute("data-y", 0)
-		img.setAttribute("data-zoom", 1)
-		img.style.transform = 'translate(0, 0) scale(1)'
-        
-        img.style.display = (url.value == "") ? "none" : "block";
+        set_image(img, url.value)
 	})
 }
 

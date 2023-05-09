@@ -8,9 +8,9 @@
 <body ondragenter="on_drag_enter(event);" ondragover="on_drag_enter(event);" ondrop="on_drop(event);" ondragleave="on_drag_leave(event);">
 
 	<div id="modal-bg" onclick="close_modal(event)" class='no-print'></div>
-    <div id='url-modal' class='modal non-serialized'>
+    <div id='url-modal' class='modal'>
         <p>Enter URL</p>
-        <input id='url' value="http://" onchange="close_modal(event)" onkeyup="if (event.key == 'Enter') { close_modal(event) }"/>
+        <input class='non-serialized' id='url' value="http://" onchange="close_modal(event)" onkeyup="if (event.key == 'Enter') { close_modal(event) }"/>
     </div>
 	<div id="menu" class='no-print'>
 		<div id="save" onclick='save()' class='show-tooltip'>
@@ -84,7 +84,7 @@
 			</table>
 		</div>
 		<div id="logo">
-			<img src="adnd2-bw.png">
+			<img src="adnd2-bw.png" class="non-serialized">
 		</div>
 		
 		<!--
@@ -418,7 +418,7 @@
 		</div>
         <div id="portrait">
             <div id="edit-image" class="no-print" onclick="change_image_url(event)"></div>
-            <img/>
+            <img id="portrait-image"/>
         </div>
 		<div id="spell-list">
 			<div class="tooltip-container show-tooltip">
