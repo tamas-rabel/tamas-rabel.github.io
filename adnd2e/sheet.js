@@ -52,19 +52,19 @@ function save()
 		let input = inputs[i];
         
         if (input.classList.contains("non-serialized")) continue;
-        
+                
 		let owner = find_owner(input);
 		let id = owner.id;
 		if (owner != input)
 		{
 			id += "/" + Array.from(owner.querySelectorAll("input, textarea")).findIndex(e => e == input);
 		}
-		
+
 		if (input.nodeName == "INPUT" && input.getAttribute("type") == "checkbox")
 		{
 			data[id] = input.checked;
 		}
-        else if (input.nodeName = "IMG")
+        else if (input.nodeName == "IMG")
         {
 			data[id] = input.src;
         }
@@ -98,6 +98,9 @@ function load(file)
 {
 	let version = file.version
 	let data = file.data
+
+    // Reset portrait
+    set_image(document.getElementById("portrait-image"), "");
 	
 	if (version >= 3)
 	{
